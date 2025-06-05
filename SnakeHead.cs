@@ -11,7 +11,7 @@ public partial class SnakeHead : Entity
 	int partID = 0;
 	int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
-	float accelerationSpeed = 3f;
+	float speed = 150f;
 	private float deaccelerationSpeed = 1f;
 
 	public override void _Ready()
@@ -38,9 +38,13 @@ public partial class SnakeHead : Entity
 		if (Input.IsActionPressed("ui_up"))
 		{
 			float x, y;
-			x = accelerationSpeed*Cos(Rotation);
-			y = accelerationSpeed*Sin(Rotation);
-			velocity += new Vector2(x, y);
+			x = speed*Cos(Rotation);
+			y = speed*Sin(Rotation);
+			velocity = new Vector2(x, y);
+		}
+		else if (Input.IsActionPressed("ui_down"))
+		{
+			velocity = velocity.MoveToward(Vector2.Zero, deaccelerationSpeed*3);
 		}
 		else if (velocity != Vector2.Zero)
 		{

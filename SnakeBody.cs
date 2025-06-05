@@ -16,7 +16,7 @@ public partial class SnakeBody : Entity
     private int partID = -1;
     private Entity toFollow = null;
     private float distanceToNextPart = 14f;
-    private float speed = 0.1f;
+    private float speed = 150f;
     private float deaccelerationSpeed = 0.1f;
 	
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +30,14 @@ public partial class SnakeBody : Entity
         //     velocity.Y = Lerp(velocity.Y, toFollow.Velocity.Y, speed);
         // }
 
-        Position = ConstrainDistance(Position, toFollow.Position, distanceToNextPart);
+        
+        Vector2 target = ConstrainDistance(Position, toFollow.Position, distanceToNextPart);
+        if (Position.DistanceTo(toFollow.Position) > distanceToNextPart)
+        {
+            Vector2 dir = (target - Position).Normalized();
+            Velocity = dir * speed;
+            MoveAndSlide();
+        }
         
         // Vector2 follow = followVector(new_pos);
         //
@@ -43,9 +50,8 @@ public partial class SnakeBody : Entity
         //     velocity += follow;
         // }
         //
-        // Velocity = velocity;
-        // MoveAndSlide();
-        
+       
+
 
     }
 
