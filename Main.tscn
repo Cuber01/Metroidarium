@@ -1,25 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://7fbib6m8u5ht"]
+[gd_scene load_steps=2 format=3 uid="uid://7fbib6m8u5ht"]
 
-[ext_resource type="Texture2D" uid="uid://dqbaqo8hhltw2" path="res://icon.svg" id="1_glv2v"]
-[ext_resource type="PackedScene" uid="uid://dlgoc7t5pqrke" path="res://Player.tscn" id="2_uu6xs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
-size = Vector2(128.066, 249.905)
+[ext_resource type="PackedScene" uid="uid://ikvt82ng7dhf" path="res://SnakeHead.tscn" id="1_glv2v"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Ground" type="Sprite2D" parent="."]
-scale = Vector2(4.24, 0.164062)
-texture = ExtResource("1_glv2v")
-
-[node name="StaticBody2D" type="CharacterBody2D" parent="Ground"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D"]
-position = Vector2(-0.117926, 57.9047)
-shape = SubResource("RectangleShape2D_uu6xs")
-
-[node name="Player" parent="." instance=ExtResource("2_uu6xs")]
-position = Vector2(-5, -39)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="SnakeHead" parent="." instance=ExtResource("1_glv2v")]

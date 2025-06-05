@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddrhe8tfn6poq"]
+
+[ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://snake-body.png" id="1_2bqke"]
+[ext_resource type="Script" uid="uid://cvspi5p6l8wrv" path="res://SnakeBody.cs" id="1_06206"]
+
+[node name="SnakeBody" type="CharacterBody2D"]
+script = ExtResource("1_06206")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_2bqke")
