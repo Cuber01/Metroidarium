@@ -23,8 +23,5 @@ public partial class MoveCommand : Command
 
 public partial class JumpCommand : Command
 {
-    public override void Execute(Entity actor, Object input = null)
-    {
-        actor.velocity.Y = actor.JumpVelocity;
-    }
+
 }
