@@ -6,7 +6,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : Entity
 {
-	PackedScene tailPart = GD.Load<PackedScene>("res://SnakeBody.tscn");
+	PackedScene tailPart = GD.Load<PackedScene>("res://src/scenes/SnakeBody.tscn");
 	
 	int partID = 0;
 	int amountOfTail = 5;

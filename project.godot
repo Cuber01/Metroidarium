@@ -13,7 +13,7 @@ config_version=5
 config/name="Metroidarium"
 run/main_scene="uid://7fbib6m8u5ht"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/img/icon.svg"
 
 [display]
 
@@ -23,6 +23,13 @@ window/size/viewport_height=1024
 [dotnet]
 
 project/assembly_name="Metroidarium"
+
+[layer_names]
+
+2d_physics/layer_1="Ground"
+2d_physics/layer_2="Hurts Player"
+2d_physics/layer_3="Hurts Enemy"
+2d_physics/layer_4="Pickup"
 
 [rendering]
 

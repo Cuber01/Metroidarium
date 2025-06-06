@@ -1,0 +1,7 @@
+BASIC MECHANICS
+- level transitions
+- tilemap used to construct levels
+- module system
+- enemy
+- taking damage and destroying module
+- bash
