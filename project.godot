@@ -15,6 +15,11 @@ run/main_scene="uid://7fbib6m8u5ht"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=1024
+
 [dotnet]
 
 project/assembly_name="Metroidarium"

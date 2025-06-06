@@ -1,10 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://7fbib6m8u5ht"]
+[gd_scene load_steps=4 format=3 uid="uid://7fbib6m8u5ht"]
 
-[ext_resource type="PackedScene" uid="uid://ikvt82ng7dhf" path="res://SnakeHead.tscn" id="1_glv2v"]
+[ext_resource type="Shader" uid="uid://bb4atknundpl8" path="res://Subpixel.gdshader" id="2_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://j4d6mc8bwr5f" path="res://Game.tscn" id="2_uu6xs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fos0i"]
+shader = ExtResource("2_cm0pq")
+shader_parameter/camOffset = Vector2(0, 0)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_fos0i")
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 513.0
+offset_bottom = 511.0
+scale = Vector2(2, 2)
 
-[node name="SnakeHead" parent="." instance=ExtResource("1_glv2v")]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+render_target_update_mode = 4
+
+[node name="Game" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_uu6xs")]

@@ -31,6 +31,7 @@ public partial class SnakeBody : Entity
         // }
 
         
+        
         Vector2 target = ConstrainDistance(Position, toFollow.Position, distanceToNextPart);
         if (Position.DistanceTo(toFollow.Position) > distanceToNextPart)
         {
@@ -58,7 +59,6 @@ public partial class SnakeBody : Entity
     private Vector2 ConstrainDistance(Vector2 point, Vector2 anchor, float distance) {
         return ((point - anchor).Normalized() * distance) + anchor;
     }
-
 
     private Vector2 followVector(Vector2 target)
     {

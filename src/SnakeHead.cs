@@ -25,31 +25,36 @@ public partial class SnakeHead : Entity
 			toFollow = instance;
 		}
 	}
-
 	
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-		float rotateDirection = Input.GetAxis("ui_left", "ui_right");
-
-		SetRotation(Rotation + rotateSpeed*rotateDirection);
-
-		if (Input.IsActionPressed("ui_up"))
-		{
-			float x, y;
-			x = speed*Cos(Rotation);
-			y = speed*Sin(Rotation);
-			velocity = new Vector2(x, y);
-		}
-		else if (Input.IsActionPressed("ui_down"))
-		{
-			velocity = velocity.MoveToward(Vector2.Zero, deaccelerationSpeed*3);
-		}
-		else if (velocity != Vector2.Zero)
-		{
-			velocity = velocity.MoveToward(Vector2.Zero, deaccelerationSpeed);
-		}
+		velocity = Velocity;
+		
+		// 8-Pad movement
+		Vector2 input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		velocity.X = input.X * speed;
+		velocity.Y = input.Y * speed;
+		
+		// Tank Movement
+		// float rotateDirection = Input.GetAxis("ui_left", "ui_right");
+		//
+		// SetRotation(Rotation + rotateSpeed*rotateDirection);
+		//
+		// if (Input.IsActionPressed("ui_up"))
+		// {
+		// 	float x, y;
+		// 	x = speed*Cos(Rotation);
+		// 	y = speed*Sin(Rotation);
+		// 	velocity = new Vector2(x, y);
+		// }
+		// else if (Input.IsActionPressed("ui_down"))
+		// {
+		// 	velocity = velocity.MoveToward(Vector2.Zero, deaccelerationSpeed*3);
+		// }
+		// else if (velocity != Vector2.Zero)
+		// {
+		// 	velocity = velocity.MoveToward(Vector2.Zero, deaccelerationSpeed);
+		// }
 		
 		
 		Velocity = velocity;

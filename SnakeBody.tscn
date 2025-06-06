@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddrhe8tfn6poq"]
+[gd_scene load_steps=4 format=3 uid="uid://ddrhe8tfn6poq"]
 
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://snake-body.png" id="1_2bqke"]
-[ext_resource type="Script" path="res://src/SnakeBody.cs" id="1_06206"]
+[ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/SnakeBody.cs" id="1_06206"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06206"]
+size = Vector2(8, 8)
 
 [node name="SnakeBody" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_06206")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_2bqke")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_06206")
