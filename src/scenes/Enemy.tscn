@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhhwcqhytl8vn"]
+[gd_scene load_steps=5 format=3 uid="uid://dhhwcqhytl8vn"]
 
 [ext_resource type="Script" uid="uid://sps8x0u6y8mn" path="res://src/Enemy.cs" id="1_rr1jw"]
 [ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_vywwn"]
+[ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://src/scenes/VelocityDebug.tscn" id="3_ytd1v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rr1jw"]
 size = Vector2(6, 6)
@@ -17,3 +18,5 @@ shape = SubResource("RectangleShape2D_rr1jw")
 texture_filter = 1
 position = Vector2(4, 4)
 texture = ExtResource("1_vywwn")
+
+[node name="VelocityLine" parent="." instance=ExtResource("3_ytd1v")]

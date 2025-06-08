@@ -60,7 +60,7 @@ public partial class AStarMoveComponent : MoveComponent
         calculatePath(targetPosition);
         
         // Init mover
-        mover = new ToPointMoveComponent(actor, targetPosition, speed, false);
+        mover = new ToPointMoveComponent(actor, path[currentPathIndex], speed, false);
         
         mover.ReachedPoint += reachedPathPoint;
     }
@@ -97,22 +97,29 @@ public partial class ToPointMoveComponent : MoveComponent
     [Signal]
     public delegate void ReachedPointEventHandler();
     
-    private DirectionalMoveComponent mover;
     protected Vector2 Point;
     protected bool StopWhenReached = false;
+    
+    private DirectionalMoveComponent mover;
     private bool reached = false;
     
     public ToPointMoveComponent(Entity actor, Vector2 point, float speed, bool stopWhenReached) : base(actor, speed)
     {
         this.Point = point;
         this.StopWhenReached = stopWhenReached;
-        mover = new DirectionalMoveComponent(actor, point.Normalized(), speed);
+        
+        mover = new DirectionalMoveComponent(actor, calculateDirection(actor.Position, point), speed);
+    }
+
+    private Vector2 calculateDirection(Vector2 myPos, Vector2 targetPos)
+    {
+        return (targetPos - myPos).Normalized();
     }
 
     public void changePoint(Vector2 point)
     {
         this.Point = point;
-        mover.changeDirection(point.Normalized());
+        mover.changeDirection(calculateDirection(Actor.Position, point));
     }
     
     public void update()
@@ -122,6 +129,7 @@ public partial class ToPointMoveComponent : MoveComponent
             reached = true;
             EmitSignal(SignalName.ReachedPoint);
         }
+        mover.update();
     }
 }
 
