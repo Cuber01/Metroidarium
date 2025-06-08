@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using Godot;
 using Godot.Collections;
 // ReSharper disable Godot.MissingParameterlessConstructor
@@ -29,7 +30,7 @@ public partial class AStarMoveComponent : MoveComponent
     private ToPointMoveComponent mover;
     private Vector2[] path;
     private int currentPathIndex = 0;
-    private const int RecalculateCounterMax = 200;
+    private const int RecalculateCounterMax = 10;
     private int recalculateCounter = RecalculateCounterMax;
     
     private AStarGrid2D.DiagonalModeEnum diagonalMode = AStarGrid2D.DiagonalModeEnum.OnlyIfNoObstacles; 
@@ -84,12 +85,32 @@ public partial class AStarMoveComponent : MoveComponent
         Vector2I myMapPosition = passable.LocalToMap((Vector2I)Actor.Position.Round());
         Vector2I targetMapPosition = passable.LocalToMap((Vector2I)targetPosition.Round());
         path = pathFinder.GetPointPath(myMapPosition, targetMapPosition);
+        debugDrawPath();
+    }
+
+    private void debugDrawPath()
+    {
+        Line2D line = Actor.GetNode<Line2D>("Line2D");
+        
+        line.ClearPoints();
+        foreach (Vector2I point in path)
+        {
+            line.AddPoint(point);
+        }
     }
 
     private void reachedPathPoint()
     {
         currentPathIndex++;
-        mover.changePoint(path[currentPathIndex]);
+        if (currentPathIndex >= path.Length)
+        {
+            recalculateCounter = 0;
+        }
+        else
+        {
+            mover.changePoint(path[currentPathIndex]);
+        }
+        
     }
 }
 public partial class ToPointMoveComponent : MoveComponent
@@ -101,8 +122,10 @@ public partial class ToPointMoveComponent : MoveComponent
     protected bool StopWhenReached = false;
     
     private DirectionalMoveComponent mover;
-    private bool reached = false;
-    
+
+    // TODO this shouldnt work on an error margin, i think
+    private static readonly Vector2 ErrorMargin = new Vector2(2,8);
+
     public ToPointMoveComponent(Entity actor, Vector2 point, float speed, bool stopWhenReached) : base(actor, speed)
     {
         this.Point = point;
@@ -124,12 +147,18 @@ public partial class ToPointMoveComponent : MoveComponent
     
     public void update()
     {
-        if (Actor.Position.IsEqualApprox(Point))
+        GD.Print(Actor.Position);
+        GD.Print(Point);
+        if (isAtPoint(Actor.Position, Point))
         {
-            reached = true;
             EmitSignal(SignalName.ReachedPoint);
         }
         mover.update();
+    }
+
+    private bool isAtPoint(Vector2 myPosition, Vector2 pointPosition)
+    {
+        return (myPosition.X >= pointPosition.X-ErrorMargin.X && myPosition.Y >= pointPosition.Y-ErrorMargin.X && myPosition.X <= pointPosition.X + ErrorMargin.Y && myPosition.Y <= pointPosition.Y + ErrorMargin.Y);
     }
 }
 

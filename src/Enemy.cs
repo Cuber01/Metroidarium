@@ -6,8 +6,6 @@ namespace Metroidarium;
 
 public partial class Enemy : Entity
 {
-    [Export] public Vector2 TileSize { get; set; }
-
     [Export] public Entity Target { get; set;}
 
     AStarMoveComponent moveComponent;

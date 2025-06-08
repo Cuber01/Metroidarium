@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_vywwn"]
 [ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://src/scenes/VelocityDebug.tscn" id="3_ytd1v"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rr1jw"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytd1v"]
 size = Vector2(6, 6)
 
 [node name="Enemy" type="CharacterBody2D"]
@@ -12,7 +12,7 @@ script = ExtResource("1_rr1jw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 4)
-shape = SubResource("RectangleShape2D_rr1jw")
+shape = SubResource("RectangleShape2D_ytd1v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -20,3 +20,7 @@ position = Vector2(4, 4)
 texture = ExtResource("1_vywwn")
 
 [node name="VelocityLine" parent="." instance=ExtResource("3_ytd1v")]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(0.146712, 1, 0.890592, 1)

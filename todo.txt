@@ -2,6 +2,7 @@ BASIC MECHANICS
 - level transitions
 X tilemap used to construct levels
 - module system
-X enemy
+X enemy ai
 - taking damage and destroying module
 - bash
+- enemy health
