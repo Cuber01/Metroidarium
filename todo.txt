@@ -1,7 +1,7 @@
 BASIC MECHANICS
 - level transitions
-- tilemap used to construct levels
+X tilemap used to construct levels
 - module system
-- enemy
+X enemy
 - taking damage and destroying module
 - bash

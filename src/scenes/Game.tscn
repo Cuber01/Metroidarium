@@ -10,7 +10,7 @@
 [node name="Level" parent="." instance=ExtResource("1_wk23g")]
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("2_5bgfh")]
-position = Vector2(29, 27)
+position = Vector2(48, 102)
 TileSize = Vector2(8, 8)
 Target = NodePath("../SnakeHead")
 

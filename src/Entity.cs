@@ -4,5 +4,5 @@ namespace Metroidarium;
 
 public partial class Entity : CharacterBody2D
 {
-    protected Vector2 velocity;
+    public Vector2 velocity;
 }
