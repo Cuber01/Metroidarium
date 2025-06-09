@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ddrhe8tfn6poq"]
 
-[ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/SnakeBody.cs" id="1_0302b"]
+[ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/SnakeTail.cs" id="1_0302b"]
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_gupso"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06206"]
