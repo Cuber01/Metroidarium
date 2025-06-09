@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddrhe8tfn6poq"]
+[gd_scene load_steps=5 format=3 uid="uid://ddrhe8tfn6poq"]
 
 [ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/SnakeBody.cs" id="1_0302b"]
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_gupso"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06206"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0302b"]
 size = Vector2(8, 8)
 
-[node name="SnakeBody" type="CharacterBody2D"]
+[node name="SnakeBody" type="CharacterBody2D" groups=["Team Player"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_0302b")
@@ -17,3 +20,10 @@ texture = ExtResource("2_gupso")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_06206")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_0302b")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_onHurtboxBodyEntered"]

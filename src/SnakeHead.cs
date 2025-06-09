@@ -60,4 +60,12 @@ public partial class SnakeHead : Entity
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
+	private void _OnHurtboxBodyEntered(Node2D body)
+	{
+		if (body is Enemy)
+		{
+			GD.Print("OUCH OUCH STOP STOP AAAAAAAA");
+		}
+	}
 }

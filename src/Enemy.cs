@@ -24,4 +24,9 @@ public partial class Enemy : Entity
         Velocity = velocity;
         MoveAndSlide();
     }
+    
+    private void _onHurtboxBodyEntered(Node2D body)
+    {
+        
+    }
 }

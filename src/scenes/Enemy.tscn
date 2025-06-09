@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhhwcqhytl8vn"]
+[gd_scene load_steps=6 format=3 uid="uid://dhhwcqhytl8vn"]
 
 [ext_resource type="Script" uid="uid://sps8x0u6y8mn" path="res://src/Enemy.cs" id="1_rr1jw"]
 [ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_vywwn"]
@@ -7,7 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytd1v"]
 size = Vector2(6, 6)
 
-[node name="Enemy" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsx1q"]
+size = Vector2(8, 8)
+
+[node name="Enemy" type="CharacterBody2D" groups=["Team Baddies"]]
 script = ExtResource("1_rr1jw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -24,3 +27,11 @@ texture = ExtResource("1_vywwn")
 [node name="Line2D" type="Line2D" parent="."]
 width = 1.0
 default_color = Color(0.146712, 1, 0.890592, 1)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_rsx1q")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_onHurtboxBodyEntered"]

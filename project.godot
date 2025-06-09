@@ -24,6 +24,11 @@ window/size/viewport_height=1024
 
 project/assembly_name="Metroidarium"
 
+[global_group]
+
+"Team Player"=""
+"Team Baddies"=""
+
 [layer_names]
 
 2d_physics/layer_1="Ground"

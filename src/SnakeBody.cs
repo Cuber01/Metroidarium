@@ -19,7 +19,6 @@ public partial class SnakeBody : Entity
     private float speed = 150f;
     private float deaccelerationSpeed = 0.1f;
 	
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(double delta)
     {
         //Vector2 velocity = Velocity;
@@ -32,7 +31,7 @@ public partial class SnakeBody : Entity
 
         
         
-        Vector2 target = ConstrainDistance(Position, toFollow.Position, distanceToNextPart);
+        Vector2 target = constrainDistance(Position, toFollow.Position, distanceToNextPart);
         if (Position.DistanceTo(toFollow.Position) > distanceToNextPart)
         {
             Vector2 dir = (target - Position).Normalized();
@@ -51,21 +50,21 @@ public partial class SnakeBody : Entity
         //     velocity += follow;
         // }
         //
-       
-
-
     }
 
-    private Vector2 ConstrainDistance(Vector2 point, Vector2 anchor, float distance) {
+    private Vector2 constrainDistance(Vector2 point, Vector2 anchor, float distance) {
         return ((point - anchor).Normalized() * distance) + anchor;
     }
 
     private Vector2 followVector(Vector2 target)
     {
-        float x, y, r;
-        x = target.X - Position.X;
-        y = target.Y - Position.Y;
+        var x = target.X - Position.X;
+        var y = target.Y - Position.Y;
         return new Vector2(x, y).Normalized() * speed;
+    }
 
+    private void _onHurtboxBodyEntered(Node2D body)
+    {
+        
     }
 }
