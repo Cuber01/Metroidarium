@@ -59,7 +59,7 @@ public partial class AStarMoveComponent : MoveComponent
         // Init mover
         mover = new ToPointMoveComponent(actor, path[currentPathIndex], speed, false);
         
-        mover.ReachedPoint += reachedPathPoint;
+        mover.onReachedEvent += reachedPathPoint;
     }
 
     public void update(Vector2 target)
@@ -111,8 +111,9 @@ public partial class AStarMoveComponent : MoveComponent
 }
 public partial class ToPointMoveComponent : MoveComponent
 {
-    [Signal]
+
     public delegate void ReachedPointEventHandler();
+    public event ReachedPointEventHandler onReachedEvent;
     
     protected Vector2 Point;
     protected bool StopWhenReached = false;
@@ -145,7 +146,7 @@ public partial class ToPointMoveComponent : MoveComponent
     {
         if (isAtPoint(Actor.Position, Point))
         {
-            EmitSignal(SignalName.ReachedPoint);
+            onReachedEvent();
         }
         mover.update();
     }

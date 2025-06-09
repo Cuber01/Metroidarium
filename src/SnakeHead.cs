@@ -1,3 +1,6 @@
+
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using static System.Single;
 // ReSharper disable InconsistentNaming
@@ -8,17 +11,24 @@ public partial class SnakeHead : Entity
 {
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://src/scenes/SnakeBody.tscn");
 	
+	public delegate void DashedEventHandler();
+	public event DashedEventHandler OnDashedEvent;
+	
 	int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
-	float speed = 150f;
+	private float speed = 150f;
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
+	
+	private List<Charm> charms = new List<Charm>();
 	
 	public override void _Ready()
 	{
 		behindMe = (SnakeTail)tailPart.Instantiate();
 		GetParent().CallDeferred("add_child", behindMe);
 		behindMe.Init(this, amountOfTail - 1, (Node2D)GetParent());
+
+		charms.Add(new DashCharm(this, speed));
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -27,7 +37,12 @@ public partial class SnakeHead : Entity
 
 		if (Input.IsActionJustPressed("dash"))
 		{
-			changeSpeed(200f);
+			OnDashedEvent!();
+		}
+
+		foreach (Charm charm in charms)
+		{
+			charm.Update();
 		}
 		
 		// 8-Pad movement
@@ -39,7 +54,7 @@ public partial class SnakeHead : Entity
 		MoveAndSlide();
 	}
 	
-	private void changeSpeed(float speed)
+	public void changeSpeed(float speed)
 	{
 		this.speed = speed;
 		if (behindMe != null)
