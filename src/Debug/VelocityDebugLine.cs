@@ -14,7 +14,7 @@ public partial class VelocityDebugLine : Line2D
 	{
 		ClearPoints();
 		AddPoint(Vector2.Zero,0);
-		AddPoint(parent.velocity,1);
+		AddPoint(parent.Velocity,1);
 		GlobalRotation = 0;
 	}
 }

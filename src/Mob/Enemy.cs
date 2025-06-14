@@ -31,7 +31,6 @@ public partial class Enemy : Mob
         if (!TurnedOn) return;
         
         moveComponent.update(Target.Position);
-        Velocity = velocity;
         MoveAndSlide();
     }
     

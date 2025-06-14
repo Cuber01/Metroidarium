@@ -37,8 +37,7 @@ public partial class SnakeHead : Mob
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		velocity = Velocity;
-
+		
 		if (Input.IsActionJustPressed("dash"))
 		{
 			OnDashedEvent!();
@@ -56,10 +55,9 @@ public partial class SnakeHead : Mob
 		
 		// 8-Pad movement
 		Vector2 input = Input.GetVector("left", "right", "up", "down");
-		velocity.X = input.X * speed;
-		velocity.Y = input.Y * speed;
+		Vector2 newVelocity = new Vector2(input.X * speed,  input.Y * speed);
 		
-		Velocity = velocity;
+		Velocity = newVelocity;
 		MoveAndSlide();
 	}
 	
