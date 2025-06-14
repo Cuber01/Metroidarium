@@ -9,7 +9,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
-	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
+	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeTail.tscn");
 	
 	public delegate void DashedEventHandler();
 	public event DashedEventHandler OnDashedEvent;
@@ -27,6 +27,7 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
+		healthComponent = new HealthComponent(this,100);
 		Speed = 150f;
 		OnGotHitEvent += makeSnakeInvincible;
 		snake.Add(this);
@@ -37,8 +38,10 @@ public partial class SnakeHead : SnakeBody
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
 			GetParent().CallDeferred("add_child", newInstance);
 			newInstance.Init(lastInstance);
+			lastInstance.behindMe = newInstance;
 
 			newInstance.OnGotHitEvent += makeSnakeInvincible;
+			newInstance.OnDeathEvent += removeSnakePart;
 			
 			snake.Add(newInstance);
 			lastInstance = newInstance;
@@ -89,6 +92,11 @@ public partial class SnakeHead : SnakeBody
 		{
 			part.setSpeed(speed);
 		}
+	}
+
+	private void removeSnakePart(SnakeBody part)
+	{
+		snake.Remove(part);
 	}
 	
 	public override void die()

@@ -6,7 +6,7 @@ namespace Metroidarium;
 
 public partial class SnakeTail : SnakeBody
 {
-    private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
+    private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeTail.tscn");
     
 
     private int amountOfPartsBehind = -1;
@@ -17,6 +17,7 @@ public partial class SnakeTail : SnakeBody
     
     public void Init(SnakeBody aheadMe)
     {
+        healthComponent = new HealthComponent(this,1);
         Speed = 150f;
         this.aheadMe = aheadMe;
     }
@@ -41,16 +42,6 @@ public partial class SnakeTail : SnakeBody
         var x = target.X - Position.X;
         var y = target.Y - Position.Y;
         return new Vector2(x, y).Normalized() * Speed;
-    }
-
-    public override void die()
-    {
-        if (behindMe != null)
-        {
-            behindMe.aheadMe = aheadMe;
-        }
-        aheadMe.behindMe = behindMe;
-        base.die();
     }
 
     private void _onHurtboxBodyEntered(Node2D body)
