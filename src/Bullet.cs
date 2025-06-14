@@ -28,6 +28,16 @@ public partial class Bullet : CharacterBody2D
 		this.speed = speed;
 		this.damage = damage;
 		AddToGroup(teamName);
+
+		if (teamName == "Team Player")
+		{
+			SetCollisionMaskValue(3, true);
+		}
+		else if (teamName == "Team Baddies")
+		{
+			SetCollisionMaskValue(2, true);
+		}
+		else throw new ArgumentException();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -43,9 +53,10 @@ public partial class Bullet : CharacterBody2D
 		for(int i = colCount; i > 0; i--)
 		{
 			Node2D collidingBody = (Node2D)GetSlideCollision(i-1).GetCollider();
-			if (collidingBody is Mob enemy && !enemy.IsInGroup(teamName))
+			if (collidingBody is Mob enemy)
 			{
 				enemy.getHurt(damage);
+				break;
 			}
 		}
 

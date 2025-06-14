@@ -18,4 +18,4 @@ script = ExtResource("4_3mrqo")
 toFollow = NodePath("../SnakeHead")
 
 [node name="Enemy" parent="." instance=ExtResource("4_ovtps")]
-position = Vector2(68, 22)
+position = Vector2(67, 23)

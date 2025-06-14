@@ -90,6 +90,18 @@ public partial class SnakeHead : SnakeBody
 			part.setSpeed(speed);
 		}
 	}
+	
+	public override void die()
+	{
+		if (snake.Count > 1)
+		{
+			snake[^1].die();
+		}
+		else
+		{
+			base.die();	
+		}
+	}
 
 	private void _OnHurtboxBodyEntered(Node2D body)
 	{
