@@ -19,7 +19,7 @@ public partial class ShootingEnemy : Enemy
     {
         if (counter == 0)
         {
-            shooter.Shoot(Target.Position, Bullet.EDataType.TargetPosition);
+            shooter.Shoot(Target.GlobalPosition, Bullet.EDataType.TargetPosition);
             counter = delay;
         }
         counter--;

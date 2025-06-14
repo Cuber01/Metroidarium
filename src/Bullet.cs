@@ -21,7 +21,7 @@ public partial class Bullet : CharacterBody2D
 		moveComponent = new DirectionalMoveComponent(this, 
 			vectorType == EDataType.Direction ?
 			vector :
-			ToPointMoveComponent.calculateDirection(Position, vector),
+			ToPointMoveComponent.calculateDirection(position, vector),
 			speed);
 		this.Position = position;
 		this.teamName = teamName;
