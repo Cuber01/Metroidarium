@@ -11,7 +11,7 @@ public partial class ShootingEnemy : Enemy
     public override void _Ready()
     {
         setStats(3, 50f);
-
+        base._Ready();
         shooter = new ShootComponent(GetParent(), this, "Team Baddies");
     }
 
