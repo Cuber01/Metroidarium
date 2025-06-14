@@ -10,7 +10,6 @@ public partial class Enemy : Mob
     [Export] public bool TurnedOn { get; set; }
 
     AStarMoveComponent moveComponent;
-    HealthComponent healthComponent;
     
     private float speed = 50f;
     private int maxHealth = 3;

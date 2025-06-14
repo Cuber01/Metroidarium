@@ -13,9 +13,10 @@ public partial class Bullet : CharacterBody2D
 
 	DirectionalMoveComponent moveComponent;
 	private float speed = 50f;
+	private int damage;
 	public String teamName;
 
-	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=50f)
+	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=75f)
 	{
 		moveComponent = new DirectionalMoveComponent(this, 
 			vectorType == EDataType.Direction ?
@@ -25,6 +26,7 @@ public partial class Bullet : CharacterBody2D
 		this.Position = position;
 		this.teamName = teamName;
 		this.speed = speed;
+		this.damage = damage;
 		AddToGroup(teamName);
 	}
 
@@ -43,7 +45,7 @@ public partial class Bullet : CharacterBody2D
 			Node2D collidingBody = (Node2D)GetSlideCollision(i-1).GetCollider();
 			if (collidingBody is Mob enemy && !enemy.IsInGroup(teamName))
 			{
-				enemy.getHurt();
+				enemy.getHurt(damage);
 			}
 		}
 
