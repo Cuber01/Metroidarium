@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddrhe8tfn6poq"]
+[gd_scene load_steps=6 format=3 uid="uid://ddrhe8tfn6poq"]
 
 [ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/SnakeTail.cs" id="1_0302b"]
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_gupso"]
+[ext_resource type="Texture2D" uid="uid://d2r8o42pfd8k2" path="res://assets/img/gun-marker.png" id="3_4ml6y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06206"]
 size = Vector2(6, 6)
@@ -25,5 +26,21 @@ shape = SubResource("RectangleShape2D_06206")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_0302b")
+
+[node name="Down" type="Node2D" parent="."]
+position = Vector2(0, 4)
+
+[node name="Up" type="Node2D" parent="."]
+position = Vector2(0, -4)
+
+[node name="Right" type="Node2D" parent="."]
+position = Vector2(4, 0)
+
+[node name="Left" type="Node2D" parent="."]
+position = Vector2(-4, 0)
+
+[node name="GunMarker" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_4ml6y")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_onHurtboxBodyEntered"]

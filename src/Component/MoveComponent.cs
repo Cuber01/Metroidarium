@@ -109,7 +109,7 @@ public partial class AStarMoveComponent : MoveComponent
         
     }
 }
-public partial class ToPointMoveComponent : MoveComponent
+public class ToPointMoveComponent : MoveComponent
 {
 
     public delegate void ReachedPointEventHandler();
@@ -131,7 +131,7 @@ public partial class ToPointMoveComponent : MoveComponent
         mover = new DirectionalMoveComponent(actor, calculateDirection(actor.Position, point), speed);
     }
 
-    private Vector2 calculateDirection(Vector2 myPos, Vector2 targetPos)
+    public static Vector2 calculateDirection(Vector2 myPos, Vector2 targetPos)
     {
         return (targetPos - myPos).Normalized();
     }

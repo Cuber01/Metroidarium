@@ -6,7 +6,7 @@ namespace Metroidarium;
 
 public partial class SnakeTail : Entity
 {
-    private readonly PackedScene tailPart = GD.Load<PackedScene>("res://src/scenes/SnakeBody.tscn");
+    private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
     
     public void Init(Entity aheadMe, int amountOfPartsBehind, Node2D game)
     {

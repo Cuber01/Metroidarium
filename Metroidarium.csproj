@@ -6,4 +6,7 @@
   <ItemGroup>
     <Content Include="todo.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\Charm\" />
+  </ItemGroup>
 </Project>

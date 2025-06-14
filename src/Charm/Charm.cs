@@ -49,3 +49,34 @@ public class DashCharm : Charm
     }
     
 }
+
+// TODO make it so that different gun charms shoot from different sides
+public class GunCharm : Charm
+{
+    private SnakeTail slot;
+    private ShootComponent shooter;
+
+    private Node2D left;
+    private Node2D right;
+    private Node2D up;
+    private Node2D down;
+    
+    public GunCharm(SnakeHead player, SnakeTail slot)
+    {
+        this.slot = slot;
+        left = (Node2D)slot.GetNode("Left");
+        right = (Node2D)slot.GetNode("Right");
+        up = (Node2D)slot.GetNode("Up");
+        down = (Node2D)slot.GetNode("Down");
+        
+        shooter = new ShootComponent(player.GetParent(), left, "Team Player");
+        
+        player.OnShotEvent += activateShoot;
+    }
+
+    private void activateShoot()
+    {
+        shooter.Shoot(new Vector2(-1, 0), Bullet.EDataType.Direction);
+    }
+    
+}

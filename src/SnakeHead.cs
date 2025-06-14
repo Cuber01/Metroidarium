@@ -9,10 +9,13 @@ namespace Metroidarium;
 
 public partial class SnakeHead : Entity
 {
-	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://src/scenes/SnakeBody.tscn");
+	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
 	
 	public delegate void DashedEventHandler();
 	public event DashedEventHandler OnDashedEvent;
+	
+	public delegate void ShotEventHandler();
+	public event DashedEventHandler OnShotEvent;
 	
 	int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
@@ -29,6 +32,7 @@ public partial class SnakeHead : Entity
 		behindMe.Init(this, amountOfTail - 1, (Node2D)GetParent());
 
 		charms.Add(new DashCharm(this, speed));
+		charms.Add(new GunCharm(this, behindMe));
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -38,6 +42,11 @@ public partial class SnakeHead : Entity
 		if (Input.IsActionJustPressed("dash"))
 		{
 			OnDashedEvent!();
+		}
+		
+		if (Input.IsActionJustPressed("shoot_left"))
+		{
+			OnShotEvent!();
 		}
 
 		foreach (Charm charm in charms)
