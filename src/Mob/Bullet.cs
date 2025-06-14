@@ -3,7 +3,7 @@ using Godot;
 
 namespace Metroidarium;
 
-public partial class Bullet : Entity
+public partial class Bullet : CharacterBody2D
 {
 	public enum EDataType
 	{
@@ -31,7 +31,6 @@ public partial class Bullet : Entity
 	public override void _PhysicsProcess(double delta)
 	{
 		moveComponent.update();
-		Velocity = velocity;
 		MoveAndSlide();
 		checkCollision();
 	}
@@ -42,7 +41,7 @@ public partial class Bullet : Entity
 		for(int i = colCount; i > 0; i--)
 		{
 			Node2D collidingBody = (Node2D)GetSlideCollision(i-1).GetCollider();
-			if (collidingBody is Entity enemy && !enemy.IsInGroup(teamName))
+			if (collidingBody is Mob enemy && !enemy.IsInGroup(teamName))
 			{
 				enemy.getHurt();
 			}
@@ -52,6 +51,11 @@ public partial class Bullet : Entity
 		{
 			die();
 		}
+	}
+
+	private void die()
+	{
+		CallDeferred("queue_free");
 	}
 	
 }

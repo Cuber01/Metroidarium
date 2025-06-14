@@ -4,11 +4,11 @@ using static System.Single;
 
 namespace Metroidarium;
 
-public partial class SnakeTail : Entity
+public partial class SnakeTail : Mob
 {
     private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
     
-    public void Init(Entity aheadMe, int amountOfPartsBehind, Node2D game)
+    public void Init(Mob aheadMe, int amountOfPartsBehind, Node2D game)
     {
         this.aheadMe = aheadMe;
         this.amountOfPartsBehind = amountOfPartsBehind;
@@ -22,7 +22,7 @@ public partial class SnakeTail : Entity
     }
 
     private int amountOfPartsBehind = -1;
-    private Entity aheadMe = null;
+    private Mob aheadMe = null;
     private SnakeTail behindMe = null;
     
     private const float distanceToNextPart = 14f;

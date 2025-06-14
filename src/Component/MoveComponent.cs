@@ -7,10 +7,10 @@ namespace Metroidarium;
 
 public partial class MoveComponent : Component
 {
-    protected Entity Actor;
+    protected CharacterBody2D Actor;
     protected float Speed;
 
-    public MoveComponent(Entity actor, float speed)
+    public MoveComponent(CharacterBody2D actor, float speed)
     {
         this.Actor = actor;
         this.Speed = speed;
@@ -31,7 +31,7 @@ public partial class AStarMoveComponent : MoveComponent
     
     private AStarGrid2D.DiagonalModeEnum diagonalMode = AStarGrid2D.DiagonalModeEnum.OnlyIfNoObstacles; 
     
-    public AStarMoveComponent(Entity actor, float speed, Vector2 targetPosition, TileMapLayer passable, TileMapLayer unpassable) : base(actor, speed)
+    public AStarMoveComponent(Mob actor, float speed, Vector2 targetPosition, TileMapLayer passable, TileMapLayer unpassable) : base(actor, speed)
     {
         // Init fields
         this.Speed = speed;
@@ -123,7 +123,7 @@ public class ToPointMoveComponent : MoveComponent
     // TODO this shouldnt work on an error margin, i think
     private static readonly Vector2 ErrorMargin = new Vector2(2,8);
 
-    public ToPointMoveComponent(Entity actor, Vector2 point, float speed, bool stopWhenReached) : base(actor, speed)
+    public ToPointMoveComponent(Mob actor, Vector2 point, float speed, bool stopWhenReached) : base(actor, speed)
     {
         this.Point = point;
         this.StopWhenReached = stopWhenReached;
@@ -160,7 +160,7 @@ public class ToPointMoveComponent : MoveComponent
 public partial class DirectionalMoveComponent : MoveComponent
 {
     private Vector2 direction;
-    public DirectionalMoveComponent(Entity actor, Vector2 direction, float speed) : base(actor, speed)
+    public DirectionalMoveComponent(CharacterBody2D actor, Vector2 direction, float speed) : base(actor, speed)
     {
         this.Speed = speed;
         this.Actor = actor;
@@ -174,12 +174,12 @@ public partial class DirectionalMoveComponent : MoveComponent
     
     public void update()
     {
-        Actor.velocity = direction * Speed;
+        Actor.Velocity = direction * Speed;
     }
 
     public void update(float customSpeed)
     {
-        Actor.velocity = direction * customSpeed;
+        Actor.Velocity = direction * customSpeed;
     }
 }
 
@@ -193,7 +193,7 @@ public partial class TweenToPointComponent : ToPointMoveComponent
     private float speedDelta;
     private float currentTweenTime = 0f;
     
-    public TweenToPointComponent(Entity actor, Vector2 point, bool stopWhenReached, float startSpeed, float speedDelta,
+    public TweenToPointComponent(Mob actor, Vector2 point, bool stopWhenReached, float startSpeed, float speedDelta,
         float endSpeed, Tween.EaseType ease, Tween.TransitionType transition) : base(actor, point, startSpeed, stopWhenReached)
     {
         this.ease = ease;

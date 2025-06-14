@@ -4,10 +4,10 @@ using Metroidarium;
 
 public partial class VelocityDebugLine : Line2D
 {
-	private Entity parent;
+	private Mob parent;
 	public override void _Ready()
 	{
-		parent = (Entity)GetParent();
+		parent = (Mob)GetParent();
 	}
 
 	public override void _Process(double delta)

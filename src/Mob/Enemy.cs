@@ -4,9 +4,9 @@ using Godot.Collections;
 
 namespace Metroidarium;
 
-public partial class Enemy : Entity
+public partial class Enemy : Mob
 {
-    [Export] public Entity Target { get; set;}
+    [Export] public Mob Target { get; set;}
     [Export] public bool TurnedOn { get; set; }
 
     AStarMoveComponent moveComponent;

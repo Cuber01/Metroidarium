@@ -7,7 +7,7 @@ using static System.Single;
 
 namespace Metroidarium;
 
-public partial class SnakeHead : Entity
+public partial class SnakeHead : Mob
 {
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
 	

@@ -2,7 +2,7 @@ namespace Metroidarium;
 
 public class HealthComponent : Component
 {
-    private Entity actor;
+    private Mob actor;
     private int health;
     private int maxHealth;
 
@@ -10,7 +10,7 @@ public class HealthComponent : Component
     private int invincibilityTime = 0;
     private int invincibilityCounter = 0;
 
-    public HealthComponent(Entity actor, int health, int invincibilityTime=0)
+    public HealthComponent(Mob actor, int health, int invincibilityTime=0)
     {
         this.actor = actor;
         this.health = health;

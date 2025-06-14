@@ -2,7 +2,7 @@ using Godot;
 
 namespace Metroidarium;
 
-public partial class Entity : CharacterBody2D
+public partial class Mob : CharacterBody2D
 {
     
     public virtual void die()
