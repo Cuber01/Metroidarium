@@ -11,7 +11,7 @@ public partial class Mob : CharacterBody2D
         CallDeferred("queue_free");
     }
     
-    public void getHurt(int damage)
+    public virtual void getHurt(int damage)
     {
         healthComponent.changeHealth(-damage);
     }

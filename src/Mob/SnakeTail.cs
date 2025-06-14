@@ -4,30 +4,22 @@ using static System.Single;
 
 namespace Metroidarium;
 
-public partial class SnakeTail : Mob
+public partial class SnakeTail : SnakeBody
 {
     private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
     
-    public void Init(Mob aheadMe, int amountOfPartsBehind, Node2D game)
-    {
-        this.aheadMe = aheadMe;
-        this.amountOfPartsBehind = amountOfPartsBehind;
-
-        if (amountOfPartsBehind > 0)
-        {
-            behindMe = (SnakeTail)tailPart.Instantiate();
-            game.CallDeferred("add_child", behindMe);
-            behindMe.Init(this, amountOfPartsBehind - 1, game);
-        }
-    }
 
     private int amountOfPartsBehind = -1;
-    private Mob aheadMe = null;
-    private SnakeTail behindMe = null;
+
     
     private const float distanceToNextPart = 14f;
-    private float speed = 150f;
     private float deaccelerationSpeed = 0.1f;
+    
+    public void Init(SnakeBody aheadMe)
+    {
+        Speed = 150f;
+        this.aheadMe = aheadMe;
+    }
 	
     public override void _PhysicsProcess(double delta)
     {
@@ -35,7 +27,7 @@ public partial class SnakeTail : Mob
         if (Position.DistanceTo(aheadMe.Position) > distanceToNextPart)
         {
             Vector2 dir = (target - Position).Normalized();
-            Velocity = dir * speed;
+            Velocity = dir * Speed;
             MoveAndSlide();
         }
     }
@@ -48,16 +40,17 @@ public partial class SnakeTail : Mob
     {
         var x = target.X - Position.X;
         var y = target.Y - Position.Y;
-        return new Vector2(x, y).Normalized() * speed;
+        return new Vector2(x, y).Normalized() * Speed;
     }
-    
-    public void changeSpeed(float speed)
+
+    public override void die()
     {
-        this.speed = speed;
         if (behindMe != null)
         {
-            behindMe.changeSpeed(speed);    
+            behindMe.aheadMe = aheadMe;
         }
+        aheadMe.behindMe = behindMe;
+        base.die();
     }
 
     private void _onHurtboxBodyEntered(Node2D body)

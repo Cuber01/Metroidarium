@@ -44,8 +44,13 @@ public class HealthComponent : Component
         }
         else if (invincibilityTime > 0)
         {
-            invincible = true;
-            invincibilityCounter = invincibilityTime;
+            MakeInvincible();
         }
+    }
+
+    public void MakeInvincible()
+    {
+        invincible = true;
+        invincibilityCounter = invincibilityTime;
     }
 }

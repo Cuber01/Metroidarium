@@ -7,7 +7,7 @@ using static System.Single;
 
 namespace Metroidarium;
 
-public partial class SnakeHead : Mob
+public partial class SnakeHead : SnakeBody
 {
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeBody.tscn");
 	
@@ -19,20 +19,34 @@ public partial class SnakeHead : Mob
 	
 	int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
-	private float speed = 150f;
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
 	
 	private List<Charm> charms = new List<Charm>();
+	private List<SnakeBody> snake = new List<SnakeBody>();
 	
 	public override void _Ready()
 	{
-		behindMe = (SnakeTail)tailPart.Instantiate();
-		GetParent().CallDeferred("add_child", behindMe);
-		behindMe.Init(this, amountOfTail - 1, (Node2D)GetParent());
+		Speed = 150f;
+		OnGotHitEvent += makeSnakeInvincible;
+		snake.Add(this);
+		
+		SnakeBody lastInstance = this;
+		for (int i = amountOfTail; i > 0; i--)
+		{
+			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
+			GetParent().CallDeferred("add_child", newInstance);
+			newInstance.Init(lastInstance);
 
-		charms.Add(new DashCharm(this, speed));
-		charms.Add(new GunCharm(this, behindMe));
+			newInstance.OnGotHitEvent += makeSnakeInvincible;
+			
+			snake.Add(newInstance);
+			lastInstance = newInstance;
+		}
+
+
+		charms.Add(new DashCharm(this, Speed));
+		charms.Add(new GunCharm(this, (SnakeTail)snake[1]));
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -55,18 +69,25 @@ public partial class SnakeHead : Mob
 		
 		// 8-Pad movement
 		Vector2 input = Input.GetVector("left", "right", "up", "down");
-		Vector2 newVelocity = new Vector2(input.X * speed,  input.Y * speed);
+		Vector2 newVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
 		
 		Velocity = newVelocity;
 		MoveAndSlide();
 	}
-	
-	public void changeSpeed(float speed)
+
+	private void makeSnakeInvincible()
 	{
-		this.speed = speed;
-		if (behindMe != null)
+		foreach (SnakeBody part in snake)
 		{
-			behindMe.changeSpeed(speed);    
+			part.makeInvincible();
+		}
+	}
+	
+	public void changeSnakeSpeed(float speed)
+	{
+		foreach (SnakeBody part in snake)
+		{
+			part.setSpeed(speed);
 		}
 	}
 

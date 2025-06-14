@@ -1,8 +1,14 @@
-BASIC MECHANICS
-- level transitions
+PRE-RELEASE V1
 X tilemap used to construct levels
+	X wall
+	X floor
 - module system
+	X charms
+	- guns rotate properly
+	- modules taking damage
+	- destroying modules
 X enemy ai
-- taking damage and destroying module
 - bash
-- enemy health
+	X dash
+	- bash
+X enemy health

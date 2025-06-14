@@ -32,7 +32,7 @@ public class DashCharm : Charm
     {
         dashing = true;
         dashCounter = dashTime;
-        player.changeSpeed(oldSpeed + dashSpeedIncrease);
+        player.changeSnakeSpeed(oldSpeed + dashSpeedIncrease);
     }
     
     public override void Update()
@@ -43,7 +43,7 @@ public class DashCharm : Charm
             if (dashCounter <= 0)
             {
                 dashing = false;
-                player.changeSpeed(oldSpeed);
+                player.changeSnakeSpeed(oldSpeed);
             }
         }
     }
