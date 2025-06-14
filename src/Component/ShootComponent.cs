@@ -17,10 +17,11 @@ public class ShootComponent : Component
         this.game = game;
     }
 
-    public void Shoot(Vector2 vector, Bullet.EDataType vectorType, float speed=50f)
+    public void Shoot(Vector2 vector, Bullet.EDataType vectorType, int damage=1, float speed=50f)
     {
         Bullet newBullet = (Bullet)bullet.Instantiate();
-        newBullet.Init(shootPoint.Position, vector, vectorType, teamName);
+        
+        newBullet.Init(shootPoint.GlobalPosition, vector, vectorType, teamName, damage);
         game.CallDeferred("add_child", newBullet);
     }
 }

@@ -7,12 +7,20 @@ namespace Metroidarium;
 public partial class Enemy : Entity
 {
     [Export] public Entity Target { get; set;}
+    [Export] public bool TurnedOn { get; set; }
 
     AStarMoveComponent moveComponent;
+    HealthComponent healthComponent;
+    
     private float speed = 50f;
+    private int maxHealth = 3;
     
     public override void _Ready()
     {
+        healthComponent = new HealthComponent(this, maxHealth);
+        
+        if (!TurnedOn) return;
+        
         moveComponent = new AStarMoveComponent(this, speed, Target.Position,
             GetNode<TileMapLayer>("../Level/Floor"),
             GetNode<TileMapLayer>("../Level/Wall"));
@@ -20,6 +28,8 @@ public partial class Enemy : Entity
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!TurnedOn) return;
+        
         moveComponent.update(Target.Position);
         Velocity = velocity;
         MoveAndSlide();

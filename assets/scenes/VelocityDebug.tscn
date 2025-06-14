@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0vqi48fd7t00"]
 
-[ext_resource type="Script" uid="uid://c3c8t3m4lgrpq" path="res://src/VelocityDebugLine.cs" id="1_dgd1j"]
+[ext_resource type="Script" uid="uid://c3c8t3m4lgrpq" path="res://src/Debug/VelocityDebugLine.cs" id="1_dgd1j"]
 
 [node name="VelocityLine" type="Line2D"]
 points = PackedVector2Array(-116, 86)

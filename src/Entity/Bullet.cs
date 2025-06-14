@@ -15,7 +15,7 @@ public partial class Bullet : Entity
 	private float speed = 50f;
 	public String teamName;
 
-	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, float speed=50f)
+	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=50f)
 	{
 		moveComponent = new DirectionalMoveComponent(this, 
 			vectorType == EDataType.Direction ?
@@ -33,19 +33,24 @@ public partial class Bullet : Entity
 		moveComponent.update();
 		Velocity = velocity;
 		MoveAndSlide();
-		
+		checkCollision();
 	}
 
 	private void checkCollision()
 	{
-		for(int i = GetSlideCollisionCount(); i >= 0; i--)
+		int colCount = GetSlideCollisionCount();
+		for(int i = colCount; i > 0; i--)
 		{
-			Node2D collidingBody = (Node2D)GetSlideCollision(i).GetCollider();
-			if (collidingBody is Entity && !collidingBody.IsInGroup(teamName))
+			Node2D collidingBody = (Node2D)GetSlideCollision(i-1).GetCollider();
+			if (collidingBody is Entity enemy && !enemy.IsInGroup(teamName))
 			{
-				Entity enemy = (Entity)collidingBody;
 				enemy.getHurt();
 			}
+		}
+
+		if (colCount > 0)
+		{
+			die();
 		}
 	}
 	
