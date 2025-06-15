@@ -5,15 +5,16 @@ namespace Metroidarium;
 
 public class Charm
 {
+    protected SnakeHead player;
     public virtual void Init() { }
     
     public virtual void Update() { }
+    
+    public virtual void Destroy() { }
 }
 
 public class DashCharm : Charm
 {
-    private SnakeHead player;
-    
     private const float dashSpeedIncrease = 100f;
     private float oldSpeed = 0f;
     
@@ -47,6 +48,11 @@ public class DashCharm : Charm
             }
         }
     }
+
+    public override void Destroy()
+    {
+        player.OnDashedEvent -= activateDash;
+    }
     
 }
 
@@ -63,6 +69,7 @@ public class GunCharm : Charm
     
     public GunCharm(SnakeHead player, SnakeTail slot)
     {
+        this.player = player;
         this.slot = slot;
         left = (Node2D)slot.GetNode("Left");
         right = (Node2D)slot.GetNode("Right");
@@ -77,6 +84,11 @@ public class GunCharm : Charm
     private void activateShoot()
     {
         shooter.Shoot(new Vector2(-1, 0), Bullet.EDataType.Direction);
+    }
+    
+    public override void Destroy()
+    {
+        player.OnShotEvent -= activateShoot;
     }
     
 }

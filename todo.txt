@@ -7,7 +7,7 @@ X tilemap used to construct levels
 	- guns rotate properly
 	X modules taking damage
 	X destroying modules
-	- remove destroyed modules from input
+	X remove destroyed modules from input
 X enemy ai
 - bash
 	X dash

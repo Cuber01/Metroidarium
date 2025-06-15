@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using static System.Single;
 // ReSharper disable InconsistentNaming
@@ -8,22 +9,26 @@ public partial class SnakeTail : SnakeBody
 {
     private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeTail.tscn");
     
-
     private int amountOfPartsBehind = -1;
-
     
     private const float distanceToNextPart = 14f;
     private float deaccelerationSpeed = 0.1f;
     
-    public void Init(SnakeBody aheadMe)
+    public void Init(SnakeBody aheadMe, int partId)
     {
         healthComponent = new HealthComponent(this,1);
         Speed = 150f;
         this.aheadMe = aheadMe;
+        this.behindMe = (SnakeTail)behindMe;
+        this.partId = partId;
     }
 	
     public override void _PhysicsProcess(double delta)
     {
+        if (!IsInstanceValid(aheadMe))
+        {
+            throw new Exception();
+        }
         Vector2 target = constrainDistance(Position, aheadMe.Position, distanceToNextPart);
         if (Position.DistanceTo(aheadMe.Position) > distanceToNextPart)
         {

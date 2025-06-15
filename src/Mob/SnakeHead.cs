@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -27,17 +28,21 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
-		healthComponent = new HealthComponent(this,100);
+		healthComponent = new HealthComponent(this,1);
+		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
+
+		
 		Speed = 150f;
 		OnGotHitEvent += makeSnakeInvincible;
 		snake.Add(this);
+		partId = 0;
 		
 		SnakeBody lastInstance = this;
 		for (int i = amountOfTail; i > 0; i--)
 		{
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
 			GetParent().CallDeferred("add_child", newInstance);
-			newInstance.Init(lastInstance);
+			newInstance.Init(lastInstance, amountOfTail-i+1);
 			lastInstance.behindMe = newInstance;
 
 			newInstance.OnGotHitEvent += makeSnakeInvincible;
@@ -48,8 +53,8 @@ public partial class SnakeHead : SnakeBody
 		}
 
 
-		charms.Add(new DashCharm(this, Speed));
-		charms.Add(new GunCharm(this, (SnakeTail)snake[1]));
+		charms[0] = new DashCharm(this, Speed);
+		charms[1] = new GunCharm(this, (SnakeTail)snake[1]);
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -57,17 +62,17 @@ public partial class SnakeHead : SnakeBody
 		
 		if (Input.IsActionJustPressed("dash"))
 		{
-			OnDashedEvent!();
+			OnDashedEvent?.Invoke();
 		}
 		
 		if (Input.IsActionJustPressed("shoot_left"))
 		{
-			OnShotEvent!();
+			OnShotEvent?.Invoke();
 		}
 
 		foreach (Charm charm in charms)
 		{
-			charm.Update();
+			charm?.Update();
 		}
 		
 		// 8-Pad movement
@@ -82,7 +87,7 @@ public partial class SnakeHead : SnakeBody
 	{
 		foreach (SnakeBody part in snake)
 		{
-			part.makeInvincible();
+			//part.makeInvincible();
 		}
 	}
 	
@@ -94,21 +99,36 @@ public partial class SnakeHead : SnakeBody
 		}
 	}
 
-	private void removeSnakePart(SnakeBody part)
+	private void removeSnakePart(int partId)
 	{
-		snake.Remove(part);
+		snake[partId] = null;
+
+		if (charms[partId] != null)
+		{
+			charms[partId].Destroy();
+			charms[partId] = null;	
+		}
 	}
 	
 	public override void die()
 	{
-		if (snake.Count > 1)
+
+		for (int j = snake.Count - 1; j >= 0; j--)
 		{
-			snake[^1].die();
+			
+			// All other parts are already dead
+			if (snake[j] is SnakeHead)
+			{
+				base.die();
+				
+			// Else kill the last part	
+			} else if (snake[j] != null)
+			{
+				snake[j].die();
+				break;
+			}
 		}
-		else
-		{
-			base.die();	
-		}
+
 	}
 
 	private void _OnHurtboxBodyEntered(Node2D body)
