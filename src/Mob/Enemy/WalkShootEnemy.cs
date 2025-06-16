@@ -7,7 +7,7 @@ public partial class WalkShootEnemy : Enemy
     AStarMoveComponent moveComponent;
     ShootComponent shooter;
     
-    private IState state;
+    //private IState state;
     
     public override void _Ready()
     {
@@ -21,7 +21,7 @@ public partial class WalkShootEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        state.Update();
+        //state.Update();
     }
 
     public class RunState : IState

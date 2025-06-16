@@ -33,7 +33,7 @@ public partial class SnakeHead : SnakeBody
 
 		
 		Speed = 150f;
-		OnGotHitEvent += makeSnakeInvincible;
+		OnGotHitEvent += () => callMethodOnSnake(body => body.makeInvincible());
 		snake.Add(this);
 		partId = 0;
 		
@@ -45,7 +45,7 @@ public partial class SnakeHead : SnakeBody
 			newInstance.Init(lastInstance, amountOfTail-i+1);
 			lastInstance.behindMe = newInstance;
 
-			newInstance.OnGotHitEvent += makeSnakeInvincible;
+			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body.makeInvincible());
 			newInstance.OnDeathEvent += removeSnakePart;
 			
 			snake.Add(newInstance);
@@ -88,19 +88,11 @@ public partial class SnakeHead : SnakeBody
 		MoveAndSlide();
 	}
 
-	private void makeSnakeInvincible()
+	public void callMethodOnSnake(Action<SnakeBody> method)
 	{
 		foreach (SnakeBody part in snake)
 		{
-			//part.makeInvincible();
-		}
-	}
-	
-	public void changeSnakeSpeed(float speed)
-	{
-		foreach (SnakeBody part in snake)
-		{
-			part?.setSpeed(speed);
+			method(part);
 		}
 	}
 

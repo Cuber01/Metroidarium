@@ -2,14 +2,24 @@ PRE-RELEASE V1
 X tilemap used to construct levels
 	X wall
 	X floor
-- module system
+X module system
 	X charms
 	X guns rotate properly
 	X modules taking damage
 	X destroying modules
 	X remove destroyed modules from input
 X enemy ai
-- bash
+X bash
 	X dash
-	- bash
+	1/2 bash
 X enemy health
+
+PRE-RELEASE V2
+- add a state system
+- add an enemy that moves and then shoots using state
+- finish bash
+- fix/remove pixel perfect cam
+- add system for guns that shoot from multiple sides
+- make snake spawn all parts nearby itself
+- balance combat to some degree
+- make sample battle scene and try it out
