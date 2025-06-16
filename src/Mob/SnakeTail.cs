@@ -8,7 +8,8 @@ namespace Metroidarium;
 public partial class SnakeTail : SnakeBody
 {
     private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeTail.tscn");
-    
+
+    private const float rotationOffset = 1.5f; 
     private int amountOfPartsBehind = -1;
     
     private const float distanceToNextPart = 14f;
@@ -25,15 +26,14 @@ public partial class SnakeTail : SnakeBody
 	
     public override void _PhysicsProcess(double delta)
     {
-        if (!IsInstanceValid(aheadMe))
-        {
-            throw new Exception();
-        }
         Vector2 target = constrainDistance(Position, aheadMe.Position, distanceToNextPart);
         if (Position.DistanceTo(aheadMe.Position) > distanceToNextPart)
         {
             Vector2 dir = (target - Position).Normalized();
             Velocity = dir * Speed;
+            
+            SetRotation(Velocity.Angle()+rotationOffset);
+            
             MoveAndSlide();
         }
     }

@@ -4,7 +4,7 @@ X tilemap used to construct levels
 	X floor
 - module system
 	X charms
-	- guns rotate properly
+	X guns rotate properly
 	X modules taking damage
 	X destroying modules
 	X remove destroyed modules from input

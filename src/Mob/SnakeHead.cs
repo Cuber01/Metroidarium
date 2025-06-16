@@ -78,6 +78,11 @@ public partial class SnakeHead : SnakeBody
 		// 8-Pad movement
 		Vector2 input = Input.GetVector("left", "right", "up", "down");
 		Vector2 newVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
+
+		if (newVelocity != Vector2.Zero)
+		{
+			SetRotation(newVelocity.Angle());	
+		}
 		
 		Velocity = newVelocity;
 		MoveAndSlide();
@@ -95,7 +100,7 @@ public partial class SnakeHead : SnakeBody
 	{
 		foreach (SnakeBody part in snake)
 		{
-			part.setSpeed(speed);
+			part?.setSpeed(speed);
 		}
 	}
 

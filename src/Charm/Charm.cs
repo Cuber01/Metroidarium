@@ -83,7 +83,7 @@ public class GunCharm : Charm
 
     private void activateShoot()
     {
-        shooter.Shoot(new Vector2(-1, 0), Bullet.EDataType.Direction);
+        shooter.Shoot(ToPointMoveComponent.calculateDirection(slot.GlobalPosition, left.GlobalPosition), Bullet.EDataType.Direction);
     }
     
     public override void Destroy()

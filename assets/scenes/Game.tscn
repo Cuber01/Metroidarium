@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://j4d6mc8bwr5f"]
+[gd_scene load_steps=4 format=3 uid="uid://j4d6mc8bwr5f"]
 
 [ext_resource type="PackedScene" uid="uid://dcj1j23f21fsr" path="res://assets/scenes/Level.tscn" id="1_wk23g"]
 [ext_resource type="PackedScene" uid="uid://ikvt82ng7dhf" path="res://assets/scenes/SnakeHead.tscn" id="2_t88pq"]
 [ext_resource type="Script" uid="uid://b8yyh11bebfwn" path="res://src/Camera2d.cs" id="4_3mrqo"]
-[ext_resource type="PackedScene" uid="uid://cnfg81duqnuae" path="res://assets/scenes/ShootingEnemy.tscn" id="4_ovtps"]
 
 [node name="Game" type="Node2D"]
 
@@ -16,7 +15,3 @@ position = Vector2(146, 28)
 position = Vector2(287, 161)
 script = ExtResource("4_3mrqo")
 toFollow = NodePath("../SnakeHead")
-
-[node name="ShootingEnemy" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("4_ovtps")]
-position = Vector2(57, 23)
-Target = NodePath("../SnakeHead")
