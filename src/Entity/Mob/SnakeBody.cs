@@ -14,8 +14,6 @@ public partial class SnakeBody : Mob
     public SnakeTail BehindMe = null;
 
     public int PartId = -999;
-
-
     
     public void setSpeed(float speed)
     {
