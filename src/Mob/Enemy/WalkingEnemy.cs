@@ -19,5 +19,6 @@ public partial class WalkingEnemy : Enemy
     {
         moveComponent.update(Target.Position);
         MoveAndSlide();
+        base._PhysicsProcess(delta);
     }
 }

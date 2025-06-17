@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dhhwcqhytl8vn"]
 
-[ext_resource type="Script" uid="uid://sps8x0u6y8mn" path="res://src/Mob/Enemy/Enemy.cs" id="1_rr1jw"]
+[ext_resource type="Script" uid="uid://ddcubswip1m02" path="res://src/Mob/Enemy/WalkingEnemy.cs" id="1_3yshp"]
 [ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_vywwn"]
 [ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_ytd1v"]
 
@@ -10,10 +10,10 @@ size = Vector2(6, 6)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rsx1q"]
 size = Vector2(8, 8)
 
-[node name="WalkingEnemy" type="CharacterBody2D" groups=["Team Baddies"]]
+[node name="BerserkEnemy" type="CharacterBody2D" groups=["Team Baddies"]]
 collision_layer = 4
-collision_mask = 2
-script = ExtResource("1_rr1jw")
+collision_mask = 3
+script = ExtResource("1_3yshp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 4)

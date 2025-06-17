@@ -31,6 +31,7 @@ public partial class WalkShootEnemy : Enemy
     public override void _PhysicsProcess(double delta)
     {
         fsm.Update();
+        base._PhysicsProcess(delta);
     }
     
     public class Run : TimedState<WalkShootEnemy>

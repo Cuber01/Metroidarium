@@ -23,5 +23,7 @@ public partial class ShootingEnemy : Enemy
             counter = delay;
         }
         counter--;
+        
+        base._PhysicsProcess(delta);
     }
 }

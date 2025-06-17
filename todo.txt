@@ -27,4 +27,5 @@ X make snake spawn all parts nearby itself
 PRE-RELEASE V3
 - implement delta time
 - balance combat to some degree
+- tie WSAD to 4 directions of shooting, player can shoot only one at a time
 - make sample battle scene and try it out

@@ -98,7 +98,7 @@ public class GunCharm : Charm
     private Dictionary<Directions, ShootComponent> shooters = new Dictionary<Directions, ShootComponent>();
     private DirectionPositions directions;
 
-    public enum Directions
+    private enum Directions
     {
         Left,
         Right,
@@ -108,10 +108,10 @@ public class GunCharm : Charm
     
     public struct DirectionPositions(Node2D left = null, Node2D right = null, Node2D up = null, Node2D down = null)
     {
-        public Node2D Left = left;
-        public Node2D Right = right;
-        public Node2D Up = up;
-        public Node2D Down = down;
+        public readonly Node2D Left = left;
+        public readonly Node2D Right = right;
+        public readonly Node2D Up = up;
+        public readonly Node2D Down = down;
     }
     
     public GunCharm(SnakeHead player, SnakeTail slot, DirectionPositions directions)
