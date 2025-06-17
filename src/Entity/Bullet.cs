@@ -12,7 +12,6 @@ public partial class Bullet : Entity
 	}
 
 	private float speed = 50f;
-	private int damage;
 	public String TeamName;
 
 	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=75f)
@@ -22,19 +21,19 @@ public partial class Bullet : Entity
 			vector :
 			ToPointMoveComponent.calculateDirection(position, vector),
 			speed));
+		AddComponent(new ContactComponent(damage));
 		this.Position = position;
 		this.TeamName = teamName;
 		this.speed = speed;
-		this.damage = damage;
 		AddToGroup(teamName);
 
 		if (teamName == "Team Player")
 		{
-			SetCollisionMaskValue(3, true);
+			SetCollisionLayerValue(5, true);
 		}
 		else if (teamName == "Team Baddies")
 		{
-			SetCollisionMaskValue(2, true);
+			SetCollisionLayerValue(4, true);
 		}
 		else throw new ArgumentException();
 	}
@@ -49,15 +48,6 @@ public partial class Bullet : Entity
 	private void checkCollision()
 	{
 		int colCount = GetSlideCollisionCount();
-		for(int i = colCount; i > 0; i--)
-		{
-			Node2D collidingBody = (Node2D)GetSlideCollision(i-1).GetCollider();
-			if (collidingBody is Mob enemy)
-			{
-				enemy.getHurt(damage);
-				break;
-			}
-		}
 
 		if (colCount > 0)
 		{

@@ -13,6 +13,7 @@ public partial class Enemy : Mob
     public override void _Ready()
     {
         AddComponent(new HealthComponent(this, MaxHealth));
+        AddComponent(new ContactComponent(1));
     }
     
     public void setStats(int maxHealth, float speed)
@@ -21,11 +22,13 @@ public partial class Enemy : Mob
         this.Speed = speed;
     }
 
-    private void _onHurtboxBodyEntered(PhysicsBody2D body)
+
+    private void _onHurtboxBodyEntered(Node2D body)
     {
         if (body.IsInGroup("Team Player"))
         {
-            //getHurt((Mob)body);
+            Entity enemy = (Entity)body;
+            getHurt(enemy.GetComponent<ContactComponent>().ContactDamageDealt);
         }
     }
     

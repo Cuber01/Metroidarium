@@ -8,7 +8,7 @@
 size = Vector2(8, 8)
 
 [node name="SnakeBody" type="CharacterBody2D" groups=["Team Player"]]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_m4jg8")
 
@@ -17,6 +17,8 @@ texture_filter = 1
 texture = ExtResource("2_nb5pl")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_0302b")

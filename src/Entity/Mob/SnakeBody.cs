@@ -1,3 +1,5 @@
+using Godot;
+
 namespace Metroidarium;
 
 public partial class SnakeBody : Mob
@@ -12,6 +14,8 @@ public partial class SnakeBody : Mob
     public SnakeTail BehindMe = null;
 
     public int PartId = -999;
+
+
     
     public void setSpeed(float speed)
     {
@@ -40,6 +44,15 @@ public partial class SnakeBody : Mob
         }
         
         base.die();
+    }
+    
+    private void _onHurtboxBodyEntered(Node2D body)
+    {
+        if (body.IsInGroup("Team Baddies"))
+        {
+            Entity enemy = (Entity)body;
+            getHurt(enemy.GetComponent<ContactComponent>().ContactDamageDealt);
+        }
     }
 
     public override void getHurt(int damage)
