@@ -21,8 +21,8 @@ X add an enemy that moves and then shoots using state
 - fix/remove pixel perfect cam
 X add system for guns that shoot from multiple sides
 X make snake spawn all parts nearby itself
-- change player tail collision layer
-- make it so enemies can melee the player again
+X change player tail collision layer
+X make it so enemies can melee the player again
 
 PRE-RELEASE V3
 - implement delta time
