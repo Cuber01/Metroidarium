@@ -50,9 +50,4 @@ public partial class SnakeTail : SnakeBody
         var y = target.Y - Position.Y;
         return new Vector2(x, y).Normalized() * Speed;
     }
-
-    private void _onHurtboxBodyEntered(Node2D body)
-    {
-        
-    }
 }

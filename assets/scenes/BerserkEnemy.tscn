@@ -11,8 +11,7 @@ size = Vector2(6, 6)
 size = Vector2(8, 8)
 
 [node name="BerserkEnemy" type="CharacterBody2D" groups=["Team Baddies"]]
-collision_layer = 4
-collision_mask = 3
+collision_layer = 12
 script = ExtResource("1_3yshp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

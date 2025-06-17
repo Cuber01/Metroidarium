@@ -24,7 +24,7 @@ public class DashCharm : Charm
         Dashing = true;
         DashCounter = DashTime;
         
-        Player.callMethodOnSnake(body => body.setSpeed(OldSpeed + DashSpeedIncrease));
+        Player.callMethodOnSnake(body => body?.setSpeed(OldSpeed + DashSpeedIncrease));
     }
 
     protected override void deactivate()
