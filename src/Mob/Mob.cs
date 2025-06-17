@@ -4,7 +4,7 @@ namespace Metroidarium;
 
 public partial class Mob : CharacterBody2D
 {
-    protected HealthComponent healthComponent;
+    protected HealthComponent HealthComponent;
     
     public virtual void die()
     {
@@ -13,6 +13,6 @@ public partial class Mob : CharacterBody2D
     
     public virtual void getHurt(int damage)
     {
-        healthComponent.changeHealth(-damage);
+        HealthComponent.changeHealth(-damage);
     }
 }

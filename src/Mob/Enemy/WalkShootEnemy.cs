@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace Metroidarium;
@@ -6,8 +7,11 @@ public partial class WalkShootEnemy : Enemy
 {
     AStarMoveComponent moveComponent;
     ShootComponent shooter;
-    
-    //private IState state;
+
+    public DateTime StateEnterTime;
+    private TimedState<WalkShootEnemy> shootState = new Shoot();
+    private TimedState<WalkShootEnemy> runState = new Run();
+    private StateMachine<WalkShootEnemy> fsm;
     
     public override void _Ready()
     {
@@ -17,26 +21,50 @@ public partial class WalkShootEnemy : Enemy
             GetNode<TileMapLayer>("../Level/Floor"),
             GetNode<TileMapLayer>("../Level/Wall"));
         shooter = new ShootComponent(GetParent(), this, "Team Baddies");
+        
+        fsm = new StateMachine<WalkShootEnemy>(this, runState);
+        fsm.AddTransition(runState, shootState, () => runState.TimerCondition());
+        fsm.AddTransition(shootState, runState, () => shootState.TimerCondition());
+        
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        //state.Update();
+        fsm.Update();
     }
-
-    public class RunState : IState
+    
+    public class Run : TimedState<WalkShootEnemy>
     {
-        public void Update()
+        public override void Enter(WalkShootEnemy entity)
         {
-            GD.Print("RunState.Update");
+            base.Enter(entity);
+            Delay = 100;
+        }
+        public override void Update(WalkShootEnemy entity)
+        {
+            base.Update(entity);
+            entity.moveComponent.update(entity.Target.Position);
+            entity.MoveAndSlide();
         }
     }
     
-    public class WalkState : IState
+    public class Shoot : TimedState<WalkShootEnemy>
     {
-        public void Update()
+        private int shootDelay = 10;
+        
+        public override void Enter(WalkShootEnemy entity)
         {
-            GD.Print("WalkState.Update");
+            base.Enter(entity);
+            Delay = 100;
+        }
+
+        public override void Update(WalkShootEnemy entity)
+        {
+            base.Update(entity);
+            if (Time % shootDelay == 0)
+            {
+                entity.shooter.Shoot(entity.Target.Position, Bullet.EDataType.TargetPosition);
+            }
         }
     }
 }

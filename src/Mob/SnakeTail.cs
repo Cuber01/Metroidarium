@@ -17,17 +17,17 @@ public partial class SnakeTail : SnakeBody
     
     public void Init(SnakeBody aheadMe, int partId)
     {
-        healthComponent = new HealthComponent(this,1);
+        HealthComponent = new HealthComponent(this,1);
         Speed = 150f;
-        this.aheadMe = aheadMe;
-        this.behindMe = (SnakeTail)behindMe;
-        this.partId = partId;
+        this.AheadMe = aheadMe;
+        this.BehindMe = (SnakeTail)BehindMe;
+        this.PartId = partId;
     }
 	
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 target = constrainDistance(Position, aheadMe.Position, distanceToNextPart);
-        if (Position.DistanceTo(aheadMe.Position) > distanceToNextPart)
+        Vector2 target = constrainDistance(Position, AheadMe.Position, distanceToNextPart);
+        if (Position.DistanceTo(AheadMe.Position) > distanceToNextPart)
         {
             Vector2 dir = (target - Position).Normalized();
             Velocity = dir * Speed;

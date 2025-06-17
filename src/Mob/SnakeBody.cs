@@ -8,10 +8,10 @@ public partial class SnakeBody : Mob
     public delegate void DiedHandler(int partId);
     public event DiedHandler OnDeathEvent;
     
-    protected SnakeBody aheadMe = null;
-    public SnakeTail behindMe = null;
+    protected SnakeBody AheadMe = null;
+    public SnakeTail BehindMe = null;
 
-    public int partId = -999;
+    public int PartId = -999;
     
     public void setSpeed(float speed)
     {
@@ -20,23 +20,23 @@ public partial class SnakeBody : Mob
 
     public void makeInvincible()
     {
-        healthComponent.MakeInvincible();
+        HealthComponent.MakeInvincible();
     }
     
     public override void die()
     {
-        if (behindMe != null)
+        if (BehindMe != null)
         {
-            behindMe.aheadMe = aheadMe;
+            BehindMe.AheadMe = AheadMe;
         }
-        if (aheadMe != null)
+        if (AheadMe != null)
         {
-            aheadMe.behindMe = behindMe;
+            AheadMe.BehindMe = BehindMe;
         }
 
         if (this is not SnakeHead)
         {
-            OnDeathEvent!(partId);    
+            OnDeathEvent!(PartId);    
         }
         
         base.die();

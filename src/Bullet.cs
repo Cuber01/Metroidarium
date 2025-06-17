@@ -14,7 +14,7 @@ public partial class Bullet : CharacterBody2D
 	DirectionalMoveComponent moveComponent;
 	private float speed = 50f;
 	private int damage;
-	public String teamName;
+	public String TeamName;
 
 	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=75f)
 	{
@@ -24,7 +24,7 @@ public partial class Bullet : CharacterBody2D
 			ToPointMoveComponent.calculateDirection(position, vector),
 			speed);
 		this.Position = position;
-		this.teamName = teamName;
+		this.TeamName = teamName;
 		this.speed = speed;
 		this.damage = damage;
 		AddToGroup(teamName);

@@ -21,5 +21,10 @@ PRE-RELEASE V2
 - fix/remove pixel perfect cam
 - add system for guns that shoot from multiple sides
 - make snake spawn all parts nearby itself
+- change player tail collision layer
+- make it so enemies can melee the player again
+
+PRE-RELEASE V3
+- implement delta time
 - balance combat to some degree
 - make sample battle scene and try it out

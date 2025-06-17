@@ -3,7 +3,7 @@ using System;
 
 public partial class Camera2d : Camera2D
 {
-	[Export] public Node2D toFollow;
+	[Export] public Node2D ToFollow;
 
 	private Vector2 realCamPosition;
 	
@@ -16,12 +16,15 @@ public partial class Camera2d : Camera2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		realCamPosition = Position.Lerp(toFollow.Position, (float)(delta*3));
-		Vector2 subpixelCamOffset = realCamPosition.Round() - realCamPosition;
-		ShaderMaterial shader = (ShaderMaterial)((SubViewportContainer)GetParent().GetParent().GetParent()).Material;
-		shader.SetShaderParameter("camOffset", subpixelCamOffset);
+		if (ToFollow != null)
+		{
+			realCamPosition = Position.Lerp(ToFollow.Position, (float)(delta*3));
+			Vector2 subpixelCamOffset = realCamPosition.Round() - realCamPosition;
+			ShaderMaterial shader = (ShaderMaterial)((SubViewportContainer)GetParent().GetParent().GetParent()).Material;
+			shader.SetShaderParameter("camOffset", subpixelCamOffset);
 		
-		GlobalPosition = realCamPosition;
-
+			GlobalPosition = realCamPosition;
+		}
+		
 	}
 }

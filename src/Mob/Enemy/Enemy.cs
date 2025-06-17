@@ -10,7 +10,7 @@ public partial class Enemy : Mob
     
     public override void _Ready()
     {
-        healthComponent = new HealthComponent(this, MaxHealth);
+        HealthComponent = new HealthComponent(this, MaxHealth);
     }
     
     public void setStats(int maxHealth, float speed)

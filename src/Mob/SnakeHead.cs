@@ -28,14 +28,14 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
-		healthComponent = new HealthComponent(this,1);
+		HealthComponent = new HealthComponent(this,1);
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
 
 		
 		Speed = 150f;
-		OnGotHitEvent += () => callMethodOnSnake(body => body.makeInvincible());
+		OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
 		snake.Add(this);
-		partId = 0;
+		PartId = 0;
 		
 		SnakeBody lastInstance = this;
 		for (int i = amountOfTail; i > 0; i--)
@@ -43,9 +43,9 @@ public partial class SnakeHead : SnakeBody
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
 			GetParent().CallDeferred("add_child", newInstance);
 			newInstance.Init(lastInstance, amountOfTail-i+1);
-			lastInstance.behindMe = newInstance;
+			lastInstance.BehindMe = newInstance;
 
-			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body.makeInvincible());
+			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
 			newInstance.OnDeathEvent += removeSnakePart;
 			
 			snake.Add(newInstance);

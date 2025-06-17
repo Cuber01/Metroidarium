@@ -6,7 +6,7 @@ namespace Metroidarium;
 
 public class Charm
 {
-    protected SnakeHead player;
+    protected SnakeHead Player;
     
     public virtual void Init() { }
     
@@ -30,7 +30,7 @@ public class DashCharm : Charm
     
     public DashCharm(SnakeHead player, float speed)
     {
-        this.player = player;
+        this.Player = player;
         OldSpeed = speed;
         player.OnDashedEvent += activate;
     }
@@ -39,13 +39,13 @@ public class DashCharm : Charm
     {
         Dashing = true;
         DashCounter = DashTime;
-        player.callMethodOnSnake(body => body.setSpeed(OldSpeed + DashSpeedIncrease));
+        Player.callMethodOnSnake(body => body.setSpeed(OldSpeed + DashSpeedIncrease));
     }
 
     protected virtual void deactivate()
     {
         Dashing = false;
-        player.callMethodOnSnake(body => body.setSpeed(OldSpeed));
+        Player.callMethodOnSnake(body => body.setSpeed(OldSpeed));
     }
     
     public override void Update()
@@ -62,7 +62,7 @@ public class DashCharm : Charm
 
     public override void Destroy()
     {
-        player.OnDashedEvent -= activate;
+        Player.OnDashedEvent -= activate;
     }
     
 }
@@ -74,7 +74,7 @@ public class BashCharm : DashCharm
     private new const int DashTime = 50;
     public BashCharm(SnakeHead player, float speed) : base(player, speed)
     {
-        this.player = player;
+        this.Player = player;
         OldSpeed = speed;
         player.OnDashedEvent += activate;
     }
@@ -82,7 +82,7 @@ public class BashCharm : DashCharm
     protected override void activate()
     {
         base.activate();
-        player.callMethodOnSnake(body => body.makeInvincible());
+        Player.callMethodOnSnake(body => body.makeInvincible());
     }
     
     protected override void deactivate()
@@ -104,7 +104,7 @@ public class GunCharm : Charm
     
     public GunCharm(SnakeHead player, SnakeTail slot)
     {
-        this.player = player;
+        this.Player = player;
         this.slot = slot;
         left = (Node2D)slot.GetNode("Left");
         right = (Node2D)slot.GetNode("Right");
@@ -123,7 +123,7 @@ public class GunCharm : Charm
     
     public override void Destroy()
     {
-        player.OnShotEvent -= activateShoot;
+        Player.OnShotEvent -= activateShoot;
     }
     
 }
