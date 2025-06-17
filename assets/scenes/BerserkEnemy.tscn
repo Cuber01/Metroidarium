@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dhhwcqhytl8vn"]
 
-[ext_resource type="Script" uid="uid://ddcubswip1m02" path="res://src/Mob/Enemy/WalkingEnemy.cs" id="1_3yshp"]
+[ext_resource type="Script" uid="uid://ddcubswip1m02" path="res://src/Entity/Mob/Enemy/WalkingEnemy.cs" id="1_3yshp"]
 [ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_vywwn"]
 [ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_ytd1v"]
 

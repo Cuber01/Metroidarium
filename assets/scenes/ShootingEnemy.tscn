@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnfg81duqnuae"]
 
-[ext_resource type="Script" uid="uid://dsdn0gbc5m4l4" path="res://src/Mob/Enemy/ShootingEnemy.cs" id="1_sy5bm"]
+[ext_resource type="Script" uid="uid://dsdn0gbc5m4l4" path="res://src/Entity/Mob/Enemy/ShootingEnemy.cs" id="1_sy5bm"]
 [ext_resource type="Texture2D" uid="uid://b7elro2lp2img" path="res://assets/img/shooting-enemy.png" id="2_sy5bm"]
 [ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_akw73"]
 

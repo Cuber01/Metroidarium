@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://ikvt82ng7dhf"]
 
-[ext_resource type="Script" uid="uid://c57obqfaufxrt" path="res://src/Mob/SnakeHead.cs" id="1_6t0ro"]
+[ext_resource type="Script" uid="uid://c57obqfaufxrt" path="res://src/Entity/Mob/SnakeHead.cs" id="1_6t0ro"]
 [ext_resource type="Texture2D" uid="uid://c3dthv3impctf" path="res://assets/img/snake-head.png" id="2_0urnx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8aqt"]
-size = Vector2(6, 6)
+size = Vector2(7.9, 7.9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kalpc"]
 size = Vector2(8, 8)
@@ -21,8 +21,10 @@ texture = ExtResource("2_0urnx")
 shape = SubResource("RectangleShape2D_j8aqt")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_kalpc")
 
-[connection signal="body_entered" from="Hurtbox" to="." method="_OnHurtboxBodyEntered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_onHurtboxBodyEntered"]

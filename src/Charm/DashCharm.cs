@@ -1,9 +1,11 @@
+using Godot;
+
 namespace Metroidarium;
 
 
 public class DashCharm : Charm
 {
-    protected const float DashSpeedIncrease = 100f;
+    private const float DashSpeedIncrease = 100f;
     protected float OldSpeed = 0f;
     
     protected bool Dashing = false;
@@ -17,17 +19,18 @@ public class DashCharm : Charm
         player.OnDashedEvent += activate;
     }
 
-    protected virtual void activate()
+    protected override void activate()
     {
         Dashing = true;
         DashCounter = DashTime;
+        
         Player.callMethodOnSnake(body => body.setSpeed(OldSpeed + DashSpeedIncrease));
     }
 
-    protected virtual void deactivate()
+    protected override void deactivate()
     {
         Dashing = false;
-        Player.callMethodOnSnake(body => body.setSpeed(OldSpeed));
+        Player.callMethodOnSnake(body => body?.setSpeed(OldSpeed));
     }
     
     public override void Update()

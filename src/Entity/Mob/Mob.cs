@@ -2,9 +2,8 @@ using Godot;
 
 namespace Metroidarium;
 
-public partial class Mob : CharacterBody2D
+public partial class Mob : Entity
 {
-    protected HealthComponent HealthComponent;
     
     public virtual void die()
     {
@@ -13,6 +12,6 @@ public partial class Mob : CharacterBody2D
     
     public virtual void getHurt(int damage)
     {
-        HealthComponent.changeHealth(-damage);
+        GetComponent<HealthComponent>().changeHealth(-damage);
     }
 }

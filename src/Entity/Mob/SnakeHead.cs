@@ -18,6 +18,8 @@ public partial class SnakeHead : SnakeBody
 	public delegate void ShotEventHandler();
 	public event DashedEventHandler OnShotEvent;
 	
+	public Vector2 lastChangedVelocity = new Vector2(0,1);
+	
 	int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
 	private float deaccelerationSpeed = 1f;
@@ -28,7 +30,7 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
-		HealthComponent = new HealthComponent(this,1);
+		AddComponent(new HealthComponent(this,1));
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
 
 		
@@ -53,7 +55,7 @@ public partial class SnakeHead : SnakeBody
 		}
 
 
-		charms[0] = new DashCharm(this, Speed);
+		charms[0] = new BashCharm(this, Speed);
 		SnakeTail slot = (SnakeTail)snake[5];
 		charms[1] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
 			(Node2D)slot.GetNode("Right"),null,(Node2D)slot.GetNode("Down")));
@@ -61,12 +63,6 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		
-		if (Input.IsActionJustPressed("dash"))
-		{
-			OnDashedEvent?.Invoke();
-		}
-		
 		if (Input.IsActionJustPressed("shoot_left"))
 		{
 			OnShotEvent?.Invoke();
@@ -79,14 +75,24 @@ public partial class SnakeHead : SnakeBody
 		
 		// 8-Pad movement
 		Vector2 input = Input.GetVector("left", "right", "up", "down");
-		Vector2 newVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
 
-		if (newVelocity != Vector2.Zero)
+		if (input.X != 0 || input.Y != 0)
 		{
-			SetRotation(newVelocity.Angle());	
+			lastChangedVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
+			SetRotation(lastChangedVelocity.Angle());
+			Velocity = lastChangedVelocity;
+		}
+		else
+		{
+			Velocity = Vector2.Zero;
 		}
 		
-		Velocity = newVelocity;
+		// Dashing
+		if (Input.IsActionJustPressed("dash"))
+		{
+			OnDashedEvent?.Invoke();
+		}
+		
 		MoveAndSlide();
 	}
 
@@ -128,14 +134,6 @@ public partial class SnakeHead : SnakeBody
 			}
 		}
 
-	}
-
-	private void _OnHurtboxBodyEntered(Node2D body)
-	{
-		if (body is Enemy)
-		{
-			GD.Print("OUCH OUCH STOP STOP AAAAAAAA");
-		}
 	}
 }
 

@@ -6,9 +6,9 @@ namespace Metroidarium;
 
 public interface IState<T>
 {
-    public void Enter(T entity);
-    public void Update(T entity);
-    public void Exit(T entity);
+    public void Enter(T actor);
+    public void Update(T actor);
+    public void Exit(T actor);
 }
 
 public class TimedState<T> : IState<T>
@@ -16,15 +16,15 @@ public class TimedState<T> : IState<T>
     public int Time = 0;
     protected int Delay = -1;
 
-    public virtual void Enter(T entity)
+    public virtual void Enter(T actor)
     {
         Time = 0;
     }
 
-    public virtual void Update(T entity) {
+    public virtual void Update(T actor) {
         Time += 1;
     }
-    public virtual void Exit(T entity) { }
+    public virtual void Exit(T actor) { }
     
     public bool TimerCondition()
     {
@@ -35,18 +35,18 @@ public class TimedState<T> : IState<T>
 
 public class StateMachine<T>
 {
-    private readonly T entity;
+    private readonly T actor;
     public IState<T> CurrentState { get; private set; }
     
     private List<Transition<T>> localTransitions = new();
     private List<Transition<T>> possibleTransitions = new();
     private List<Transition<T>> globalTransitions = new();
 
-    public StateMachine(T entity, IState<T> initialState)
+    public StateMachine(T actor, IState<T> initialState)
     {
-        this.entity = entity;
+        this.actor = actor;
         CurrentState = initialState;
-        CurrentState.Enter(this.entity);
+        CurrentState.Enter(this.actor);
     }
 
     public void AddTransition(IState<T> from, IState<T> to, System.Func<bool> condition)
@@ -69,14 +69,14 @@ public class StateMachine<T>
             SetState(transition.To);
         }
         
-        CurrentState.Update(entity);
+        CurrentState.Update(actor);
     }
 
     private void SetState(IState<T> newState)
     {
-        CurrentState.Exit(entity);
+        CurrentState.Exit(actor);
         CurrentState = newState;
-        CurrentState.Enter(entity);
+        CurrentState.Enter(actor);
 
         calculatePossibleTransitions();
         foreach (Transition<T> transition in localTransitions)

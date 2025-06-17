@@ -17,7 +17,7 @@ public partial class SnakeTail : SnakeBody
     
     public void Init(SnakeBody aheadMe, int partId)
     {
-        HealthComponent = new HealthComponent(this,1);
+        AddComponent(new HealthComponent(this,1));
         Speed = 150f;
         this.AheadMe = aheadMe;
         this.BehindMe = (SnakeTail)BehindMe;

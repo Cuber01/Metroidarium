@@ -3,7 +3,7 @@ using Godot;
 
 namespace Metroidarium;
 
-public partial class Bullet : CharacterBody2D
+public partial class Bullet : Entity
 {
 	public enum EDataType
 	{
@@ -11,18 +11,17 @@ public partial class Bullet : CharacterBody2D
 		Direction
 	}
 
-	DirectionalMoveComponent moveComponent;
 	private float speed = 50f;
 	private int damage;
 	public String TeamName;
 
 	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=75f)
 	{
-		moveComponent = new DirectionalMoveComponent(this, 
+		AddComponent(new DirectionalMoveComponent(this, 
 			vectorType == EDataType.Direction ?
 			vector :
 			ToPointMoveComponent.calculateDirection(position, vector),
-			speed);
+			speed));
 		this.Position = position;
 		this.TeamName = teamName;
 		this.speed = speed;
@@ -42,7 +41,7 @@ public partial class Bullet : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		moveComponent.update();
+		GetComponent<DirectionalMoveComponent>().update();
 		MoveAndSlide();
 		checkCollision();
 	}

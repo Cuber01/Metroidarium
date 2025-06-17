@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://0ixtwftas3yp"]
 
-[ext_resource type="Script" uid="uid://cl36e6fk6p4yg" path="res://src/Mob/Enemy/WalkShootEnemy.cs" id="1_0lm7e"]
+[ext_resource type="Script" uid="uid://cl36e6fk6p4yg" path="res://src/Entity/Mob/Enemy/WalkShootEnemy.cs" id="1_0lm7e"]
 [ext_resource type="Texture2D" uid="uid://c6vvv44at6cyp" path="res://assets/img/smart-enemy.png" id="2_iyib7"]
 [ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_ju7yn"]
 

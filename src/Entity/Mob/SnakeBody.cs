@@ -20,7 +20,7 @@ public partial class SnakeBody : Mob
 
     public void makeInvincible()
     {
-        HealthComponent.MakeInvincible();
+        GetComponent<HealthComponent>().MakeInvincible();
     }
     
     public override void die()

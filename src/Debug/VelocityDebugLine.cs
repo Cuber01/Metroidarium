@@ -4,14 +4,18 @@ using Metroidarium;
 
 public partial class VelocityDebugLine : Line2D
 {
-	private Mob parent;
+	[Export] bool on = false;
+	
+	private Entity parent;
 	public override void _Ready()
 	{
-		parent = (Mob)GetParent();
+		if (!on) return;
+		parent = (Entity)GetParent();
 	}
 
 	public override void _Process(double delta)
 	{
+		if (!on) return;
 		ClearPoints();
 		AddPoint(Vector2.Zero,0);
 		AddPoint(parent.Velocity,1);

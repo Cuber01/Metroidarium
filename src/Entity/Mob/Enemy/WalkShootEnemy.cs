@@ -5,10 +5,6 @@ namespace Metroidarium;
 
 public partial class WalkShootEnemy : Enemy
 {
-    AStarMoveComponent moveComponent;
-    ShootComponent shooter;
-
-    public DateTime StateEnterTime;
     private TimedState<WalkShootEnemy> shootState = new Shoot();
     private TimedState<WalkShootEnemy> runState = new Run();
     private StateMachine<WalkShootEnemy> fsm;
@@ -17,10 +13,10 @@ public partial class WalkShootEnemy : Enemy
     {
         setStats(3, 50f);
         base._Ready();
-        moveComponent = new AStarMoveComponent(this, Speed, Target.Position,
+        AddComponent(new AStarMoveComponent(this, Speed, Target.Position,
             GetNode<TileMapLayer>("../Level/Floor"),
-            GetNode<TileMapLayer>("../Level/Wall"));
-        shooter = new ShootComponent(GetParent(), this, "Team Baddies");
+            GetNode<TileMapLayer>("../Level/Wall")));
+        AddComponent(new ShootComponent(GetParent(), this, "Team Baddies"));
         
         fsm = new StateMachine<WalkShootEnemy>(this, runState);
         fsm.AddTransition(runState, shootState, () => runState.TimerCondition());
@@ -44,7 +40,7 @@ public partial class WalkShootEnemy : Enemy
         public override void Update(WalkShootEnemy entity)
         {
             base.Update(entity);
-            entity.moveComponent.update(entity.Target.Position);
+            entity.GetComponent<AStarMoveComponent>().update(entity.Target.Position);
             entity.MoveAndSlide();
         }
     }
@@ -64,7 +60,7 @@ public partial class WalkShootEnemy : Enemy
             base.Update(entity);
             if (Time % shootDelay == 0)
             {
-                entity.shooter.Shoot(entity.Target.Position, Bullet.EDataType.TargetPosition);
+                entity.GetComponent<ShootComponent>().Shoot(entity.Target.Position, Bullet.EDataType.TargetPosition);
             }
         }
     }
