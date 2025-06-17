@@ -54,7 +54,9 @@ public partial class SnakeHead : SnakeBody
 
 
 		charms[0] = new DashCharm(this, Speed);
-		charms[1] = new GunCharm(this, (SnakeTail)snake[1]);
+		SnakeTail slot = (SnakeTail)snake[5];
+		charms[1] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
+			(Node2D)slot.GetNode("Right"),null,(Node2D)slot.GetNode("Down")));
 	}
 	
 	public override void _PhysicsProcess(double delta)

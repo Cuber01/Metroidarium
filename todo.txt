@@ -15,12 +15,12 @@ X bash
 X enemy health
 
 PRE-RELEASE V2
-- add a state system
-- add an enemy that moves and then shoots using state
+X add a state system
+X add an enemy that moves and then shoots using state
 - finish bash
 - fix/remove pixel perfect cam
-- add system for guns that shoot from multiple sides
-- make snake spawn all parts nearby itself
+X add system for guns that shoot from multiple sides
+X make snake spawn all parts nearby itself
 - change player tail collision layer
 - make it so enemies can melee the player again
 

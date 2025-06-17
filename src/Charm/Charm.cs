@@ -95,30 +95,70 @@ public class BashCharm : DashCharm
 public class GunCharm : Charm
 {
     private SnakeTail slot;
-    private ShootComponent shooter;
+    private Dictionary<Directions, ShootComponent> shooters = new Dictionary<Directions, ShootComponent>();
+    private DirectionPositions directions;
 
-    private Node2D left;
-    private Node2D right;
-    private Node2D up;
-    private Node2D down;
+    public enum Directions
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    }
     
-    public GunCharm(SnakeHead player, SnakeTail slot)
+    public struct DirectionPositions(Node2D left = null, Node2D right = null, Node2D up = null, Node2D down = null)
+    {
+        public Node2D Left = left;
+        public Node2D Right = right;
+        public Node2D Up = up;
+        public Node2D Down = down;
+    }
+    
+    public GunCharm(SnakeHead player, SnakeTail slot, DirectionPositions directions)
     {
         this.Player = player;
         this.slot = slot;
-        left = (Node2D)slot.GetNode("Left");
-        right = (Node2D)slot.GetNode("Right");
-        up = (Node2D)slot.GetNode("Up");
-        down = (Node2D)slot.GetNode("Down");
-        
-        shooter = new ShootComponent(player.GetParent(), left, "Team Player");
+        this.directions = directions;
+
+        if (directions.Left != null)
+            shooters.Add(Directions.Left, createShooter(directions.Left));
+        if (directions.Right != null)
+            shooters.Add(Directions.Right, createShooter(directions.Right));
+        if (directions.Up != null)
+            shooters.Add(Directions.Up, createShooter(directions.Up));
+        if (directions.Down != null)
+            shooters.Add(Directions.Down, createShooter(directions.Down));
         
         player.OnShotEvent += activateShoot;
     }
 
+    private ShootComponent createShooter(Node2D direction) =>
+        new ShootComponent(Player.GetParent(), direction, "Team Player");
+    
+    private void shoot(ShootComponent shooter, Vector2 targetPos) =>
+        shooter.Shoot(ToPointMoveComponent.calculateDirection(slot.GlobalPosition, targetPos), Bullet.EDataType.Direction);
+
     private void activateShoot()
     {
-        shooter.Shoot(ToPointMoveComponent.calculateDirection(slot.GlobalPosition, left.GlobalPosition), Bullet.EDataType.Direction);
+        foreach (var shooter in shooters)
+        {
+            var shootComponent = shooter.Value;
+            switch (shooter.Key)
+            {
+                case Directions.Left:
+                    shoot(shootComponent, directions.Left.GlobalPosition);
+                    break;
+                case Directions.Right:
+                    shoot(shootComponent, directions.Right.GlobalPosition);
+                    break;
+                case Directions.Up:
+                    shoot(shootComponent, directions.Up.GlobalPosition);
+                    break;
+                case Directions.Down:
+                    shoot(shootComponent, directions.Down.GlobalPosition);
+                    break;
+            }
+        }
     }
     
     public override void Destroy()

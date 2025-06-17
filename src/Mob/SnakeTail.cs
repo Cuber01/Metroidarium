@@ -22,6 +22,7 @@ public partial class SnakeTail : SnakeBody
         this.AheadMe = aheadMe;
         this.BehindMe = (SnakeTail)BehindMe;
         this.PartId = partId;
+        GlobalPosition = constrainDistance(Position, AheadMe.Position, distanceToNextPart);
     }
 	
     public override void _PhysicsProcess(double delta)
