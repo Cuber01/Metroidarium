@@ -14,7 +14,7 @@ public partial class Bullet : Entity
 	private float speed = 50f;
 	public String TeamName;
 
-	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed=75f)
+	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed = 75f)
 	{
 		AddComponent(new DirectionalMoveComponent(this, 
 			vectorType == EDataType.Direction ?
@@ -30,10 +30,17 @@ public partial class Bullet : Entity
 		if (teamName == "Team Player")
 		{
 			SetCollisionLayerValue(5, true);
+			Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
+			ShaderMaterial shader = (ShaderMaterial)sprite.Material;
+			shader.SetShaderParameter("green_tint", 0.5f);
 		}
 		else if (teamName == "Team Baddies")
 		{
 			SetCollisionLayerValue(4, true);
+			Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
+			ShaderMaterial shader = (ShaderMaterial)sprite.Material;
+			shader.SetShaderParameter("red_tint", 1.0);
+			shader.SetShaderParameter("blue_tint", 0.0);
 		}
 		else throw new ArgumentException();
 	}
