@@ -55,7 +55,7 @@ public partial class Bullet : Entity
 		}
 	}
 
-	private void die()
+	public void die()
 	{
 		CallDeferred("queue_free");
 	}

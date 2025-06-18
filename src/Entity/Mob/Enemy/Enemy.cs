@@ -25,6 +25,11 @@ public partial class Enemy : Mob
 
     private void _onHurtboxBodyEntered(Node2D body)
     {
+        if (body is Bullet bullet)
+        {
+            bullet.die();
+        }
+        
         if (body.IsInGroup("Team Player"))
         {
             Entity enemy = (Entity)body;
