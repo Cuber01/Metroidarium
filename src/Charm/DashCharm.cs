@@ -33,7 +33,7 @@ public class DashCharm : Charm
         Player.callMethodOnSnake(body => body?.setSpeed(OldSpeed));
     }
     
-    public override void Update()
+    public override void Update(float dt)
     {
         if (Dashing)
         {

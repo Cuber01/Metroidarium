@@ -8,6 +8,9 @@ public class GunCharm : Charm
     private SnakeTail slot;
     private Dictionary<Directions, ShootComponent> shooters = new Dictionary<Directions, ShootComponent>();
     private Dictionary<Directions, Node2D> directionPositions;
+
+    private float maxDelay = 1f;
+    private float currentDelay = 0f;
     
     public GunCharm(SnakeHead player, SnakeTail slot, Dictionary<Directions, Node2D> directionPositions)
     {
@@ -23,14 +26,16 @@ public class GunCharm : Charm
         player.OnShotEvent += activateShoot;
     }
 
-    private ShootComponent createShooter(Node2D direction) =>
-        new ShootComponent(Player.GetParent(), direction, "Team Player");
+    public override void Update(float dt)
+    {
+        currentDelay -= dt;
+    }
     
-    private void shoot(ShootComponent shooter, Vector2 targetPos) =>
-        shooter.Shoot(ToPointMoveComponent.calculateDirection(slot.GlobalPosition, targetPos), Bullet.EDataType.Direction);
-
     private void activateShoot(Directions direction)
     {
+        if(currentDelay > 0) return;
+        currentDelay = maxDelay;
+        
         if (direction == Directions.All)
         {
             foreach (var shooter in shooters)
@@ -51,5 +56,12 @@ public class GunCharm : Charm
     {
         Player.OnShotEvent -= activateShoot;
     }
+    
+    private ShootComponent createShooter(Node2D direction) =>
+        new ShootComponent(Player.GetParent(), direction, "Team Player");
+    
+    private void shoot(ShootComponent shooter, Vector2 targetPos) =>
+        shooter.Shoot(ToPointMoveComponent.calculateDirection(slot.GlobalPosition, targetPos), Bullet.EDataType.Direction);
+
     
 }

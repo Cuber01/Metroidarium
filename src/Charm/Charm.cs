@@ -8,9 +8,7 @@ public class Charm
 {
     protected SnakeHead Player;
     
-    public virtual void Init() { }
-    
-    public virtual void Update() { }
+    public virtual void Update(float dt) { }
     
     public virtual void Destroy() { }
     

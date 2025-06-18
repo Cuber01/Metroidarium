@@ -5,7 +5,7 @@ namespace Metroidarium;
 
 public class ShaderComponent : Component
 {
-    public ShaderMaterial shader
+    public ShaderMaterial Shader
     {
         get;
         private set;
@@ -14,7 +14,7 @@ public class ShaderComponent : Component
     public ShaderComponent(Entity actor)
     {
         Sprite2D sprite = (Sprite2D)actor.GetNode("Sprite2D");
-        shader = (ShaderMaterial)sprite.Material;
+        Shader = (ShaderMaterial)sprite.Material;
     }
     
 }

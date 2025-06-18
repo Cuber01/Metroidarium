@@ -101,7 +101,7 @@ public partial class SnakeHead : SnakeBody
 
 		foreach (Charm charm in charms)
 		{
-			charm?.Update();
+			charm?.Update((float)delta);
 		}
 		
 		// 8-Pad movement

@@ -31,15 +31,13 @@ public partial class Bullet : Entity
 		if (teamName == "Team Player")
 		{
 			SetCollisionLayerValue(5, true);
-			GetComponent<ShaderComponent>().shader.SetShaderParameter("green_tint", 0.5f);
+			GetComponent<ShaderComponent>().Shader.SetShaderParameter("green_tint", 0.5f);
 		}
 		else if (teamName == "Team Baddies")
 		{
 			SetCollisionLayerValue(4, true);
-			Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
-			ShaderMaterial shader = (ShaderMaterial)sprite.Material;
-			GetComponent<ShaderComponent>().shader.SetShaderParameter("red_tint", 1.0);
-			GetComponent<ShaderComponent>().shader.SetShaderParameter("blue_tint", 0.0);
+			GetComponent<ShaderComponent>().Shader.SetShaderParameter("red_tint", 1.0);
+			GetComponent<ShaderComponent>().Shader.SetShaderParameter("blue_tint", 0.0);
 		}
 		else throw new ArgumentException();
 	}
