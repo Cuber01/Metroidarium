@@ -15,8 +15,8 @@ public partial class SnakeHead : SnakeBody
 	public delegate void DashedEventHandler();
 	public event DashedEventHandler OnDashedEvent;
 	
-	public delegate void ShotEventHandler();
-	public event DashedEventHandler OnShotEvent;
+	public delegate void ShotEventHandler(Directions direction);
+	public event ShotEventHandler OnShotEvent;
 	
 	public Vector2 lastChangedVelocity = new Vector2(0,1);
 	
@@ -27,6 +27,14 @@ public partial class SnakeHead : SnakeBody
 	
 	private List<Charm> charms = new List<Charm>();
 	private List<SnakeBody> snakeParts = new List<SnakeBody>();
+
+	private Dictionary<String, Directions> actionToDirection = new Dictionary<String, Directions>()
+	{
+		{ "shoot_left", Directions.Left },
+		{ "shoot_right", Directions.Right },
+		{ "shoot_up", Directions.Up },
+		{ "shoot_down", Directions.Down },
+	};
 	
 	public override void _Ready()
 	{
@@ -56,17 +64,44 @@ public partial class SnakeHead : SnakeBody
 
 		charms[0] = new BashCharm(this, Speed);
 		SnakeTail slot = (SnakeTail)snakeParts[5];
-		charms[5] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
-			(Node2D)slot.GetNode("Right"),null,(Node2D)slot.GetNode("Down")));
+		charms[5] = new GunCharm(this, slot, new Dictionary<Directions, Node2D> {
+				{Directions.Left, (Node2D)slot.GetNode("Left")},
+				{Directions.Right, (Node2D)slot.GetNode("Right")},
+				{Directions.Up, null},
+				{Directions.Down, (Node2D)slot.GetNode("Down")}
+			});
+		SnakeTail slot2 = (SnakeTail)snakeParts[4];
+		charms[4] = new GunCharm(this, slot2, new Dictionary<Directions, Node2D> {
+			{Directions.Left, (Node2D)slot2.GetNode("Left")},
+			{Directions.Right, (Node2D)slot2.GetNode("Right")},
+			{Directions.Up, null},
+			{Directions.Down, (Node2D)slot2.GetNode("Down")}
+		});
+		SnakeTail slot3 = (SnakeTail)snakeParts[3];
+		charms[3] = new GunCharm(this, slot3, new Dictionary<Directions, Node2D> {
+			{Directions.Left, (Node2D)slot3.GetNode("Left")},
+			{Directions.Right, (Node2D)slot3.GetNode("Right")},
+			{Directions.Up, null},
+			{Directions.Down, (Node2D)slot3.GetNode("Down")}
+		});
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
 		
-		if (Input.IsActionJustPressed("shoot_left"))
-		{
-			OnShotEvent?.Invoke();
+		
+		if (Input.IsActionJustPressed("shoot_left")) {
+			OnShotEvent?.Invoke(Directions.Left);
+		}
+		else if (Input.IsActionJustPressed("shoot_right")) {
+			OnShotEvent?.Invoke(Directions.Right);
+		}
+		else if (Input.IsActionJustPressed("shoot_up")) {
+			OnShotEvent?.Invoke(Directions.Up);
+		}
+		else if (Input.IsActionJustPressed("shoot_down")) {
+			OnShotEvent?.Invoke(Directions.Down);
 		}
 
 		foreach (Charm charm in charms)

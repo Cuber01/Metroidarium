@@ -26,7 +26,19 @@ X make it so enemies can melee the player again
 
 PRE-RELEASE V3
 X implement delta time
-- balance combat to some degree
-- tie WSAD to 4 directions of shooting, player can shoot only one at a time
+X tie WSAD to 4 directions of shooting, player can shoot only one at a time
+- make enemy bullets look different from player's
 - make sample battle scene and try it out
-- fix bullet bug
+X fix bullet bug
+
+PRE RELEASE V4
+- implement inventory with charms
+    - backend
+        - wrapper for obtainable charm
+        - obtaining
+        - equipping
+        - deequipping
+    - frontend
+        - snake image
+        - list of charms
+        - drag'n drop
