@@ -20,13 +20,13 @@ public partial class SnakeHead : SnakeBody
 	
 	public Vector2 lastChangedVelocity = new Vector2(0,1);
 	
-	int amountOfTail = 5;
+	static int amountOfTail = 5;
 	float rotateSpeed = 0.1f;
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
 	
 	private List<Charm> charms = new List<Charm>();
-	private List<SnakeBody> snake = new List<SnakeBody>();
+	private List<SnakeBody> snakeParts = new List<SnakeBody>();
 	
 	public override void _Ready()
 	{
@@ -36,7 +36,7 @@ public partial class SnakeHead : SnakeBody
 		
 		Speed = 150f;
 		OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
-		snake.Add(this);
+		snakeParts.Add(this);
 		PartId = 0;
 		
 		SnakeBody lastInstance = this;
@@ -50,13 +50,12 @@ public partial class SnakeHead : SnakeBody
 			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
 			newInstance.OnDeathEvent += removeSnakePart;
 			
-			snake.Add(newInstance);
+			snakeParts.Add(newInstance);
 			lastInstance = newInstance;
 		}
 
-
 		charms[0] = new BashCharm(this, Speed);
-		SnakeTail slot = (SnakeTail)snake[5];
+		SnakeTail slot = (SnakeTail)snakeParts[5];
 		charms[5] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
 			(Node2D)slot.GetNode("Right"),null,(Node2D)slot.GetNode("Down")));
 	}
@@ -100,7 +99,7 @@ public partial class SnakeHead : SnakeBody
 
 	public void callMethodOnSnake(Action<SnakeBody> method)
 	{
-		foreach (SnakeBody part in snake)
+		foreach (SnakeBody part in snakeParts)
 		{
 			method(part);
 		}
@@ -108,30 +107,32 @@ public partial class SnakeHead : SnakeBody
 
 	private void removeSnakePart(int partId)
 	{
+		snakeParts[partId] = null;
+		
 		if (charms[partId] != null)
 		{
 			charms[partId].Destroy();
 			charms[partId] = null;	
 		}
-		
 	}
 	
 	public override void die()
 	{
-		for (int j = snake.Count - 1; j >= 0; j--)
+		for (int j = snakeParts.Count - 1; j >= 0; j--)
 		{
 			// All other parts are already dead
-			if (snake[j] is SnakeHead)
+			if (snakeParts[j] is SnakeHead)
 			{
 				base.die();
-				
 			// Else kill the last part	
-			} else if (snake[j] != null)
+			} else if (snakeParts[j] != null)
 			{
-				snake[j].die();
+				snakeParts[j].die();
+				removeSnakePart(j);
 				break;
 			}
 		}
+
 	}
 }
 
