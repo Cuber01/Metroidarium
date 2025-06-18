@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ikvt82ng7dhf"]
+[gd_scene load_steps=7 format=3 uid="uid://ikvt82ng7dhf"]
 
 [ext_resource type="Script" uid="uid://c57obqfaufxrt" path="res://src/Entity/Mob/SnakeHead.cs" id="1_6t0ro"]
 [ext_resource type="Texture2D" uid="uid://c3dthv3impctf" path="res://assets/img/snake-head.png" id="2_0urnx"]
+[ext_resource type="Shader" uid="uid://bjm8esays2gsj" path="res://src/shaders/Blink.gdshader" id="2_ly22w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p081m"]
+shader = ExtResource("2_ly22w")
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/blink_speed = 1.0
+shader_parameter/run = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8aqt"]
 size = Vector2(7.9, 7.9)
@@ -15,6 +22,7 @@ script = ExtResource("1_6t0ro")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_p081m")
 texture = ExtResource("2_0urnx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

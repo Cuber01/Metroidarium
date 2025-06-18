@@ -11,14 +11,13 @@ X module system
 X enemy ai
 X bash
 	X dash
-	1/2 bash
+	X(mv) bash
 X enemy health
 
 PRE-RELEASE V2
 X add a state system
 X add an enemy that moves and then shoots using state
-- finish bash
-- fix/remove pixel perfect cam
+X finish bash
 X add system for guns that shoot from multiple sides
 X make snake spawn all parts nearby itself
 X change player tail collision layer
