@@ -25,7 +25,8 @@ X change player tail collision layer
 X make it so enemies can melee the player again
 
 PRE-RELEASE V3
-- implement delta time
+X implement delta time
 - balance combat to some degree
 - tie WSAD to 4 directions of shooting, player can shoot only one at a time
 - make sample battle scene and try it out
+- fix bullet bug

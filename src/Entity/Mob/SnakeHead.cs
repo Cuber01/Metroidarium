@@ -57,7 +57,7 @@ public partial class SnakeHead : SnakeBody
 
 		charms[0] = new BashCharm(this, Speed);
 		SnakeTail slot = (SnakeTail)snake[5];
-		charms[1] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
+		charms[5] = new GunCharm(this, slot, new GunCharm.DirectionPositions((Node2D)slot.GetNode("Left"),
 			(Node2D)slot.GetNode("Right"),null,(Node2D)slot.GetNode("Down")));
 	}
 	
@@ -108,13 +108,12 @@ public partial class SnakeHead : SnakeBody
 
 	private void removeSnakePart(int partId)
 	{
-		snake[partId] = null;
-
 		if (charms[partId] != null)
 		{
 			charms[partId].Destroy();
 			charms[partId] = null;	
 		}
+		
 	}
 	
 	public override void die()
