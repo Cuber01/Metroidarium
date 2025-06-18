@@ -7,22 +7,22 @@ namespace Metroidarium;
 public interface IState<T>
 {
     public void Enter(T actor);
-    public void Update(T actor);
+    public void Update(T actor, float dt);
     public void Exit(T actor);
 }
 
 public class TimedState<T> : IState<T>
 {
-    public int Time = 0;
-    protected int Delay = -1;
+    public float Time = 0;
+    protected float Delay = -1;
 
     public virtual void Enter(T actor)
     {
         Time = 0;
     }
 
-    public virtual void Update(T actor) {
-        Time += 1;
+    public virtual void Update(T actor, float dt) {
+        Time += dt;
     }
     public virtual void Exit(T actor) { }
     
@@ -62,14 +62,14 @@ public class StateMachine<T>
     public void AddGlobalTransition(IState<T> to, System.Func<bool> condition) => 
         globalTransitions.Add(new Transition<T>(to, condition, null));
 
-    public void Update()
+    public void Update(float dt)
     {
         Transition<T> transition = GetTransition();
         if (transition != null) {
             SetState(transition.To);
         }
         
-        CurrentState.Update(actor);
+        CurrentState.Update(actor, dt);
     }
 
     private void SetState(IState<T> newState)
@@ -79,10 +79,10 @@ public class StateMachine<T>
         CurrentState.Enter(actor);
 
         calculatePossibleTransitions();
-        foreach (Transition<T> transition in localTransitions)
-        {
-            GD.Print(transition.To.GetType());
-        }
+        // foreach (Transition<T> transition in localTransitions)
+        // {
+        //     GD.Print(transition.To.GetType());
+        // }
     }
     
     private void calculatePossibleTransitions() =>  possibleTransitions = localTransitions

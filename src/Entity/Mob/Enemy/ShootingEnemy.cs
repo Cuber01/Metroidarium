@@ -4,8 +4,8 @@ namespace Metroidarium;
 
 public partial class ShootingEnemy : Enemy
 {
-    private int delay = 100;
-    private int counter = 0;
+    private float shootDelay = 100;
+    private float time = 0;
     
     public override void _Ready()
     {
@@ -16,13 +16,12 @@ public partial class ShootingEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        if (counter == 0)
+        time += (float)delta;
+        if (time > shootDelay)
         {
             GetComponent<ShootComponent>().Shoot(Target.GlobalPosition, Bullet.EDataType.TargetPosition);
-            counter = delay;
+            time = 0;
         }
-        counter--;
-        
         base._PhysicsProcess(delta);
     }
 }

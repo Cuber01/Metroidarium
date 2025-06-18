@@ -7,10 +7,10 @@ public class HealthComponent : Component
     private int maxHealth;
 
     private bool invincible = false;
-    private int invincibilityTime = 0;
-    private int invincibilityCounter = 0;
+    private float invincibilityTime = 5f;
+    private float invincibilityDelay = 0;
 
-    public HealthComponent(Mob actor, int health, int invincibilityTime=0)
+    public HealthComponent(Mob actor, int health, float invincibilityTime=0)
     {
         this.actor = actor;
         this.health = health;
@@ -18,15 +18,14 @@ public class HealthComponent : Component
         this.invincibilityTime = invincibilityTime;
     }
 
-    public void update()
+    public void updateInvincibility(float dt)
     {
-        if (invincibilityCounter > 0)
+        if (!invincible) return;
+        
+        invincibilityDelay -= dt;
+        if (invincibilityDelay <= 0)
         {
-            invincibilityCounter--;
-            if (invincibilityCounter == 0)
-            {
-                invincible = false;
-            }
+            invincible = false;
         }
     }
 
@@ -51,6 +50,6 @@ public class HealthComponent : Component
     public void MakeInvincible()
     {
         invincible = true;
-        invincibilityCounter = invincibilityTime;
+        invincibilityDelay = invincibilityTime;
     }
 }

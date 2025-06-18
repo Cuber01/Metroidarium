@@ -26,7 +26,7 @@ public partial class WalkShootEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        fsm.Update();
+        fsm.Update((float)delta);
         base._PhysicsProcess(delta);
     }
     
@@ -35,11 +35,11 @@ public partial class WalkShootEnemy : Enemy
         public override void Enter(WalkShootEnemy entity)
         {
             base.Enter(entity);
-            Delay = 100;
+            Delay = 5f;
         }
-        public override void Update(WalkShootEnemy entity)
+        public override void Update(WalkShootEnemy entity, float dt)
         {
-            base.Update(entity);
+            base.Update(entity, dt);
             entity.GetComponent<AStarMoveComponent>().update(entity.Target.Position);
             entity.MoveAndSlide();
         }
@@ -47,19 +47,22 @@ public partial class WalkShootEnemy : Enemy
     
     public class Shoot : TimedState<WalkShootEnemy>
     {
-        private int shootDelay = 10;
-        
+        private const float ShootDelay = 3f;
+        private bool fired = false;
+
         public override void Enter(WalkShootEnemy entity)
         {
             base.Enter(entity);
-            Delay = 100;
+            Delay = 5f;
+            fired = false;
         }
 
-        public override void Update(WalkShootEnemy entity)
+        public override void Update(WalkShootEnemy entity, float dt)
         {
-            base.Update(entity);
-            if (Time % shootDelay == 0)
+            base.Update(entity, dt);
+            if (Time > ShootDelay && !fired)
             {
+                fired = true;
                 entity.GetComponent<ShootComponent>().Shoot(entity.Target.Position, Bullet.EDataType.TargetPosition);
             }
         }

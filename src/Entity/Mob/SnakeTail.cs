@@ -17,7 +17,7 @@ public partial class SnakeTail : SnakeBody
     
     public void Init(SnakeBody aheadMe, int partId)
     {
-        AddComponent(new HealthComponent(this,1));
+        AddComponent(new HealthComponent(this,1, 3f));
         AddComponent(new ContactComponent(1));
         Speed = 150f;
         this.AheadMe = aheadMe;
@@ -28,6 +28,8 @@ public partial class SnakeTail : SnakeBody
 	
     public override void _PhysicsProcess(double delta)
     {
+        GetComponent<HealthComponent>().updateInvincibility((float)delta);
+        
         Vector2 target = constrainDistance(Position, AheadMe.Position, distanceToNextPart);
         if (Position.DistanceTo(AheadMe.Position) > distanceToNextPart)
         {

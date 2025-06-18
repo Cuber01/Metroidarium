@@ -30,10 +30,9 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
-		AddComponent(new HealthComponent(this,1));
+		AddComponent(new HealthComponent(this,1, 3f));
 		AddComponent(new ContactComponent(5));
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
-
 		
 		Speed = 150f;
 		OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
@@ -64,6 +63,8 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		GetComponent<HealthComponent>().updateInvincibility((float)delta);
+		
 		if (Input.IsActionJustPressed("shoot_left"))
 		{
 			OnShotEvent?.Invoke();
@@ -118,10 +119,8 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void die()
 	{
-
 		for (int j = snake.Count - 1; j >= 0; j--)
 		{
-			
 			// All other parts are already dead
 			if (snake[j] is SnakeHead)
 			{
@@ -134,7 +133,6 @@ public partial class SnakeHead : SnakeBody
 				break;
 			}
 		}
-
 	}
 }
 
