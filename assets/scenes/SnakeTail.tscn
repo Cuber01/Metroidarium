@@ -1,8 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddrhe8tfn6poq"]
+[gd_scene load_steps=7 format=3 uid="uid://ddrhe8tfn6poq"]
 
 [ext_resource type="Script" uid="uid://b2pi68kpnwphm" path="res://src/Entity/Mob/SnakeTail.cs" id="1_m4jg8"]
+[ext_resource type="Shader" uid="uid://bjm8esays2gsj" path="res://src/shaders/Blink.gdshader" id="2_1x2wr"]
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_nb5pl"]
 [ext_resource type="Texture2D" uid="uid://d2r8o42pfd8k2" path="res://assets/img/gun-marker.png" id="3_1x2wr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kpfb"]
+shader = ExtResource("2_1x2wr")
+shader_parameter/blink_color = Vector3(1, 1, 1)
+shader_parameter/ignore_color = Vector4(0, 0, 0, 1)
+shader_parameter/blink_speed = 2.0
+shader_parameter/run = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0302b"]
 size = Vector2(8, 8)
@@ -14,6 +22,7 @@ script = ExtResource("1_m4jg8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_6kpfb")
 texture = ExtResource("2_nb5pl")
 
 [node name="Hurtbox" type="Area2D" parent="."]

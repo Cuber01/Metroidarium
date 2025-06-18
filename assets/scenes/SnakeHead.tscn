@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://c3dthv3impctf" path="res://assets/img/snake-head.png" id="2_0urnx"]
 [ext_resource type="Shader" uid="uid://bjm8esays2gsj" path="res://src/shaders/Blink.gdshader" id="2_ly22w"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p081m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ly22w"]
 shader = ExtResource("2_ly22w")
 shader_parameter/blink_color = Vector3(1, 1, 1)
-shader_parameter/blink_speed = 1.0
+shader_parameter/ignore_color = Vector4(0, 0, 0, 1)
+shader_parameter/blink_speed = 2.0
 shader_parameter/run = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8aqt"]
@@ -22,10 +23,12 @@ script = ExtResource("1_6t0ro")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_p081m")
+material = SubResource("ShaderMaterial_ly22w")
+position = Vector2(1, 0)
 texture = ExtResource("2_0urnx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_j8aqt")
 
 [node name="Hurtbox" type="Area2D" parent="."]
@@ -33,6 +36,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_kalpc")
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_onHurtboxBodyEntered"]

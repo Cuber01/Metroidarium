@@ -2,6 +2,9 @@ namespace Metroidarium;
 
 public class HealthComponent : Component
 {
+    public delegate void InvincibilityEndedEventHandler();
+    public event InvincibilityEndedEventHandler InvincibilityEnded;
+    
     private Mob actor;
     private int health;
     private int maxHealth;
@@ -26,6 +29,7 @@ public class HealthComponent : Component
         if (invincibilityDelay <= 0)
         {
             invincible = false;
+            InvincibilityEnded?.Invoke();
         }
     }
 

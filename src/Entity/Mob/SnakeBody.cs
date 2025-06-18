@@ -14,6 +14,12 @@ public partial class SnakeBody : Mob
     public SnakeTail BehindMe = null;
 
     public int PartId = -999;
+
+    public override void _Ready()
+    {
+        AddComponent(new HealthComponent(this,1, 3f));
+        GetComponent<HealthComponent>().InvincibilityEnded += onInvincibilityEnded;
+    }
     
     public void setSpeed(float speed)
     {
@@ -22,7 +28,17 @@ public partial class SnakeBody : Mob
 
     public void makeInvincible()
     {
+        Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
+        ShaderMaterial shader = (ShaderMaterial)sprite.Material;
+        shader.SetShaderParameter("run", true);
         GetComponent<HealthComponent>().MakeInvincible();
+    }
+
+    private void onInvincibilityEnded()
+    {
+        Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
+        ShaderMaterial shader = (ShaderMaterial)sprite.Material;
+        shader.SetShaderParameter("run", false);
     }
     
     public override void die()

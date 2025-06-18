@@ -38,7 +38,7 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _Ready()
 	{
-		AddComponent(new HealthComponent(this,1, 3f));
+		base._Ready();
 		AddComponent(new ContactComponent(5));
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
 		
