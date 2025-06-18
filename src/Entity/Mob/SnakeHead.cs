@@ -89,19 +89,14 @@ public partial class SnakeHead : SnakeBody
 	public override void _PhysicsProcess(double delta)
 	{
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
-		
-		
-		if (Input.IsActionJustPressed("shoot_left")) {
-			OnShotEvent?.Invoke(Directions.Left);
-		}
-		else if (Input.IsActionJustPressed("shoot_right")) {
-			OnShotEvent?.Invoke(Directions.Right);
-		}
-		else if (Input.IsActionJustPressed("shoot_up")) {
-			OnShotEvent?.Invoke(Directions.Up);
-		}
-		else if (Input.IsActionJustPressed("shoot_down")) {
-			OnShotEvent?.Invoke(Directions.Down);
+
+		foreach (var entry in actionToDirection)
+		{
+			if (Input.IsActionJustPressed(entry.Key))
+			{
+				OnShotEvent?.Invoke(entry.Value);
+				break;
+			}
 		}
 
 		foreach (Charm charm in charms)

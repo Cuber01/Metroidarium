@@ -26,9 +26,10 @@ X make it so enemies can melee the player again
 PRE-RELEASE V3
 X implement delta time
 X tie WSAD to 4 directions of shooting, player can shoot only one at a time
-- make enemy bullets look different from player's
+X make enemy bullets look different from player's
 - make sample battle scene and try it out
 X fix bullet bug
+X add invincibility shader
 
 PRE RELEASE V4
 - implement inventory with charms

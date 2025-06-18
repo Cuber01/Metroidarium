@@ -22,6 +22,7 @@ public partial class Bullet : Entity
 			ToPointMoveComponent.calculateDirection(position, vector),
 			speed));
 		AddComponent(new ContactComponent(damage));
+		AddComponent(new ShaderComponent(this));
 		this.Position = position;
 		this.TeamName = teamName;
 		this.speed = speed;
@@ -30,17 +31,15 @@ public partial class Bullet : Entity
 		if (teamName == "Team Player")
 		{
 			SetCollisionLayerValue(5, true);
-			Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
-			ShaderMaterial shader = (ShaderMaterial)sprite.Material;
-			shader.SetShaderParameter("green_tint", 0.5f);
+			GetComponent<ShaderComponent>().shader.SetShaderParameter("green_tint", 0.5f);
 		}
 		else if (teamName == "Team Baddies")
 		{
 			SetCollisionLayerValue(4, true);
 			Sprite2D sprite = (Sprite2D)GetNode("Sprite2D");
 			ShaderMaterial shader = (ShaderMaterial)sprite.Material;
-			shader.SetShaderParameter("red_tint", 1.0);
-			shader.SetShaderParameter("blue_tint", 0.0);
+			GetComponent<ShaderComponent>().shader.SetShaderParameter("red_tint", 1.0);
+			GetComponent<ShaderComponent>().shader.SetShaderParameter("blue_tint", 0.0);
 		}
 		else throw new ArgumentException();
 	}
