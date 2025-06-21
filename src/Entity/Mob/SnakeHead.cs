@@ -62,15 +62,26 @@ public partial class SnakeHead : SnakeBody
 			snakeParts.Add(newInstance);
 			lastInstance = newInstance;
 		}
-
+		
+		
 		InventoryItem dashCharm = new InventoryItem();
 		dashCharm.FullName = "Dash Charm";
 		dashCharm.Description = "This is a dash charm";
-		dashCharm.GameName = "DashCharm";
+		dashCharm.GameName = "Metroidarium.DashCharm";
 		
+		GunItem gunCharm = new GunItem();
+		gunCharm.FullName = "Gun Charm";
+		gunCharm.GameName = "Metroidarium.GunCharm";
+		gunCharm.Description = "This is gun charm";
+		gunCharm.MaxDelay = 1f;
+		gunCharm.ShootLeft = true;
+		gunCharm.ShootRight = true;
+		
+		GetComponent<InventoryComponent>().AddItem(gunCharm);
 		GetComponent<InventoryComponent>().AddItem(dashCharm);
-		GetComponent<InventoryComponent>().Equip("DashCharm", 1);
-		GetComponent<InventoryComponent>().Equip("GunCharm", 2);
+		GetComponent<InventoryComponent>().Equip("Metroidarium.DashCharm", 1);
+		GetComponent<InventoryComponent>().Equip("Metroidarium.GunCharm", 2);
+		GetComponent<InventoryComponent>().Unequip(1);
 
 		// charms[0] = new BashCharm(this, Speed);
 		// SnakeTail slot = (SnakeTail)snakeParts[5];

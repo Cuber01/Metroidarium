@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://0ixtwftas3yp"]
+[gd_scene load_steps=6 format=3 uid="uid://cnfg81duqnuae"]
 
-[ext_resource type="Script" uid="uid://cl36e6fk6p4yg" path="res://src/Entity/Mob/Enemy/WalkShootEnemy.cs" id="1_0lm7e"]
-[ext_resource type="Texture2D" uid="uid://c6vvv44at6cyp" path="res://assets/img/smart-enemy.png" id="2_iyib7"]
-[ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_ju7yn"]
+[ext_resource type="Script" uid="uid://dsdn0gbc5m4l4" path="res://src/Entity/Mob/Enemy/ShootingEnemy.cs" id="1_18vv5"]
+[ext_resource type="Texture2D" uid="uid://b7elro2lp2img" path="res://assets/img/shooting-enemy.png" id="2_gh63g"]
+[ext_resource type="PackedScene" uid="uid://d0vqi48fd7t00" path="res://assets/scenes/VelocityDebug.tscn" id="3_vhkx5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytd1v"]
 size = Vector2(6, 6)
@@ -10,10 +10,10 @@ size = Vector2(6, 6)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rsx1q"]
 size = Vector2(8, 8)
 
-[node name="WalkShootEnemy" type="CharacterBody2D" groups=["Team Baddies"]]
-collision_layer = 12
+[node name="ShootingEnemy" type="CharacterBody2D" groups=["Team Baddies"]]
+collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_0lm7e")
+script = ExtResource("1_18vv5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, 4)
@@ -22,9 +22,9 @@ shape = SubResource("RectangleShape2D_ytd1v")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(4, 4)
-texture = ExtResource("2_iyib7")
+texture = ExtResource("2_gh63g")
 
-[node name="VelocityLine" parent="." instance=ExtResource("3_ju7yn")]
+[node name="VelocityLine" parent="." instance=ExtResource("3_vhkx5")]
 
 [node name="Line2D" type="Line2D" parent="."]
 width = 1.0

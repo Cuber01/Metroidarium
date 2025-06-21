@@ -34,11 +34,11 @@ X add delay for player shots
 
 PRE RELEASE V4
 - implement inventory with charms
-    - backend
-        - wrapper for obtainable charm
-        - obtaining
-        - equipping
-        - deequipping
+    X backend
+        X wrapper for obtainable charm
+        X obtaining
+        X equipping
+        X deequipping
     - frontend
         - snake image
         - list of charms

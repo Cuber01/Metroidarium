@@ -13,8 +13,18 @@ public class InventoryComponent : Component
     {
         this.player = player;
     }
-    
-    public void AddItem(InventoryItem item) => inventory.Add(item.GameName, item);
+
+    public void AddItem(InventoryItem item)
+    {
+        if (inventory.Keys.Contains(item.FullName))
+        {
+            inventory[item.FullName].Amount += item.Amount;
+        }
+        else
+        {
+            inventory.Add(item.GameName, item);    
+        }
+    }
 
     public void Equip(String itemGameName, int slotIndex)
     {
@@ -35,6 +45,8 @@ public class InventoryComponent : Component
         {
             charm!.Equip();
         }
+        
+        player.charms[slotIndex] = charm;
     }
 
     public void Unequip(int slotIndex)

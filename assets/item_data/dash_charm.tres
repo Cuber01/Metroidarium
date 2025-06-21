@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://b2yxdcsirj48b"]
+
+[ext_resource type="Script" uid="uid://c264fej2fk3qn" path="res://src/InventoryItem.cs" id="1_8k6p3"]
+
+[resource]
+script = ExtResource("1_8k6p3")
+FullName = "Dash Charm"
+Description = ""
+GameName = "Metroidarium.DashCharm"
+metadata/_custom_type_script = "uid://c264fej2fk3qn"

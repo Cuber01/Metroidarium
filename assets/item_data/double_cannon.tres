@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GunItem" load_steps=2 format=3 uid="uid://csh3id10iuwcm"]
+
+[ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/GunItem.cs" id="1_pikt5"]
+
+[resource]
+script = ExtResource("1_pikt5")
+MaxDelay = 0.5
+ShootRight = true
+ShootLeft = true
+ShootDown = false
+ShootUp = false
+FullName = "Double Cannon"
+Description = "Good,old, reliable. Shoots left and right with average speed and damage."
+GameName = "Metroidarium.GunCharm"
+metadata/_custom_type_script = "uid://vvaxs78tio7r"

@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://djhk6gg1x1guq"]
+
+[ext_resource type="Texture2D" uid="uid://c3dthv3impctf" path="res://assets/img/snake-head.png" id="1_84cir"]
+[ext_resource type="Script" uid="uid://dwvxxvopk4bce" path="res://src/Menu/InventoryMenu.cs" id="1_biofj"]
+[ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_6yiti"]
+[ext_resource type="Texture2D" uid="uid://b8p1ectmrusyy" path="res://assets/img/empty.png" id="2_f6t3q"]
+[ext_resource type="Texture2D" uid="uid://cyaj3xeyqrjae" path="res://assets/img/double-cannon.png" id="4_biofj"]
+[ext_resource type="Texture2D" uid="uid://bfme0bxf5i5qy" path="res://assets/img/bash.png" id="5_s8r0i"]
+[ext_resource type="Texture2D" uid="uid://cmof5dqcxypb1" path="res://assets/img/dash.png" id="6_tpxxc"]
+
+[node name="InventoryMenu" type="Node2D"]
+script = ExtResource("1_biofj")
+
+[node name="EquippedLabel" type="RichTextLabel" parent="."]
+offset_right = 78.0
+offset_bottom = 25.0
+text = "Equipped"
+
+[node name="Equipped" type="Node2D" parent="."]
+
+[node name="Slot0" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 48.0
+offset_top = 80.0
+offset_right = 56.0
+offset_bottom = 88.0
+rotation = 3.14159
+scale = Vector2(4, 4)
+texture_normal = ExtResource("1_84cir")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Slot1" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 56.0
+offset_top = 48.0
+offset_right = 64.0
+offset_bottom = 56.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Slot2" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 96.0
+offset_top = 48.0
+offset_right = 104.0
+offset_bottom = 56.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Slot3" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 136.0
+offset_top = 48.0
+offset_right = 144.0
+offset_bottom = 56.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Slot4" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 176.0
+offset_top = 48.0
+offset_right = 184.0
+offset_bottom = 56.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Slot5" type="TextureButton" parent="Equipped"]
+texture_filter = 1
+offset_left = 216.0
+offset_top = 48.0
+offset_right = 224.0
+offset_bottom = 56.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="CollectionLabel" type="RichTextLabel" parent="."]
+offset_top = 104.0
+offset_right = 109.0
+offset_bottom = 131.0
+text = "Collection"
+
+[node name="Collection" type="Node2D" parent="."]
+
+[node name="Buttons" type="Node2D" parent="Collection"]
+position = Vector2(0, 16)
+
+[node name="DoubleCannon" type="TextureButton" parent="Collection/Buttons"]
+texture_filter = 1
+offset_left = 16.0
+offset_top = 128.0
+offset_right = 24.0
+offset_bottom = 136.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Dash" type="TextureButton" parent="Collection/Buttons"]
+texture_filter = 1
+offset_left = 96.0
+offset_top = 128.0
+offset_right = 104.0
+offset_bottom = 136.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Bash" type="TextureButton" parent="Collection/Buttons"]
+texture_filter = 1
+offset_left = 56.0
+offset_top = 128.0
+offset_right = 64.0
+offset_bottom = 136.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("2_6yiti")
+texture_focused = ExtResource("2_f6t3q")
+
+[node name="Background" type="Node2D" parent="Collection"]
+position = Vector2(0, 16)
+
+[node name="DoubleCannon" type="Sprite2D" parent="Collection/Background"]
+texture_filter = 1
+position = Vector2(32, 144)
+scale = Vector2(4, 4)
+texture = ExtResource("4_biofj")
+
+[node name="Bash" type="Sprite2D" parent="Collection/Background"]
+texture_filter = 1
+position = Vector2(72, 144)
+scale = Vector2(4, 4)
+texture = ExtResource("5_s8r0i")
+
+[node name="Dash" type="Sprite2D" parent="Collection/Background"]
+texture_filter = 1
+position = Vector2(112, 144)
+scale = Vector2(4, 4)
+texture = ExtResource("6_tpxxc")

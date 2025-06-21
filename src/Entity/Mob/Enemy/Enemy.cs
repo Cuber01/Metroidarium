@@ -8,7 +8,7 @@ public partial class Enemy : Mob
 {
     [Export] public Mob Target { get; set;}
     protected int MaxHealth = 3;
-    protected float Speed = 50f;
+    public new float Speed = 50f;
     
     public override void _Ready()
     {

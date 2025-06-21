@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://blt1cuu7ov15v"]
 
-[ext_resource type="Script" uid="uid://dy5d78h3wu7kn" path="res://src/Entity/Bullet.cs" id="1_6qdk2"]
-[ext_resource type="Texture2D" uid="uid://rnome1yaqkcs" path="res://assets/img/bullet.png" id="1_7q1d6"]
+[ext_resource type="Script" uid="uid://dy5d78h3wu7kn" path="res://src/Entity/Bullet.cs" id="1_ijly0"]
+[ext_resource type="Texture2D" uid="uid://rnome1yaqkcs" path="res://assets/img/bullet.png" id="2_qd6ge"]
 
 [sub_resource type="Shader" id="Shader_66oxg"]
 code = "shader_type canvas_item;
@@ -44,12 +44,12 @@ size = Vector2(4, 4)
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_6qdk2")
+script = ExtResource("1_ijly0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 material = SubResource("ShaderMaterial_5dwvb")
-texture = ExtResource("1_7q1d6")
+texture = ExtResource("2_qd6ge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6qdk2")

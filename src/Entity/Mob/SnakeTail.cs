@@ -20,7 +20,6 @@ public partial class SnakeTail : SnakeBody
         AddComponent(new ContactComponent(1));
         Speed = 150f;
         this.AheadMe = aheadMe;
-        this.BehindMe = (SnakeTail)BehindMe;
         this.PartId = partId;
         GlobalPosition = constrainDistance(Position, AheadMe.Position, distanceToNextPart);
     }
