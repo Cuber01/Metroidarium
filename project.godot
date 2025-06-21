@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Metroidarium"
-run/main_scene="uid://7fbib6m8u5ht"
+run/main_scene="uid://djhk6gg1x1guq"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://assets/img/icon.svg"
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfme0bxf5i5qy"
-path="res://.godot/imported/bash.png-14cd120557301328eee109c7be340ccd.ctex"
+uid="uid://cyaj3xeyqrjae"
+path="res://.godot/imported/double-cannon.png-8ba61eb07ffe1ebf56e98617d1dfd37b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/bash.png"
-dest_files=["res://.godot/imported/bash.png-14cd120557301328eee109c7be340ccd.ctex"]
+source_file="res://assets/img/inventory/double-cannon.png"
+dest_files=["res://.godot/imported/double-cannon.png-8ba61eb07ffe1ebf56e98617d1dfd37b.ctex"]
 
 [params]
 

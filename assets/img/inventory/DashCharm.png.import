@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyaj3xeyqrjae"
-path="res://.godot/imported/double-cannon.png-436023658c52a2f8768b5bdd65253679.ctex"
+uid="uid://cmof5dqcxypb1"
+path="res://.godot/imported/DashCharm.png-0714a8064afa098e650091a4e06e2814.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/double-cannon.png"
-dest_files=["res://.godot/imported/double-cannon.png-436023658c52a2f8768b5bdd65253679.ctex"]
+source_file="res://assets/img/inventory/DashCharm.png"
+dest_files=["res://.godot/imported/DashCharm.png-0714a8064afa098e650091a4e06e2814.ctex"]
 
 [params]
 

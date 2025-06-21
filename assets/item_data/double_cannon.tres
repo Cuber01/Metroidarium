@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="GunItem" load_steps=2 format=3 uid="uid://csh3id10iuwcm"]
+[gd_resource type="Resource" script_class="GunItem" load_steps=3 format=3 uid="uid://csh3id10iuwcm"]
 
 [ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/GunItem.cs" id="1_pikt5"]
+[ext_resource type="Texture2D" uid="uid://cyaj3xeyqrjae" path="res://assets/img/inventory/double-cannon.png" id="1_vryxo"]
 
 [resource]
 script = ExtResource("1_pikt5")
@@ -11,5 +12,7 @@ ShootDown = false
 ShootUp = false
 FullName = "Double Cannon"
 Description = "Good,old, reliable. Shoots left and right with average speed and damage."
+Image = ExtResource("1_vryxo")
 GameName = "Metroidarium.GunCharm"
+Amount = 1
 metadata/_custom_type_script = "uid://vvaxs78tio7r"
