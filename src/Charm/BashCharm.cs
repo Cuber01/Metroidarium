@@ -2,16 +2,10 @@ using Godot;
 
 namespace Metroidarium;
 
-public class BashCharm : DashCharm
+public class BashCharm(SnakeHead player, SnakeTail slot) : DashCharm(player, slot)
 {
     private new const float DashSpeedIncrease = 350f;
     private new const int DashTime = 200;
-    public BashCharm(SnakeHead player, float speed) : base(player, speed)
-    {
-        this.Player = player;
-        OldSpeed = speed;
-        player.OnDashedEvent += activate;
-    }
 
     protected override void activate()
     {

@@ -1,9 +1,10 @@
+using System;
 using Godot;
 
 namespace Metroidarium;
 
 
-public class DashCharm : Charm
+public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
 {
     private const float DashSpeedIncrease = 100f;
     protected float OldSpeed = 0f;
@@ -12,13 +13,6 @@ public class DashCharm : Charm
     protected const int DashTime = 20;
     protected int DashCounter = 0;
     
-    public DashCharm(SnakeHead player, float speed)
-    {
-        this.Player = player;
-        OldSpeed = speed;
-        player.OnDashedEvent += activate;
-    }
-
     protected override void activate()
     {
         Dashing = true;
@@ -44,8 +38,14 @@ public class DashCharm : Charm
             }
         }
     }
+    
+    public override void Equip(params Object[] parameters)
+    {
+        OldSpeed = Player.Speed;
+        Player.OnDashedEvent += activate;
+    }
 
-    public override void Destroy()
+    public override void Unequip()
     {
         Player.OnDashedEvent -= activate;
     }

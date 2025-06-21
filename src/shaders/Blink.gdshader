@@ -8,7 +8,7 @@ uniform vec4 ignore_color = vec4(0.0,0.0,0.0,1.0);
 uniform float blink_speed = 2.0f;
 uniform bool run = true;
 
-void fragment() 
+void fragment()
 {
 	if(run)
 	{
@@ -19,7 +19,7 @@ void fragment()
 		vec4 tex_color = texture(TEXTURE, UV);
 		if(blink == 1.0 && COLOR != ignore_color)
 		{
-			COLOR = vec4(blink_color, tex_color.a);	
+			COLOR = vec4(blink_color, tex_color.a);
 		}
 	}
 }

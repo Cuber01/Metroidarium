@@ -79,6 +79,5 @@ public partial class SnakeBody : Mob
         base.getHurt(damage);
         OnGotHitEvent!();
     }
-    
-    protected float Speed;
+
 }

@@ -1,3 +1,5 @@
+using Godot;
+
 namespace Metroidarium;
 
 public enum Directions

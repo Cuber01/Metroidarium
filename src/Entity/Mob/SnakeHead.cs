@@ -19,27 +19,28 @@ public partial class SnakeHead : SnakeBody
 	public event ShotEventHandler OnShotEvent;
 	
 	public Vector2 lastChangedVelocity = new Vector2(0,1);
-	
-	static int amountOfTail = 5;
-	float rotateSpeed = 0.1f;
+
+	private static int amountOfTail = 5;
+	private float rotateSpeed = 0.1f;
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
 	
-	private List<Charm> charms = new List<Charm>();
-	private List<SnakeBody> snakeParts = new List<SnakeBody>();
+	public List<Charm> charms = new List<Charm>();
+	public List<SnakeBody> snakeParts = new List<SnakeBody>();
 
-	private Dictionary<String, Directions> actionToDirection = new Dictionary<String, Directions>()
+	private readonly Dictionary<String, Directions> actionToDirection = new Dictionary<String, Directions>()
 	{
 		{ "shoot_left", Directions.Left },
 		{ "shoot_right", Directions.Right },
 		{ "shoot_up", Directions.Up },
-		{ "shoot_down", Directions.Down },
+		{ "shoot_down", Directions.Down }
 	};
 	
 	public override void _Ready()
 	{
 		base._Ready();
 		AddComponent(new ContactComponent(5));
+		AddComponent(new InventoryComponent(this));
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
 		
 		Speed = 150f;
@@ -62,28 +63,37 @@ public partial class SnakeHead : SnakeBody
 			lastInstance = newInstance;
 		}
 
-		charms[0] = new BashCharm(this, Speed);
-		SnakeTail slot = (SnakeTail)snakeParts[5];
-		charms[5] = new GunCharm(this, slot, new Dictionary<Directions, Node2D> {
-				{Directions.Left, (Node2D)slot.GetNode("Left")},
-				{Directions.Right, (Node2D)slot.GetNode("Right")},
-				{Directions.Up, null},
-				{Directions.Down, (Node2D)slot.GetNode("Down")}
-			});
-		SnakeTail slot2 = (SnakeTail)snakeParts[4];
-		charms[4] = new GunCharm(this, slot2, new Dictionary<Directions, Node2D> {
-			{Directions.Left, (Node2D)slot2.GetNode("Left")},
-			{Directions.Right, (Node2D)slot2.GetNode("Right")},
-			{Directions.Up, null},
-			{Directions.Down, (Node2D)slot2.GetNode("Down")}
-		});
-		SnakeTail slot3 = (SnakeTail)snakeParts[3];
-		charms[3] = new GunCharm(this, slot3, new Dictionary<Directions, Node2D> {
-			{Directions.Left, (Node2D)slot3.GetNode("Left")},
-			{Directions.Right, (Node2D)slot3.GetNode("Right")},
-			{Directions.Up, null},
-			{Directions.Down, (Node2D)slot3.GetNode("Down")}
-		});
+		InventoryItem dashCharm = new InventoryItem();
+		dashCharm.FullName = "Dash Charm";
+		dashCharm.Description = "This is a dash charm";
+		dashCharm.GameName = "DashCharm";
+		
+		GetComponent<InventoryComponent>().AddItem(dashCharm);
+		GetComponent<InventoryComponent>().Equip("DashCharm", 1);
+		GetComponent<InventoryComponent>().Equip("GunCharm", 2);
+
+		// charms[0] = new BashCharm(this, Speed);
+		// SnakeTail slot = (SnakeTail)snakeParts[5];
+		// charms[5] = new GunCharm(this, slot, new Dictionary<Directions, Node2D> {
+		// 		{Directions.Left, (Node2D)slot.GetNode("Left")},
+		// 		{Directions.Right, (Node2D)slot.GetNode("Right")},
+		// 		{Directions.Up, null},
+		// 		{Directions.Down, (Node2D)slot.GetNode("Down")}
+		// 	});
+		// SnakeTail slot2 = (SnakeTail)snakeParts[4];
+		// charms[4] = new GunCharm(this, slot2, new Dictionary<Directions, Node2D> {
+		// 	{Directions.Left, (Node2D)slot2.GetNode("Left")},
+		// 	{Directions.Right, (Node2D)slot2.GetNode("Right")},
+		// 	{Directions.Up, null},
+		// 	{Directions.Down, (Node2D)slot2.GetNode("Down")}
+		// });
+		// SnakeTail slot3 = (SnakeTail)snakeParts[3];
+		// charms[3] = new GunCharm(this, slot3, new Dictionary<Directions, Node2D> {
+		// 	{Directions.Left, (Node2D)slot3.GetNode("Left")},
+		// 	{Directions.Right, (Node2D)slot3.GetNode("Right")},
+		// 	{Directions.Up, null},
+		// 	{Directions.Down, (Node2D)slot3.GetNode("Down")}
+		// });
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -141,7 +151,7 @@ public partial class SnakeHead : SnakeBody
 		
 		if (charms[partId] != null)
 		{
-			charms[partId].Destroy();
+			charms[partId].Unequip();
 			charms[partId] = null;	
 		}
 	}

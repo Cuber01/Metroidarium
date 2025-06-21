@@ -1,29 +1,27 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
 namespace Metroidarium;
 
-public class GunCharm : Charm
+public class GunCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
 {
-    private SnakeTail slot;
     private Dictionary<Directions, ShootComponent> shooters = new Dictionary<Directions, ShootComponent>();
     private Dictionary<Directions, Node2D> directionPositions;
 
-    private float maxDelay = 1f;
+    public float MaxDelay = 1f;
     private float currentDelay = 0f;
     
-    public GunCharm(SnakeHead player, SnakeTail slot, Dictionary<Directions, Node2D> directionPositions)
+    public override void Equip(params Object[] parameters)
     {
-        this.Player = player;
-        this.slot = slot;
-        this.directionPositions = directionPositions;
-
+        directionPositions = (Dictionary<Directions, Node2D>)parameters[0];
+        
         foreach (var direction in directionPositions)
         {
-            shooters.Add(direction.Key, createShooter(direction.Value));
+            shooters.Add(direction.Key, createShooter(direction.Value));    
         }
         
-        player.OnShotEvent += activateShoot;
+        Player.OnShotEvent += activateShoot;
     }
 
     public override void Update(float dt)
@@ -34,7 +32,7 @@ public class GunCharm : Charm
     private void activateShoot(Directions direction)
     {
         if(currentDelay > 0) return;
-        currentDelay = maxDelay;
+        currentDelay = MaxDelay;
         
         if (direction == Directions.All)
         {
@@ -52,7 +50,7 @@ public class GunCharm : Charm
         }
     }
     
-    public override void Destroy()
+    public override void Unequip()
     {
         Player.OnShotEvent -= activateShoot;
     }

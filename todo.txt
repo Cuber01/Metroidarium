@@ -30,6 +30,7 @@ X make enemy bullets look different from player's
 - make sample battle scene and try it out
 X fix bullet bug
 X add invincibility shader
+X add delay for player shots
 
 PRE RELEASE V4
 - implement inventory with charms
