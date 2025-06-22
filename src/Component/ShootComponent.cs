@@ -5,7 +5,7 @@ namespace Metroidarium;
 
 public class ShootComponent : Component
 {
-    private readonly PackedScene bullet = GD.Load<PackedScene>("res://assets/scenes/Bullet.tscn");
+    private readonly PackedScene bullet = GD.Load<PackedScene>("res://assets/scenes/entities/Bullet.tscn");
     private String teamName;
     private Node game;
     private Node2D shootPoint;

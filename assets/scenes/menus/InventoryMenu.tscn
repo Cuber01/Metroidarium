@@ -1,20 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://djhk6gg1x1guq"]
+[gd_scene load_steps=8 format=3 uid="uid://djhk6gg1x1guq"]
 
 [ext_resource type="Texture2D" uid="uid://c3dthv3impctf" path="res://assets/img/snake-head.png" id="1_84cir"]
 [ext_resource type="Script" uid="uid://dwvxxvopk4bce" path="res://src/Menu/InventoryMenu.cs" id="1_biofj"]
+[ext_resource type="Shader" uid="uid://ciembleq020qu" path="res://src/shaders/ChangeColor.gdshader" id="2_6scfb"]
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="2_6yiti"]
 [ext_resource type="Texture2D" uid="uid://b8p1ectmrusyy" path="res://assets/img/empty.png" id="2_f6t3q"]
+[ext_resource type="Texture2D" uid="uid://dt1c4ogsq4v6i" path="res://assets/img/pixel.png" id="3_3hrpb"]
 
-[node name="InventoryMenu" type="Node2D"]
-texture_filter = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ifx5g"]
+shader = ExtResource("2_6scfb")
+shader_parameter/color = Color(0, 0.0784314, 0, 1)
+
+[node name="InventoryMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_biofj")
+
+[node name="Background" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ifx5g")
+position = Vector2(160, 128)
+scale = Vector2(320, 256)
+texture = ExtResource("3_3hrpb")
 
 [node name="EquippedLabel" type="RichTextLabel" parent="."]
 offset_right = 78.0
 offset_bottom = 25.0
 text = "Equipped"
 
-[node name="Equipped" type="Node2D" parent="."]
+[node name="Equipped" type="Control" parent="."]
+anchors_preset = 0
 
 [node name="Background" type="Node2D" parent="Equipped"]
 texture_filter = 1
@@ -50,62 +65,37 @@ texture = ExtResource("2_6yiti")
 
 [node name="Slot0" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 48.0
-offset_top = 80.0
-offset_right = 56.0
-offset_bottom = 88.0
-rotation = 3.14159
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot1" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 56.0
-offset_top = 48.0
-offset_right = 64.0
-offset_bottom = 56.0
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot2" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 96.0
-offset_top = 48.0
-offset_right = 104.0
-offset_bottom = 56.0
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot3" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 136.0
-offset_top = 48.0
-offset_right = 144.0
-offset_bottom = 56.0
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot4" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 176.0
-offset_top = 48.0
-offset_right = 184.0
-offset_bottom = 56.0
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot5" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-offset_left = 216.0
-offset_top = 48.0
-offset_right = 224.0
-offset_bottom = 56.0
-scale = Vector2(4, 4)
+layout_mode = 2
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
@@ -115,4 +105,7 @@ offset_right = 109.0
 offset_bottom = 131.0
 text = "Collection"
 
-[node name="Collection" type="Node2D" parent="."]
+[node name="Collection" type="Control" parent="."]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 0

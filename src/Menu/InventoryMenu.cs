@@ -4,34 +4,42 @@ using Godot;
 
 namespace Metroidarium.Menu;
 
-public partial class InventoryMenu : Node2D
+public partial class InventoryMenu : Control
 {
-    private Dictionary<String, InventoryItem> inventory = new Dictionary<String, InventoryItem>();
+    private Dictionary<String, InventoryItem> inventory;
+    private InventoryComponent inventoryComponent;
+    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
     private InventoryItem selected;
     private TextureButton firstSlot;
     private TextureButton firstItem;
-    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/ItemInventoryBox.tscn");
-    
-    public override void _Ready()
+
+    public void Init(InventoryComponent inventoryComponent)
     {
-        InventoryItem dash = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");
-        inventory.Add(dash.FullName, dash);
-        
-        InventoryItem gun = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
-        inventory.Add(gun.FullName, gun);
+        this.inventoryComponent = inventoryComponent;
+        inventory = inventoryComponent.Inventory;
         
         setupEquipped();
+        firstSlot.GrabFocus();
         setupInventoryContents();
     }
 
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("ui_cancel"))
+        {
+            inventoryComponent.Close();   
+        }
+    }
+    
     private void setupEquipped()
     {
-        Node2D equipped = (Node2D)GetNode("Equipped");
+        Control equipped = GetNode<Control>("Equipped");
         int i = equipped.GetChildCount()-1;
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
         for (int j = 0; j < i; j++)
         {
             TextureButton button = equipped.GetNode<TextureButton>("Slot" + j);
+            
             button.SetMeta("SlotIndex", j);
             button.SetFocusNeighbor(Side.Left, j > 0 ? "../Slot" + (j - 1) : null);
             button.SetFocusNeighbor(Side.Right, j + 1 < i ? "../Slot" + (j + 1) : null);
@@ -46,7 +54,7 @@ public partial class InventoryMenu : Node2D
         TextureButton[,] buttonField = new TextureButton[20,20];
         int i = 0, j = 0;
         
-        Node2D collection = GetNode<Node2D>("Collection");
+        Control collection = GetNode<Control>("Collection");
         float startX = 16;
         float maximumX = 200;
         Vector2 buttonPos = new Vector2(startX, 144);
@@ -117,6 +125,7 @@ public partial class InventoryMenu : Node2D
     private void _onSlotPressed(TextureButton btn, int index)
     {
         btn.TextureNormal = selected.Image;
+        inventoryComponent.Equip(selected.GameName, index);
         firstItem.GrabFocus();
     }
     

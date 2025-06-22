@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Metroidarium.Menu;
 using static System.Single;
 // ReSharper disable InconsistentNaming
 
@@ -10,7 +11,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
-	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/SnakeTail.tscn");
+	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 	
 	public delegate void DashedEventHandler();
 	public event DashedEventHandler OnDashedEvent;
@@ -27,8 +28,8 @@ public partial class SnakeHead : SnakeBody
 	
 	public List<Charm> charms = new List<Charm>();
 	public List<SnakeBody> snakeParts = new List<SnakeBody>();
-
-	private readonly Dictionary<String, Directions> actionToDirection = new Dictionary<String, Directions>()
+	
+	private readonly Dictionary<String, Directions> actionToDirection = new()
 	{
 		{ "shoot_left", Directions.Left },
 		{ "shoot_right", Directions.Right },
@@ -64,24 +65,11 @@ public partial class SnakeHead : SnakeBody
 		}
 		
 		
-		InventoryItem dashCharm = new InventoryItem();
-		dashCharm.FullName = "Dash Charm";
-		dashCharm.Description = "This is a dash charm";
-		dashCharm.GameName = "Metroidarium.DashCharm";
-		
-		GunItem gunCharm = new GunItem();
-		gunCharm.FullName = "Gun Charm";
-		gunCharm.GameName = "Metroidarium.GunCharm";
-		gunCharm.Description = "This is gun charm";
-		gunCharm.MaxDelay = 1f;
-		gunCharm.ShootLeft = true;
-		gunCharm.ShootRight = true;
+		InventoryItem dashCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");
+		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
 		
 		GetComponent<InventoryComponent>().AddItem(gunCharm);
 		GetComponent<InventoryComponent>().AddItem(dashCharm);
-		GetComponent<InventoryComponent>().Equip("Metroidarium.DashCharm", 1);
-		GetComponent<InventoryComponent>().Equip("Metroidarium.GunCharm", 2);
-		GetComponent<InventoryComponent>().Unequip(1);
 
 		// charms[0] = new BashCharm(this, Speed);
 		// SnakeTail slot = (SnakeTail)snakeParts[5];
@@ -146,6 +134,11 @@ public partial class SnakeHead : SnakeBody
 		}
 		
 		MoveAndSlide();
+		
+		if (Input.IsActionJustPressed("inventory"))
+		{
+			GetComponent<InventoryComponent>().Open();
+		}
 	}
 
 	public void callMethodOnSnake(Action<SnakeBody> method)

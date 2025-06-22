@@ -1,28 +1,32 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Metroidarium.Menu;
 
 namespace Metroidarium;
 
 public class InventoryComponent : Component
 {
-    private Dictionary<String, InventoryItem> inventory = new Dictionary<String, InventoryItem>();
+    public Dictionary<String, InventoryItem> Inventory { get; private set; }
+    private InventoryMenu menu;
     private SnakeHead player;
     
     public InventoryComponent(SnakeHead player)
     {
         this.player = player;
+        menu = player.GetNode<InventoryMenu>("../../InventoryMenu");
+        Inventory = new Dictionary<String, InventoryItem>();
     }
 
     public void AddItem(InventoryItem item)
     {
-        if (inventory.Keys.Contains(item.FullName))
+        if (Inventory.Keys.Contains(item.FullName))
         {
-            inventory[item.FullName].Amount += item.Amount;
+            Inventory[item.FullName].Amount += item.Amount;
         }
         else
         {
-            inventory.Add(item.GameName, item);    
+            Inventory.Add(item.GameName, item);    
         }
     }
 
@@ -32,7 +36,7 @@ public class InventoryComponent : Component
         Charm charm = (Charm)Activator.CreateInstance(Type.GetType(itemGameName)!, player, slot);
         if (charm is GunCharm gun)
         {
-            GunItem data = (GunItem)inventory[itemGameName];
+            GunItem data = (GunItem)Inventory[itemGameName];
             gun.MaxDelay = data.MaxDelay;
             charm.Equip(new Dictionary<Directions, Node2D> {
                  		{Directions.Left, data.ShootLeft ? (Node2D)slot.GetNode("Left") : null},
@@ -45,6 +49,11 @@ public class InventoryComponent : Component
         {
             charm!.Equip();
         }
+
+        if (player.charms[slotIndex] != null)
+        {
+            player.charms[slotIndex].Unequip();
+        }
         
         player.charms[slotIndex] = charm;
     }
@@ -53,5 +62,19 @@ public class InventoryComponent : Component
     {
         player.charms[slotIndex].Unequip();
         player.charms[slotIndex] = null;
+    }
+
+    public void Open()
+    {
+         
+        menu.Init(this);
+        menu.Show();
+        
+    }
+
+    public void Close()
+    {
+        menu.Hide();
+        player.GetTree().Paused = false;
     }
 }

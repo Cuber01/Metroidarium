@@ -39,10 +39,10 @@ PRE RELEASE V4
         X obtaining
         X equipping
         X deequipping
-    - frontend
+    X frontend
         X snake image
         X list of charms
-        - drag'n drop
+        X drag'n drop
     
 PRE RELEASE V5
 - fix the fact we cant have two different gun charms in eq due to GameName being used in Dictionary
@@ -52,3 +52,4 @@ PRE RELEASE V5
 - make inventory screen display full name and description
 - make items in inventory have a predetermined slot, and show empty if there isn't anything to show
 - make inventory showcase things we've already equipped before
+- allow unequip
