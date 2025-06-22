@@ -7,6 +7,9 @@ namespace Metroidarium.Menu;
 public partial class InventoryMenu : Node2D
 {
     private Dictionary<String, InventoryItem> inventory = new Dictionary<String, InventoryItem>();
+    private InventoryItem selected;
+    private TextureButton firstSlot;
+    private TextureButton firstItem;
     private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/ItemInventoryBox.tscn");
     
     public override void _Ready()
@@ -17,19 +20,22 @@ public partial class InventoryMenu : Node2D
         InventoryItem gun = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
         inventory.Add(gun.FullName, gun);
         
-        setupEquippedNeighbors();
+        setupEquipped();
         setupInventoryContents();
     }
 
-    private void setupEquippedNeighbors()
+    private void setupEquipped()
     {
         Node2D equipped = (Node2D)GetNode("Equipped");
-        int i = equipped.GetChildCount();
+        int i = equipped.GetChildCount()-1;
+        firstSlot = equipped.GetNode<TextureButton>("Slot0");
         for (int j = 0; j < i; j++)
         {
             TextureButton button = equipped.GetNode<TextureButton>("Slot" + j);
+            button.SetMeta("SlotIndex", j);
             button.SetFocusNeighbor(Side.Left, j > 0 ? "../Slot" + (j - 1) : null);
             button.SetFocusNeighbor(Side.Right, j + 1 < i ? "../Slot" + (j + 1) : null);
+            button.Pressed += () => _onSlotPressed(button, (int)button.GetMeta("SlotIndex"));
         }
     }
 
@@ -65,18 +71,18 @@ public partial class InventoryMenu : Node2D
             buttonPos += new Vector2(offset.X, 0);
 
             newButton.Name = item.Key;
+            newButton.Pressed += () => _onEquipmentPressed(newButton.Name);
             
             buttonField[j,i] = newButton;
             i++;
             
             collection.AddChild(newButton);
         }
-
-        i--;
-
+        
+        int m = i - 1;
         for (int y = 0; y <= j; y++)
         {
-            for (int x = 0; x <= i; x++)
+            for (int x = 0; x <= m; x++)
             {
                 TextureButton btn = buttonField[y,x];
                 
@@ -84,7 +90,7 @@ public partial class InventoryMenu : Node2D
                     btn.SetFocusNeighbor(Side.Left, "../" + buttonField[y,x-1].Name);
                 }
 
-                if (x != i) {
+                if (x != m) {
                     btn.SetFocusNeighbor(Side.Right, "../" + buttonField[y,x+1].Name);
                 }
 
@@ -93,12 +99,26 @@ public partial class InventoryMenu : Node2D
                 }
                 
                 if (y != j) {
-                    btn.SetFocusNeighbor(Side.Top, "Collection/" + buttonField[y+1,x].Name);
+                    btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y+1,x].Name);
                 }
             }
         }
 
-        buttonField[0,0].GrabFocus();
-
+        firstItem = buttonField[0,0];
+        firstItem.GrabFocus();
     }
+
+    private void _onEquipmentPressed(string name)
+    {
+        selected = inventory[name];
+        firstSlot.GrabFocus();
+    }
+    
+    private void _onSlotPressed(TextureButton btn, int index)
+    {
+        btn.TextureNormal = selected.Image;
+        firstItem.GrabFocus();
+    }
+    
+
 }

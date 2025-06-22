@@ -43,3 +43,12 @@ PRE RELEASE V4
         X snake image
         X list of charms
         - drag'n drop
+    
+PRE RELEASE V5
+- fix the fact we cant have two different gun charms in eq due to GameName being used in Dictionary
+- wire inventory screen up to the main game
+    - add pause
+    - wire it up with player's inventory
+- make inventory screen display full name and description
+- make items in inventory have a predetermined slot, and show empty if there isn't anything to show
+- make inventory showcase things we've already equipped before
