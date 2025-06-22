@@ -83,33 +83,3 @@ offset_bottom = 131.0
 text = "Collection"
 
 [node name="Collection" type="Node2D" parent="."]
-
-[node name="DoubleCannon" type="TextureButton" parent="Collection"]
-texture_filter = 1
-offset_left = 16.0
-offset_top = 144.0
-offset_right = 24.0
-offset_bottom = 152.0
-scale = Vector2(4, 4)
-texture_normal = ExtResource("2_6yiti")
-texture_focused = ExtResource("2_f6t3q")
-
-[node name="Dash" type="TextureButton" parent="Collection"]
-texture_filter = 1
-offset_left = 96.0
-offset_top = 144.0
-offset_right = 104.0
-offset_bottom = 152.0
-scale = Vector2(4, 4)
-texture_normal = ExtResource("2_6yiti")
-texture_focused = ExtResource("2_f6t3q")
-
-[node name="Bash" type="TextureButton" parent="Collection"]
-texture_filter = 1
-offset_left = 56.0
-offset_top = 144.0
-offset_right = 64.0
-offset_bottom = 152.0
-scale = Vector2(4, 4)
-texture_normal = ExtResource("2_6yiti")
-texture_focused = ExtResource("2_f6t3q")

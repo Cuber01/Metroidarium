@@ -40,6 +40,6 @@ PRE RELEASE V4
         X equipping
         X deequipping
     - frontend
-        - snake image
-        - list of charms
+        X snake image
+        X list of charms
         - drag'n drop

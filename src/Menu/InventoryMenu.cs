@@ -66,31 +66,33 @@ public partial class InventoryMenu : Node2D
 
             newButton.Name = item.Key;
             
-            buttonField[i,j] = newButton;
+            buttonField[j,i] = newButton;
             i++;
             
             collection.AddChild(newButton);
         }
 
-        for (int y = 0; y <= i; y++)
+        i--;
+
+        for (int y = 0; y <= j; y++)
         {
-            for (int x = 0; x <= j; x++)
+            for (int x = 0; x <= i; x++)
             {
                 TextureButton btn = buttonField[y,x];
                 
                 if (x != 0) {
-                    btn.SetFocusNeighbor(Side.Left, "Collection/" + buttonField[y,x-1].Name);
+                    btn.SetFocusNeighbor(Side.Left, "../" + buttonField[y,x-1].Name);
                 }
 
-                if (x != j) {
-                    btn.SetFocusNeighbor(Side.Right, "Collection/" + buttonField[y,x+1].Name);
+                if (x != i) {
+                    btn.SetFocusNeighbor(Side.Right, "../" + buttonField[y,x+1].Name);
                 }
 
                 if (y != 0) {
-                    btn.SetFocusNeighbor(Side.Top, "Collection/" + buttonField[y-1,x].Name);
+                    btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y-1,x].Name);
                 }
                 
-                if (y != i) {
+                if (y != j) {
                     btn.SetFocusNeighbor(Side.Top, "Collection/" + buttonField[y+1,x].Name);
                 }
             }
