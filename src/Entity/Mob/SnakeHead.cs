@@ -103,7 +103,7 @@ public partial class SnakeHead : SnakeBody
 
 		foreach (var entry in actionToDirection)
 		{
-			if (Input.IsActionJustPressed(entry.Key))
+			if (Input.IsActionPressed(entry.Key))
 			{
 				OnShotEvent?.Invoke(entry.Value);
 				break;
