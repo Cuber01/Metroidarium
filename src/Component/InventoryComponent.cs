@@ -64,7 +64,7 @@ public class InventoryComponent : Component
         player.charms[slotIndex] = null;
     }
 
-    public void Open()
+    public void OpenMenu()
     {
         menu.Init(this);
         menu.Show();
@@ -72,8 +72,9 @@ public class InventoryComponent : Component
         // player.GetTree().Paused = true;
     }
 
-    public void Close()
+    public void CloseMenu()
     {
+        menu.Close();
         menu.Hide();
         player.GetTree().Paused = false;
     }

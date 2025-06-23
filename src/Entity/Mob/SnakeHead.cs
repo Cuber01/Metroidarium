@@ -137,7 +137,7 @@ public partial class SnakeHead : SnakeBody
 		
 		if (Input.IsActionJustPressed("inventory"))
 		{
-			GetComponent<InventoryComponent>().Open();
+			GetComponent<InventoryComponent>().OpenMenu();
 		}
 	}
 

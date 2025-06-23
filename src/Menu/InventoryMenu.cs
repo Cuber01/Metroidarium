@@ -6,12 +6,13 @@ namespace Metroidarium.Menu;
 
 public partial class InventoryMenu : Node2D
 {
+    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
     private Dictionary<String, InventoryItem> inventory;
     private InventoryComponent inventoryComponent;
-    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
     private InventoryItem selected;
     private TextureButton firstSlot;
     private TextureButton firstItem;
+    private bool blockInput = true;
 
     public void Init(InventoryComponent inventoryComponent)
     {
@@ -23,11 +24,17 @@ public partial class InventoryMenu : Node2D
         firstItem.CallDeferred("grab_focus");
     }
 
+    public void Close()
+    {
+        selected = null;
+    }
+
     public override void _Process(double delta)
     {
+        blockInput = false;
         if (Input.IsActionPressed("ui_cancel"))
         {
-            inventoryComponent.Close();   
+            inventoryComponent.CloseMenu();   
         }
     }
     
@@ -105,6 +112,10 @@ public partial class InventoryMenu : Node2D
                 if (y != 0) {
                     btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y-1,x].Name);
                 }
+                else
+                {
+                    btn.SetFocusNeighbor(Side.Top, "../../Equipped/" + firstSlot.Name);
+                }
                 
                 if (y != j) {
                     btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y+1,x].Name);
@@ -117,14 +128,31 @@ public partial class InventoryMenu : Node2D
 
     private void _onEquipmentPressed(string name)
     {
+        if(blockInput) return;
+        
         selected = inventory[name];
         firstSlot.CallDeferred("grab_focus");
+        blockInput = true;
     }
     
     private void _onSlotPressed(TextureButton btn, int index)
     {
-        btn.TextureNormal = selected.Image;
-        inventoryComponent.Equip(selected.GameName, index);
+        if(blockInput) return;
+        
+        if (selected != null)
+        {
+            GD.Print("Equip");
+            btn.TextureNormal = selected.Image;
+            inventoryComponent.Equip(selected.GameName, index);
+            selected = null;    
+        }
+        else if(btn.TextureNormal != null)
+        {
+            GD.Print("Unequip");
+            btn.TextureNormal = null;
+            inventoryComponent.Unequip(index);
+        }
+        blockInput = true;
         firstItem.CallDeferred("grab_focus");
     }
     

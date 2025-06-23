@@ -51,5 +51,6 @@ X wire inventory screen up to the main game
     X wire it up with player's inventory
 - make inventory screen display full name and description
 - make items in inventory have a predetermined slot, and show empty if there isn't anything to show
-- make inventory showcase things we've already equipped before
-- allow unequip
+- make snake change texture after equipping from inventory
+X make inventory showcase things we've already equipped before
+X allow unequip
