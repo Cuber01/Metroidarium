@@ -67,9 +67,11 @@ public partial class SnakeHead : SnakeBody
 		
 		InventoryItem dashCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
+		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/assault_rightle.tres");
 		
 		GetComponent<InventoryComponent>().AddItem(gunCharm);
 		GetComponent<InventoryComponent>().AddItem(dashCharm);
+		GetComponent<InventoryComponent>().AddItem(assault);
 
 		// charms[0] = new BashCharm(this, Speed);
 		// SnakeTail slot = (SnakeTail)snakeParts[5];

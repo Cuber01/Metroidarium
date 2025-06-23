@@ -26,7 +26,7 @@ public class InventoryComponent : Component
         }
         else
         {
-            Inventory.Add(item.GameName, item);    
+            Inventory.Add(item.FullName, item);    
         }
     }
 
@@ -38,7 +38,7 @@ public class InventoryComponent : Component
         // Init charm
         if (charm is GunCharm gun)
         {
-            GunItem data = (GunItem)Inventory[item.GameName];
+            GunItem data = (GunItem)Inventory[item.FullName];
             gun.MaxDelay = data.MaxDelay;
             charm.EquipCharm(new Dictionary<Directions, Node2D> {
                  		{Directions.Left, data.ShootLeft ? (Node2D)slot.GetNode("Left") : null},
