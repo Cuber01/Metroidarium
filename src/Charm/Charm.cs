@@ -11,7 +11,7 @@ public class Charm(SnakeHead player, SnakeTail slot)
     
     public virtual void Update(float dt) { }
     
-    public virtual void Equip(params Object[] parameters) { }
+    public virtual void EquipCharm(params Object[] parameters) { }
     
     public virtual void Unequip() { }
     

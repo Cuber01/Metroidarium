@@ -12,7 +12,7 @@ public class GunCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
     public float MaxDelay = 1f;
     private float currentDelay = 0f;
     
-    public override void Equip(params Object[] parameters)
+    public override void EquipCharm(params Object[] parameters)
     {
         directionPositions = (Dictionary<Directions, Node2D>)parameters[0];
         

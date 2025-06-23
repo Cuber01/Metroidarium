@@ -30,15 +30,17 @@ public class InventoryComponent : Component
         }
     }
 
-    public void Equip(String itemGameName, int slotIndex)
+    public void EquipItem(InventoryItem item, int slotIndex)
     {
         SnakeTail slot = (SnakeTail)player.snakeParts[slotIndex];
-        Charm charm = (Charm)Activator.CreateInstance(Type.GetType(itemGameName)!, player, slot);
+        Charm charm = (Charm)Activator.CreateInstance(Type.GetType(item.GameName)!, player, slot);
+        
+        // Init charm
         if (charm is GunCharm gun)
         {
-            GunItem data = (GunItem)Inventory[itemGameName];
+            GunItem data = (GunItem)Inventory[item.GameName];
             gun.MaxDelay = data.MaxDelay;
-            charm.Equip(new Dictionary<Directions, Node2D> {
+            charm.EquipCharm(new Dictionary<Directions, Node2D> {
                  		{Directions.Left, data.ShootLeft ? (Node2D)slot.GetNode("Left") : null},
                  		{Directions.Right, data.ShootRight ? (Node2D)slot.GetNode("Right") : null},
                  		{Directions.Up, data.ShootUp ? (Node2D)slot.GetNode("Up") : null},
@@ -47,9 +49,13 @@ public class InventoryComponent : Component
         }
         else
         {
-            charm!.Equip();
+            charm!.EquipCharm();
         }
 
+        // Set image
+        slot.GetNode<Sprite2D>("CharmMarker").SetTexture(item.Image);
+        
+        // Swap charms
         if (player.charms[slotIndex] != null)
         {
             player.charms[slotIndex].Unequip();
@@ -60,6 +66,9 @@ public class InventoryComponent : Component
 
     public void Unequip(int slotIndex)
     {
+        player.snakeParts[slotIndex].
+            GetNode<Sprite2D>("CharmMarker").SetTexture(null);
+        
         player.charms[slotIndex].Unequip();
         player.charms[slotIndex] = null;
     }

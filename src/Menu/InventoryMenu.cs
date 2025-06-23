@@ -12,6 +12,8 @@ public partial class InventoryMenu : Node2D
     private InventoryItem selected;
     private TextureButton firstSlot;
     private TextureButton firstItem;
+    
+    // TODO this is a weird workaround for CallDeferred being deferred. Is there another way?
     private bool blockInput = true;
 
     public void Init(InventoryComponent inventoryComponent)
@@ -86,7 +88,7 @@ public partial class InventoryMenu : Node2D
             buttonPos += new Vector2(offset.X, 0);
 
             newButton.SetMeta("GameName", item.Key);
-            newButton.Pressed += () => _onEquipmentPressed((String)newButton.GetMeta("GameName"));
+            newButton.Pressed += () => _onEquipmentPressed(newButton, (String)newButton.GetMeta("GameName"));
             
             buttonField[j,i] = newButton;
             i++;
@@ -126,11 +128,12 @@ public partial class InventoryMenu : Node2D
         firstItem = buttonField[0,0];
     }
 
-    private void _onEquipmentPressed(string name)
+    private void _onEquipmentPressed(TextureButton btn, string name)
     {
         if(blockInput) return;
         
         selected = inventory[name];
+        btn.GetNode<Sprite2D>("SelectedSprite");
         firstSlot.CallDeferred("grab_focus");
         blockInput = true;
     }
@@ -143,7 +146,7 @@ public partial class InventoryMenu : Node2D
         {
             GD.Print("Equip");
             btn.TextureNormal = selected.Image;
-            inventoryComponent.Equip(selected.GameName, index);
+            inventoryComponent.EquipItem(selected, index);
             selected = null;    
         }
         else if(btn.TextureNormal != null)

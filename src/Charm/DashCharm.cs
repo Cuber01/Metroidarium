@@ -39,7 +39,7 @@ public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
         }
     }
     
-    public override void Equip(params Object[] parameters)
+    public override void EquipCharm(params Object[] parameters)
     {
         OldSpeed = Player.Speed;
         Player.OnDashedEvent += activate;

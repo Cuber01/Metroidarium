@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://juaegtw74sr3"]
+[gd_scene load_steps=6 format=3 uid="uid://juaegtw74sr3"]
 
 [ext_resource type="Texture2D" uid="uid://bi7vmxb11tx46" path="res://assets/img/snake-body.png" id="1_aslnk"]
 [ext_resource type="Texture2D" uid="uid://b8p1ectmrusyy" path="res://assets/img/empty.png" id="2_lx73b"]
 [ext_resource type="Texture2D" uid="uid://cmof5dqcxypb1" path="res://assets/img/inventory/DashCharm.png" id="3_b0rpu"]
+[ext_resource type="Shader" uid="uid://ciembleq020qu" path="res://src/shaders/ChangeColor.gdshader" id="4_lx73b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0rpu"]
+shader = ExtResource("4_lx73b")
+shader_parameter/color = Color(1, 1, 0, 1)
 
 [node name="ItemInventoryBox" type="TextureButton"]
 texture_filter = 1
@@ -20,10 +25,16 @@ texture = ExtResource("3_b0rpu")
 
 [node name="AmountLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 6.5
-offset_top = 4.0
-offset_right = 13.5
-offset_bottom = 24.0
+offset_left = 3.25
+offset_top = 6.0
+offset_right = 10.25
+offset_bottom = 26.0
 scale = Vector2(0.2, 0.2)
 text = "1"
 scroll_active = false
+
+[node name="SelectedSprite" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_b0rpu")
+position = Vector2(4, 4)
+texture = ExtResource("2_lx73b")
