@@ -11,101 +11,128 @@
 shader = ExtResource("2_6scfb")
 shader_parameter/color = Color(0, 0.0784314, 0, 1)
 
-[node name="InventoryMenu" type="Control"]
+[node name="InventoryMenu" type="Node2D"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 0
 script = ExtResource("1_biofj")
 
 [node name="Background" type="Sprite2D" parent="."]
+process_mode = 3
 material = SubResource("ShaderMaterial_ifx5g")
 position = Vector2(160, 128)
 scale = Vector2(320, 256)
 texture = ExtResource("3_3hrpb")
 
 [node name="EquippedLabel" type="RichTextLabel" parent="."]
+process_mode = 3
 offset_right = 78.0
 offset_bottom = 25.0
 text = "Equipped"
+metadata/_edit_use_anchors_ = true
 
-[node name="Equipped" type="Control" parent="."]
-anchors_preset = 0
-
-[node name="Background" type="Node2D" parent="Equipped"]
+[node name="BackgroundSlots" type="Node2D" parent="."]
+process_mode = 3
 texture_filter = 1
 scale = Vector2(4, 4)
 
-[node name="Slot0" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot0" type="Sprite2D" parent="BackgroundSlots"]
 position = Vector2(8, 16)
 rotation = 3.14159
 texture = ExtResource("1_84cir")
 
-[node name="Slot1" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot1" type="Sprite2D" parent="BackgroundSlots"]
 position = Vector2(18, 16)
 texture = ExtResource("2_6yiti")
 
-[node name="Slot2" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot2" type="Sprite2D" parent="BackgroundSlots"]
 position = Vector2(28, 16)
 texture = ExtResource("2_6yiti")
 
-[node name="Slot3" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot3" type="Sprite2D" parent="BackgroundSlots"]
 texture_filter = 1
 position = Vector2(38, 16)
 texture = ExtResource("2_6yiti")
 
-[node name="Slot4" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot4" type="Sprite2D" parent="BackgroundSlots"]
 texture_filter = 1
 position = Vector2(48, 16)
 texture = ExtResource("2_6yiti")
 
-[node name="Slot5" type="Sprite2D" parent="Equipped/Background"]
+[node name="Slot5" type="Sprite2D" parent="BackgroundSlots"]
 texture_filter = 1
 position = Vector2(58, 16)
 texture = ExtResource("2_6yiti")
 
+[node name="Equipped" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(4, 4)
+metadata/_edit_use_anchors_ = true
+
 [node name="Slot0" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 4.0
+offset_top = 12.0
+offset_right = 12.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot1" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 22.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot2" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 32.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot3" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 34.0
+offset_top = 12.0
+offset_right = 42.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot4" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 44.0
+offset_top = 12.0
+offset_right = 52.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="Slot5" type="TextureButton" parent="Equipped"]
 texture_filter = 1
-layout_mode = 2
+offset_left = 54.0
+offset_top = 12.0
+offset_right = 62.0
+offset_bottom = 20.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
 [node name="CollectionLabel" type="RichTextLabel" parent="."]
+process_mode = 3
 offset_top = 104.0
 offset_right = 109.0
 offset_bottom = 131.0
 text = "Collection"
+metadata/_edit_use_anchors_ = true
 
 [node name="Collection" type="Control" parent="."]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
+metadata/_edit_use_anchors_ = true

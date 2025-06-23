@@ -4,7 +4,7 @@ using Godot;
 
 namespace Metroidarium.Menu;
 
-public partial class InventoryMenu : Control
+public partial class InventoryMenu : Node2D
 {
     private Dictionary<String, InventoryItem> inventory;
     private InventoryComponent inventoryComponent;
@@ -19,8 +19,8 @@ public partial class InventoryMenu : Control
         inventory = inventoryComponent.Inventory;
         
         setupEquipped();
-        firstSlot.GrabFocus();
         setupInventoryContents();
+        firstItem.CallDeferred("grab_focus");
     }
 
     public override void _Process(double delta)
@@ -34,7 +34,7 @@ public partial class InventoryMenu : Control
     private void setupEquipped()
     {
         Control equipped = GetNode<Control>("Equipped");
-        int i = equipped.GetChildCount()-1;
+        int i = equipped.GetChildCount();
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
         for (int j = 0; j < i; j++)
         {
@@ -51,7 +51,7 @@ public partial class InventoryMenu : Control
     {
         if(inventory.Count == 0) return;
         
-        TextureButton[,] buttonField = new TextureButton[20,20];
+        TextureButton[,] buttonField = new TextureButton[inventory.Count,inventory.Count];
         int i = 0, j = 0;
         
         Control collection = GetNode<Control>("Collection");
@@ -78,8 +78,8 @@ public partial class InventoryMenu : Control
             newButton.Position = buttonPos;
             buttonPos += new Vector2(offset.X, 0);
 
-            newButton.Name = item.Key;
-            newButton.Pressed += () => _onEquipmentPressed(newButton.Name);
+            newButton.SetMeta("GameName", item.Key);
+            newButton.Pressed += () => _onEquipmentPressed((String)newButton.GetMeta("GameName"));
             
             buttonField[j,i] = newButton;
             i++;
@@ -113,20 +113,19 @@ public partial class InventoryMenu : Control
         }
 
         firstItem = buttonField[0,0];
-        firstItem.GrabFocus();
     }
 
     private void _onEquipmentPressed(string name)
     {
         selected = inventory[name];
-        firstSlot.GrabFocus();
+        firstSlot.CallDeferred("grab_focus");
     }
     
     private void _onSlotPressed(TextureButton btn, int index)
     {
         btn.TextureNormal = selected.Image;
         inventoryComponent.Equip(selected.GameName, index);
-        firstItem.GrabFocus();
+        firstItem.CallDeferred("grab_focus");
     }
     
 

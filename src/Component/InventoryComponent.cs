@@ -66,10 +66,10 @@ public class InventoryComponent : Component
 
     public void Open()
     {
-         
         menu.Init(this);
         menu.Show();
-        
+        // TODO pause breaks this
+        // player.GetTree().Paused = true;
     }
 
     public void Close()

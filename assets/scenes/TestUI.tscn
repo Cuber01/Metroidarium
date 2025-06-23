@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://6hqm25y8duni"]
+
+[ext_resource type="Script" uid="uid://by5nrvvv46t2k" path="res://src/Menu/TestUi.cs" id="1_weyxd"]
+[ext_resource type="Texture2D" uid="uid://b8p1ectmrusyy" path="res://assets/img/empty.png" id="2_klyki"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_weyxd")
+
+[node name="Slot0" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
+
+[node name="Slot1" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
+
+[node name="Slot2" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
+
+[node name="Slot3" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
+
+[node name="Slot4" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
+
+[node name="Slot5" type="TextureButton" parent="."]
+texture_filter = 1
+texture_focused = ExtResource("2_klyki")
+metadata/SlotIndex = 0
