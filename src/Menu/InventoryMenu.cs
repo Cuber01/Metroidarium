@@ -8,7 +8,7 @@ public partial class InventoryMenu : Node2D
 {
     private readonly Texture2D emptySlotImage = ResourceLoader.Load<Texture2D>("res://assets/img/no-item.png");
     private readonly Texture2D snakeBodyImage = ResourceLoader.Load<Texture2D>("res://assets/img/snake-body.png");
-    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
+    private readonly Godot.PackedScene itemButton = GD.Load<Godot.PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
     private Dictionary<String, InventoryItem> inventory;
     private InventoryComponent inventoryComponent;
     private InventoryItem selected;
@@ -137,7 +137,6 @@ public partial class InventoryMenu : Node2D
         
         if (selected != null)
         {
-            GD.Print("Equip");
             btn.TextureNormal = selected.Image;
             inventoryComponent.EquipItem(selected, index);
             selected = null;   
@@ -145,7 +144,6 @@ public partial class InventoryMenu : Node2D
         }
         else if(btn.TextureNormal != null)
         {
-            GD.Print("Unequip");
             btn.TextureNormal = null;
             inventoryComponent.Unequip(index);
         }

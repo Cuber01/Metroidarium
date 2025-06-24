@@ -11,7 +11,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
-	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
+	private readonly Godot.PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 	
 	public delegate void DashedEventHandler(); 
 	public event DashedEventHandler OnDashedEvent;
@@ -66,8 +66,6 @@ public partial class SnakeHead : SnakeBody
 			snakeParts.Add(newInstance);
 			lastInstance = newInstance;
 		}
-
-		
 		
 		InventoryItem dashCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
@@ -103,6 +101,7 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		GD.Print(Position);
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
 
 		foreach (var entry in actionToDirection)

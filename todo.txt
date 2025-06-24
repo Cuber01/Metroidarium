@@ -56,7 +56,8 @@ X make inventory showcase things we've already equipped before
 X allow unequip
 
 PRE RELEASE V6
-- add multiple levels
-- make transitions between them
+X add multiple levels
+X make transitions between them
 - allow for permanent upgrade charms that dont take slots and cant be unequipped
-- rotate inventory snake parts so that the guns you equip are shown on the right side
+X rotate inventory snake parts so that the guns you equip are shown on the right side
+- make entire snake body tp on new level

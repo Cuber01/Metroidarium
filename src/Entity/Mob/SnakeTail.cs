@@ -7,7 +7,7 @@ namespace Metroidarium;
 
 public partial class SnakeTail : SnakeBody
 {
-    private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
+    private readonly Godot.PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 
     private const float rotationOffset = 1.5f; 
     private int amountOfPartsBehind = -1;

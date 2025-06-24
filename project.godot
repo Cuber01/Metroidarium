@@ -24,6 +24,23 @@ window/size/viewport_height=1024
 
 project/assembly_name="Metroidarium"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "blue",
+"res://assets/img/": "red",
+"res://assets/item_data/": "green",
+"res://assets/scenes/": "blue",
+"res://assets/tilesets/": "gray",
+"res://src/": "purple",
+"res://src/Charm/": "red",
+"res://src/Component/": "orange",
+"res://src/Debug/": "yellow",
+"res://src/Entity/": "green",
+"res://src/Menu/": "blue",
+"res://src/shaders/": "purple"
+}
+
 [global_group]
 
 "Team Player"=""
