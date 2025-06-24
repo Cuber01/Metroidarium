@@ -33,7 +33,7 @@ X add invincibility shader
 X add delay for player shots
 
 PRE RELEASE V4
-- implement inventory with charms
+X implement inventory with charms
     X backend
         X wrapper for obtainable charm
         X obtaining
@@ -45,7 +45,7 @@ PRE RELEASE V4
         X drag'n drop
     
 PRE RELEASE V5
-- fix the fact we cant have two different gun charms in eq due to GameName being used in Dictionary
+X fix the fact we cant have two different gun charms in eq due to GameName being used in Dictionary
 X wire inventory screen up to the main game
     - add pause
     X wire it up with player's inventory
@@ -54,3 +54,9 @@ X wire inventory screen up to the main game
 X make snake change texture after equipping from inventory
 X make inventory showcase things we've already equipped before
 X allow unequip
+
+PRE RELEASE V6
+- add multiple levels
+- make transitions between them
+- allow for permanent upgrade charms that dont take slots and cant be unequipped
+- rotate inventory snake parts so that the guns you equip are shown on the right side

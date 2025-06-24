@@ -6,10 +6,13 @@ namespace Metroidarium.Menu;
 
 public partial class InventoryMenu : Node2D
 {
+    private readonly Texture2D emptySlotImage = ResourceLoader.Load<Texture2D>("res://assets/img/no-item.png");
+    private readonly Texture2D snakeBodyImage = ResourceLoader.Load<Texture2D>("res://assets/img/snake-body.png");
     private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
     private Dictionary<String, InventoryItem> inventory;
     private InventoryComponent inventoryComponent;
     private InventoryItem selected;
+    private TextureButton selectedButton;
     private TextureButton firstSlot;
     private TextureButton firstItem;
     
@@ -24,11 +27,6 @@ public partial class InventoryMenu : Node2D
         setupEquipped();
         setupInventoryContents();
         firstItem.CallDeferred("grab_focus");
-    }
-
-    public void Close()
-    {
-        selected = null;
     }
 
     public override void _Process(double delta)
@@ -58,9 +56,7 @@ public partial class InventoryMenu : Node2D
 
     private void setupInventoryContents()
     {
-        if(inventory.Count == 0) return;
-        
-        TextureButton[,] buttonField = new TextureButton[inventory.Count,inventory.Count];
+        TextureButton[,] buttonField = new TextureButton[10,10];
         int i = 0, j = 0;
         
         Control collection = GetNode<Control>("Collection");
@@ -69,14 +65,30 @@ public partial class InventoryMenu : Node2D
         Vector2 buttonPos = new Vector2(startX, 144);
         Vector2 offset = new Vector2(40, 40);
         
-        foreach (KeyValuePair<String, InventoryItem> item in inventory)
+        
+        foreach (InventoryItem item in inventoryComponent.AllItems)
         {
             TextureButton newButton = (TextureButton)itemButton.Instantiate();
-            newButton.GetNode<Sprite2D>("Image")
-                .Texture = item.Value.Image;
-            
-            newButton.GetNode<RichTextLabel>("AmountLabel")
-                .Text = item.Value.Amount.ToString();
+            // Item was unlocked and is available
+            if (inventory.TryGetValue(item.FullName, out InventoryItem inventoryItem) && inventoryItem.Amount > 0)
+            {
+                newButton.TextureNormal = snakeBodyImage;
+                
+                newButton.GetNode<Sprite2D>("Image")
+                    .Texture = inventoryItem.Image;    
+                
+                newButton.GetNode<RichTextLabel>("AmountLabel")
+                    .Text = inventoryItem.Amount.ToString();
+            }
+            // Item is not available
+            else
+            {
+                newButton.TextureNormal = null;
+                
+                newButton.GetNode<Sprite2D>("Image")
+                    .Texture = emptySlotImage;    
+            }
+            // TODO: Item was unlocked but is not available
             
             if (buttonPos.X > maximumX)
             {
@@ -87,7 +99,7 @@ public partial class InventoryMenu : Node2D
             newButton.Position = buttonPos;
             buttonPos += new Vector2(offset.X, 0);
 
-            newButton.SetMeta("GameName", item.Key);
+            newButton.SetMeta("GameName", item.FullName);
             newButton.Pressed += () => _onEquipmentPressed(newButton, (String)newButton.GetMeta("GameName"));
             
             buttonField[j,i] = newButton;
@@ -131,9 +143,11 @@ public partial class InventoryMenu : Node2D
     private void _onEquipmentPressed(TextureButton btn, string name)
     {
         if(blockInput) return;
+        if(!inventory.TryGetValue(name, out var item)) return;
         
-        selected = inventory[name];
-        btn.GetNode<Sprite2D>("SelectedSprite");
+        selected = item;
+        selectedButton = btn;
+        btn.GetNode<Sprite2D>("SelectedSprite").Visible = true;
         firstSlot.CallDeferred("grab_focus");
         blockInput = true;
     }
@@ -147,7 +161,8 @@ public partial class InventoryMenu : Node2D
             GD.Print("Equip");
             btn.TextureNormal = selected.Image;
             inventoryComponent.EquipItem(selected, index);
-            selected = null;    
+            selected = null;   
+            selectedButton.GetNode<Sprite2D>("SelectedSprite").Visible = false;
         }
         else if(btn.TextureNormal != null)
         {
@@ -159,5 +174,9 @@ public partial class InventoryMenu : Node2D
         firstItem.CallDeferred("grab_focus");
     }
     
-
+    public void Close()
+    {
+        selected = null;
+    }
+    
 }

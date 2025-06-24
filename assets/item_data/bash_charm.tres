@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dknnlyfwcve08"]
+
+[ext_resource type="Texture2D" uid="uid://bfme0bxf5i5qy" path="res://assets/img/inventory/BashCharm.png" id="1_s8uiv"]
+[ext_resource type="Script" uid="uid://c264fej2fk3qn" path="res://src/InventoryItem.cs" id="2_rwswq"]
+
+[resource]
+script = ExtResource("2_rwswq")
+FullName = "Bash "
+Description = ""
+Image = ExtResource("1_s8uiv")
+GameName = "Metroidarium.BashCharm"
+Amount = 1
+metadata/_custom_type_script = "uid://c264fej2fk3qn"

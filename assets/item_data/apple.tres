@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://2pnue7vwvp40"]
+
+[ext_resource type="Texture2D" uid="uid://dqvm4mhgpkve5" path="res://assets/img/badguy.png" id="1_hvldn"]
+[ext_resource type="Script" uid="uid://c264fej2fk3qn" path="res://src/InventoryItem.cs" id="2_ns8ho"]
+
+[resource]
+script = ExtResource("2_ns8ho")
+FullName = "Apple"
+Description = ""
+Image = ExtResource("1_hvldn")
+GameName = "Metroidarium.Apple"
+Amount = 1
+metadata/_custom_type_script = "uid://c264fej2fk3qn"

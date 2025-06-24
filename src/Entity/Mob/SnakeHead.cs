@@ -13,7 +13,7 @@ public partial class SnakeHead : SnakeBody
 {
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 	
-	public delegate void DashedEventHandler();
+	public delegate void DashedEventHandler(); 
 	public event DashedEventHandler OnDashedEvent;
 	
 	public delegate void ShotEventHandler(Directions direction);
@@ -28,6 +28,8 @@ public partial class SnakeHead : SnakeBody
 	
 	public List<Charm> charms = new List<Charm>();
 	public List<SnakeBody> snakeParts = new List<SnakeBody>();
+
+	private ItemLoader ItemLoader;
 	
 	private readonly Dictionary<String, Directions> actionToDirection = new()
 	{
@@ -40,8 +42,9 @@ public partial class SnakeHead : SnakeBody
 	public override void _Ready()
 	{
 		base._Ready();
+		ItemLoader = new ItemLoader("res://assets/item_data/");
 		AddComponent(new ContactComponent(5));
-		AddComponent(new InventoryComponent(this));
+		AddComponent(new InventoryComponent(this, ItemLoader.AllItems));
 		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
 		
 		Speed = 150f;
@@ -63,6 +66,7 @@ public partial class SnakeHead : SnakeBody
 			snakeParts.Add(newInstance);
 			lastInstance = newInstance;
 		}
+
 		
 		
 		InventoryItem dashCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");

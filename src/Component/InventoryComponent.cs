@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Metroidarium.Menu;
 
@@ -8,16 +9,18 @@ namespace Metroidarium;
 public class InventoryComponent : Component
 {
     public Dictionary<String, InventoryItem> Inventory { get; private set; }
+    public List<InventoryItem> AllItems { get; private set; }
     private InventoryMenu menu;
     private SnakeHead player;
     
-    public InventoryComponent(SnakeHead player)
+    public InventoryComponent(SnakeHead player, List<InventoryItem> allItems)
     {
         this.player = player;
+        AllItems = allItems;
         menu = player.GetNode<InventoryMenu>("../../InventoryMenu");
         Inventory = new Dictionary<String, InventoryItem>();
     }
-
+    
     public void AddItem(InventoryItem item)
     {
         if (Inventory.Keys.Contains(item.FullName))
