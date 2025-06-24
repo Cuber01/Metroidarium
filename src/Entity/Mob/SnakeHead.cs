@@ -27,6 +27,7 @@ public partial class SnakeHead : SnakeBody
 	private SnakeTail behindMe = null;
 	
 	public List<Charm> charms = new List<Charm>();
+	public List<Charm> pernamentCharms = new List<Charm>();
 	public List<SnakeBody> snakeParts = new List<SnakeBody>();
 
 	private ItemLoader ItemLoader;
@@ -74,34 +75,10 @@ public partial class SnakeHead : SnakeBody
 		GetComponent<InventoryComponent>().AddItem(gunCharm);
 		GetComponent<InventoryComponent>().AddItem(dashCharm);
 		GetComponent<InventoryComponent>().AddItem(assault);
-
-		// charms[0] = new BashCharm(this, Speed);
-		// SnakeTail slot = (SnakeTail)snakeParts[5];
-		// charms[5] = new GunCharm(this, slot, new Dictionary<Directions, Node2D> {
-		// 		{Directions.Left, (Node2D)slot.GetNode("Left")},
-		// 		{Directions.Right, (Node2D)slot.GetNode("Right")},
-		// 		{Directions.Up, null},
-		// 		{Directions.Down, (Node2D)slot.GetNode("Down")}
-		// 	});
-		// SnakeTail slot2 = (SnakeTail)snakeParts[4];
-		// charms[4] = new GunCharm(this, slot2, new Dictionary<Directions, Node2D> {
-		// 	{Directions.Left, (Node2D)slot2.GetNode("Left")},
-		// 	{Directions.Right, (Node2D)slot2.GetNode("Right")},
-		// 	{Directions.Up, null},
-		// 	{Directions.Down, (Node2D)slot2.GetNode("Down")}
-		// });
-		// SnakeTail slot3 = (SnakeTail)snakeParts[3];
-		// charms[3] = new GunCharm(this, slot3, new Dictionary<Directions, Node2D> {
-		// 	{Directions.Left, (Node2D)slot3.GetNode("Left")},
-		// 	{Directions.Right, (Node2D)slot3.GetNode("Right")},
-		// 	{Directions.Up, null},
-		// 	{Directions.Down, (Node2D)slot3.GetNode("Down")}
-		// });
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
-		GD.Print(Position);
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
 
 		foreach (var entry in actionToDirection)
@@ -116,6 +93,11 @@ public partial class SnakeHead : SnakeBody
 		foreach (Charm charm in charms)
 		{
 			charm?.Update((float)delta);
+		}
+
+		foreach (Charm charm in pernamentCharms)
+		{
+			charm.Update((float)delta);
 		}
 		
 		// 8-Pad movement
