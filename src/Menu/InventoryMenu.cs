@@ -24,8 +24,11 @@ public partial class InventoryMenu : Node2D
         this.inventoryComponent = inventoryComponent;
         inventory = inventoryComponent.Inventory;
         
-        setupEquipped();
+        Control equipped = GetNode<Control>("Equipped");
+        firstSlot = equipped.GetNode<TextureButton>("Slot0");
+        
         setupInventoryContents();
+        setupEquipped(equipped);
         firstItem.CallDeferred("grab_focus");
     }
 
@@ -38,9 +41,8 @@ public partial class InventoryMenu : Node2D
         }
     }
     
-    private void setupEquipped()
+    private void setupEquipped(Control equipped)
     {
-        Control equipped = GetNode<Control>("Equipped");
         int i = equipped.GetChildCount();
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
         for (int j = 0; j < i; j++)
@@ -48,8 +50,7 @@ public partial class InventoryMenu : Node2D
             TextureButton button = equipped.GetNode<TextureButton>("Slot" + j);
             
             button.SetMeta("SlotIndex", j);
-            button.SetFocusNeighbor(Side.Left, j > 0 ? "../Slot" + (j - 1) : null);
-            button.SetFocusNeighbor(Side.Right, j + 1 < i ? "../Slot" + (j + 1) : null);
+            button.SetFocusNeighbor(Side.Left, "../../Collection/" + firstItem.Name);
             button.Pressed += () => _onSlotPressed(button, (int)button.GetMeta("SlotIndex"));
         }
     }
@@ -62,7 +63,7 @@ public partial class InventoryMenu : Node2D
         Control collection = GetNode<Control>("Collection");
         float startX = 16;
         float maximumX = 200;
-        Vector2 buttonPos = new Vector2(startX, 144);
+        Vector2 buttonPos = new Vector2(startX, 32);
         Vector2 offset = new Vector2(40, 40);
         
         
@@ -108,33 +109,11 @@ public partial class InventoryMenu : Node2D
             collection.AddChild(newButton);
         }
         
-        int m = i - 1;
+
         for (int y = 0; y <= j; y++)
         {
-            for (int x = 0; x <= m; x++)
-            {
-                TextureButton btn = buttonField[y,x];
-                
-                if (x != 0) {
-                    btn.SetFocusNeighbor(Side.Left, "../" + buttonField[y,x-1].Name);
-                }
-
-                if (x != m) {
-                    btn.SetFocusNeighbor(Side.Right, "../" + buttonField[y,x+1].Name);
-                }
-
-                if (y != 0) {
-                    btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y-1,x].Name);
-                }
-                else
-                {
-                    btn.SetFocusNeighbor(Side.Top, "../../Equipped/" + firstSlot.Name);
-                }
-                
-                if (y != j) {
-                    btn.SetFocusNeighbor(Side.Top, "../" + buttonField[y+1,x].Name);
-                }
-            }
+            int x = i - 1;
+            buttonField[y,x].SetFocusNeighbor(Side.Right, "../../Equipped/" + firstSlot.Name);
         }
 
         firstItem = buttonField[0,0];
