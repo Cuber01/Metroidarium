@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cskv28yqopsnb"]
+
+[ext_resource type="Texture2D" uid="uid://cnb023bthycpq" path="res://assets/img/null.png" id="1_oi6su"]
+[ext_resource type="Script" uid="uid://m7ak8dqglxsu" path="res://src/Item/PickupableItem.cs" id="1_p1hv0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja0nj"]
+size = Vector2(8, 8)
+
+[node name="PickupableItem" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_p1hv0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ja0nj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_oi6su")
+
+[connection signal="body_entered" from="." to="." method="_onBodyEntered"]

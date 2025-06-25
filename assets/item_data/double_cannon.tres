@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GunItem" load_steps=3 format=3 uid="uid://csh3id10iuwcm"]
 
-[ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/GunItem.cs" id="1_pikt5"]
+[ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/Item/GunItem.cs" id="1_pikt5"]
 [ext_resource type="Texture2D" uid="uid://cyaj3xeyqrjae" path="res://assets/img/inventory/double-cannon.png" id="1_vryxo"]
 
 [resource]

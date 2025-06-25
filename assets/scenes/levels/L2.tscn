@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://b5gafrh52wb6o"]
 
-[ext_resource type="Script" uid="uid://chouroax4vlfn" path="res://src/Level.cs" id="1_34aje"]
+[ext_resource type="Script" uid="uid://chouroax4vlfn" path="res://src/World/Level.cs" id="1_34aje"]
 [ext_resource type="TileSet" uid="uid://c1nlmb18xtmph" path="res://assets/tilesets/TestTileset.tres" id="1_okpqb"]
 [ext_resource type="PackedScene" uid="uid://bqohrnhlhq0ra" path="res://assets/scenes/level_entrance.tscn" id="2_34aje"]
 

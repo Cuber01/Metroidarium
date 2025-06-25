@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GunItem" load_steps=3 format=3 uid="uid://cwyr8w5roy5km"]
 
-[ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/GunItem.cs" id="1_5p5br"]
+[ext_resource type="Script" uid="uid://vvaxs78tio7r" path="res://src/Item/GunItem.cs" id="1_5p5br"]
 [ext_resource type="Texture2D" uid="uid://bul2kn2e7ju2m" path="res://assets/img/assault-rightle.png" id="1_j4tfv"]
 
 [resource]

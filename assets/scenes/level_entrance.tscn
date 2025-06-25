@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bqohrnhlhq0ra"]
 
-[ext_resource type="Script" uid="uid://dg4a4dpp4acn4" path="res://src/LevelEntrance.cs" id="1_x0kkh"]
+[ext_resource type="Script" uid="uid://dg4a4dpp4acn4" path="res://src/World/LevelEntrance.cs" id="1_x0kkh"]
 
 [node name="LevelEntrance" type="Area2D"]
 position = Vector2(0, 1)

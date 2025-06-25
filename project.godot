@@ -35,10 +35,10 @@ folder_colors={
 "res://assets/scenes/": "blue",
 "res://assets/tilesets/": "gray",
 "res://src/": "purple",
-"res://src/Charm/": "red",
 "res://src/Component/": "orange",
 "res://src/Debug/": "yellow",
 "res://src/Entity/": "green",
+"res://src/Item/": "red",
 "res://src/Menu/": "blue",
 "res://src/shaders/": "purple"
 }

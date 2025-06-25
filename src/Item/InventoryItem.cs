@@ -11,5 +11,6 @@ public partial class InventoryItem : Resource
     [Export(PropertyHint.MultilineText)] public String Description;
     [Export] public Texture2D Image;
     [Export] public String GameName;
+    [Export] public ItemType Type;
     [Export] public int Amount = 1;
 }

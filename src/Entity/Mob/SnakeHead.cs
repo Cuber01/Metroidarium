@@ -158,6 +158,12 @@ public partial class SnakeHead : SnakeBody
 		}
 	}
 	
+	// Called by Pickupable Item
+	public void pickup(InventoryItem item)
+	{
+		GetComponent<InventoryComponent>().AddItem(item);
+	}
+	
 	public override void die()
 	{
 		for (int j = snakeParts.Count - 1; j >= 0; j--)

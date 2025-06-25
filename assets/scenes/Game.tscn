@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://j4d6mc8bwr5f"]
 
-[ext_resource type="Script" uid="uid://bw383h5lk6tyn" path="res://src/GameManager.cs" id="1_hkxsf"]
+[ext_resource type="Script" uid="uid://bw383h5lk6tyn" path="res://src/World/GameManager.cs" id="1_hkxsf"]
 [ext_resource type="PackedScene" uid="uid://dcj1j23f21fsr" path="res://assets/scenes/levels/L1.tscn" id="1_wk23g"]
 [ext_resource type="PackedScene" uid="uid://ikvt82ng7dhf" path="res://assets/scenes/entities/SnakeHead.tscn" id="2_t88pq"]
 
