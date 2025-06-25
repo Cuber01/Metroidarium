@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7fbib6m8u5ht"]
+[gd_scene load_steps=5 format=3 uid="uid://7fbib6m8u5ht"]
 
 [ext_resource type="Shader" uid="uid://bb4atknundpl8" path="res://src/shaders/Subpixel.gdshader" id="1_xt100"]
 [ext_resource type="PackedScene" uid="uid://j4d6mc8bwr5f" path="res://assets/scenes/Game.tscn" id="2_uu6xs"]
 [ext_resource type="PackedScene" uid="uid://djhk6gg1x1guq" path="res://assets/scenes/menus/InventoryMenu.tscn" id="3_xt100"]
-[ext_resource type="Script" uid="uid://b8yyh11bebfwn" path="res://src/PixelCamera.cs" id="4_eruk6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eruk6"]
 shader = ExtResource("1_xt100")
@@ -11,36 +10,35 @@ shader_parameter/cam_offset = Vector2(0, 0)
 
 [node name="Root" type="Node2D"]
 texture_filter = 1
-position = Vector2(0, 1)
+position = Vector2(0, 2)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 material = SubResource("ShaderMaterial_eruk6")
 offset_right = 569.0
 offset_bottom = 512.0
-scale = Vector2(3, 3)
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(640, 360)
+size = Vector2i(1600, 900)
 render_target_update_mode = 4
 
 [node name="Game" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_uu6xs")]
 process_mode = 1
-position = Vector2(1, 0)
+position = Vector2(0, 2)
+
+[node name="SnakeHead" parent="SubViewportContainer/SubViewport/Game" index="1"]
+position = Vector2(135, 69)
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Game/SnakeHead" index="3"]
+zoom = Vector2(3, 3)
+process_callback = 0
+position_smoothing_enabled = true
 
 [node name="InventoryMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_xt100")]
 unique_name_in_owner = true
 visible = false
-
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("Target")]
-position = Vector2(0, 2)
-ignore_rotation = false
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("4_eruk6")
-Target = NodePath("../Game/SnakeHead")
 
 [editable path="SubViewportContainer/SubViewport/Game"]
