@@ -1,10 +1,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
-using Metroidarium.Menu;
-using static System.Single;
+
 // ReSharper disable InconsistentNaming
 
 namespace Metroidarium;
@@ -12,6 +10,9 @@ namespace Metroidarium;
 public partial class SnakeHead : SnakeBody
 {
 	private readonly Godot.PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
+
+	public delegate void InteractedEventHandler(SnakeHead player);
+	public event InteractedEventHandler OnInteractedEvent;
 	
 	public delegate void DashedEventHandler(); 
 	public event DashedEventHandler OnDashedEvent;
@@ -21,6 +22,10 @@ public partial class SnakeHead : SnakeBody
 	
 	public Vector2 lastChangedVelocity = new Vector2(0,1);
 
+	// TODO will need to implement a proper state machine if needed
+	public bool restState = false;
+	
+	public int CurrentAmountOfTail = 0;
 	private int amountOfTail;
 	public int AmountOfTail {
 		get => amountOfTail;
@@ -35,7 +40,6 @@ public partial class SnakeHead : SnakeBody
 			amountOfTail = value;
 		}
 	}
-	
 	
 	private float rotateSpeed = 0.1f;
 	private float deaccelerationSpeed = 1f;
@@ -69,7 +73,7 @@ public partial class SnakeHead : SnakeBody
 		PartId = 0;
 		AmountOfTail = 3;
 		
-		growTail(AmountOfTail);
+		growTail(2);
 
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/double_cannon.tres");
 		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/assault_rightle.tres");
@@ -123,9 +127,13 @@ public partial class SnakeHead : SnakeBody
 		
 		MoveAndSlide();
 		
-		if (Input.IsActionJustPressed("inventory"))
+		if (Input.IsActionJustPressed("interact"))
 		{
-			GetComponent<InventoryComponent>().OpenMenu();
+			if (OnInteractedEvent != null)
+			{ 
+				OnInteractedEvent?.Invoke(this);
+				GetComponent<InventoryComponent>().OpenMenu();	
+			}
 		}
 	}
 
@@ -157,6 +165,8 @@ public partial class SnakeHead : SnakeBody
 			charms[partId].Unequip();
 			charms[partId] = null;	
 		}
+		
+		CurrentAmountOfTail--;
 	}
 
 	public void growTail(int amount)
@@ -185,6 +195,8 @@ public partial class SnakeHead : SnakeBody
 			snakeParts.Add(newInstance);
 			lastInstance = newInstance;
 		}
+		
+		CurrentAmountOfTail += amount;
 	}
 	
 	// Called by Pickupable Item

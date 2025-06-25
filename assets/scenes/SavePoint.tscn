@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl6dnqrdnfn7m"]
+
+[ext_resource type="Texture2D" uid="uid://dohqx2nldp2yb" path="res://assets/img/save.png" id="1_o53yf"]
+[ext_resource type="Script" uid="uid://bbcxjjol58gqn" path="res://src/World/SavePoint.cs" id="1_oo64y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wj0xj"]
+size = Vector2(16, 16)
+
+[node name="SavePoint" type="Area2D"]
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("1_oo64y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_o53yf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wj0xj")
+
+[connection signal="body_entered" from="." to="." method="_onPlayerEntered"]
+[connection signal="body_exited" from="." to="." method="_onPlayerExited"]
