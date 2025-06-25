@@ -8,29 +8,47 @@ namespace Metroidarium;
 
 public class InventoryComponent : Component
 {
-    public Dictionary<String, InventoryItem> Inventory { get; private set; }
-    public List<InventoryItem> AllItems { get; private set; }
+    public Dictionary<String, InventoryItem> CharmInventory { get; private set; }
+    public Dictionary<String, InventoryItem> UpgradeInventory { get; private set; }
+    public int applesCollected = 0;
+    
+    public List<InventoryItem> AllCharms { get; private set; }
     private InventoryMenu menu;
     private SnakeHead player;
     
-    public InventoryComponent(SnakeHead player, List<InventoryItem> allItems)
+    public InventoryComponent(SnakeHead player, List<InventoryItem> allCharms)
     {
         this.player = player;
-        AllItems = allItems;
+        AllCharms = allCharms;
         menu = player.GetNode<InventoryMenu>("../../InventoryMenu");
-        Inventory = new Dictionary<String, InventoryItem>();
+        CharmInventory = new Dictionary<String, InventoryItem>();
     }
     
     public void AddItem(InventoryItem item)
     {
-        if (Inventory.Keys.Contains(item.FullName))
+        switch (item.Type)
         {
-            Inventory[item.FullName].Amount += item.Amount;
+            case ItemType.Charm:
+                if (CharmInventory.Keys.Contains(item.FullName))
+                {
+                    CharmInventory[item.FullName].Amount += item.Amount;
+                }
+                else
+                {
+                    CharmInventory.Add(item.FullName, item);    
+                }
+                break;
+            case ItemType.Upgrade:
+                UpgradeInventory.Add(item.FullName, item);
+                EquipUpgrade(item);
+                break;
+            case ItemType.Apple:
+                applesCollected++;
+                player.AmountOfTail++;
+                player.growTail(1);
+                break;
         }
-        else
-        {
-            Inventory.Add(item.FullName, item);    
-        }
+        
     }
 
     public void EquipItem(InventoryItem item, int slotIndex)
@@ -41,7 +59,7 @@ public class InventoryComponent : Component
         // Init charm
         if (charm is GunCharm gun)
         {
-            GunItem data = (GunItem)Inventory[item.FullName];
+            GunItem data = (GunItem)CharmInventory[item.FullName];
             gun.MaxDelay = data.MaxDelay;
             charm.EquipCharm(new Dictionary<Directions, Node2D> {
                  		{Directions.Left, data.ShootLeft ? (Node2D)slot.GetNode("Left") : null},
@@ -67,6 +85,13 @@ public class InventoryComponent : Component
         player.charms[slotIndex] = charm;
     }
 
+    private void EquipUpgrade(InventoryItem item)
+    {
+        Charm upgrade = (Charm)Activator.CreateInstance(Type.GetType(item.GameName)!, player, null);
+        upgrade!.EquipCharm();
+        player.pernamentCharms.Add(upgrade);
+    }
+    
     public void Unequip(int slotIndex)
     {
         player.snakeParts[slotIndex].
@@ -78,7 +103,7 @@ public class InventoryComponent : Component
 
     public void OpenMenu()
     {
-        menu.Init(this);
+        menu.Init(this, player.AmountOfTail);
         menu.Show();
         // TODO pause breaks this
         // player.GetTree().Paused = true;

@@ -19,16 +19,16 @@ public partial class InventoryMenu : Node2D
     // TODO this is a weird workaround for CallDeferred being deferred. Is there another way?
     private bool blockInput = true;
 
-    public void Init(InventoryComponent inventoryComponent)
+    public void Init(InventoryComponent inventoryComponent, int slotsAmount)
     {
         this.inventoryComponent = inventoryComponent;
-        inventory = inventoryComponent.Inventory;
+        inventory = inventoryComponent.CharmInventory;
         
         Control equipped = GetNode<Control>("Equipped");
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
         
         setupInventoryContents();
-        setupEquipped(equipped);
+        setupEquipped(equipped, slotsAmount);
         firstItem.CallDeferred("grab_focus");
     }
 
@@ -41,17 +41,28 @@ public partial class InventoryMenu : Node2D
         }
     }
     
-    private void setupEquipped(Control equipped)
+    private void setupEquipped(Control equipped, int slotsAmount)
     {
         int i = equipped.GetChildCount();
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
         for (int j = 0; j < i; j++)
         {
             TextureButton button = equipped.GetNode<TextureButton>("Slot" + j);
+
+            if (j <= slotsAmount)
+            {
+                button.Visible = true;
+                //button.GetNode<Sprite2D>("Sprite").Visible = true;
+                button.SetMeta("SlotIndex", j);
+                button.SetFocusNeighbor(Side.Left, "../../Collection/" + firstItem.Name);
+                button.Pressed += () => _onSlotPressed(button, (int)button.GetMeta("SlotIndex"));    
+            }
+            else
+            {
+                button.Visible = false;
+                //button.GetNode<Sprite2D>("Sprite").Visible = false;
+            }
             
-            button.SetMeta("SlotIndex", j);
-            button.SetFocusNeighbor(Side.Left, "../../Collection/" + firstItem.Name);
-            button.Pressed += () => _onSlotPressed(button, (int)button.GetMeta("SlotIndex"));
         }
     }
 
@@ -67,7 +78,7 @@ public partial class InventoryMenu : Node2D
         Vector2 offset = new Vector2(40, 40);
         
         
-        foreach (InventoryItem item in inventoryComponent.AllItems)
+        foreach (InventoryItem item in inventoryComponent.AllCharms)
         {
             TextureButton newButton = (TextureButton)itemButton.Instantiate();
             // Item was unlocked and is available

@@ -21,7 +21,22 @@ public partial class SnakeHead : SnakeBody
 	
 	public Vector2 lastChangedVelocity = new Vector2(0,1);
 
-	private static int amountOfTail = 5;
+	private int amountOfTail;
+	public int AmountOfTail {
+		get => amountOfTail;
+		set
+		{
+			int change = Math.Abs(amountOfTail-value);
+			while (change > 0)
+			{
+				charms.Add(null);	
+				change--;
+			}
+			amountOfTail = value;
+		}
+	}
+	
+	
 	private float rotateSpeed = 0.1f;
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
@@ -43,37 +58,23 @@ public partial class SnakeHead : SnakeBody
 	public override void _Ready()
 	{
 		base._Ready();
-		ItemLoader = new ItemLoader("res://assets/item_data/");
+		ItemLoader = new ItemLoader("res://assets/item_data/charms/");
 		AddComponent(new ContactComponent(5));
-		AddComponent(new InventoryComponent(this, ItemLoader.AllItems));
-		charms = Enumerable.Repeat<Charm>(null, amountOfTail+1).ToList();
+		AddComponent(new InventoryComponent(this, ItemLoader.AllCharms));
+		charms.Add(null);
 		
 		Speed = 150f;
 		OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
 		snakeParts.Add(this);
 		PartId = 0;
+		AmountOfTail = 3;
 		
-		SnakeBody lastInstance = this;
-		for (int i = amountOfTail; i > 0; i--)
-		{
-			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
-			GetParent().CallDeferred("add_child", newInstance);
-			newInstance.Init(lastInstance, amountOfTail-i+1);
-			lastInstance.BehindMe = newInstance;
+		growTail(AmountOfTail);
 
-			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
-			newInstance.OnDeathEvent += removeSnakePart;
-			
-			snakeParts.Add(newInstance);
-			lastInstance = newInstance;
-		}
-		
-		InventoryItem dashCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/dash_charm.tres");
-		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/double_cannon.tres");
-		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/assault_rightle.tres");
+		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/double_cannon.tres");
+		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/assault_rightle.tres");
 		
 		GetComponent<InventoryComponent>().AddItem(gunCharm);
-		GetComponent<InventoryComponent>().AddItem(dashCharm);
 		GetComponent<InventoryComponent>().AddItem(assault);
 	}
 	
@@ -155,6 +156,34 @@ public partial class SnakeHead : SnakeBody
 		{
 			charms[partId].Unequip();
 			charms[partId] = null;	
+		}
+	}
+
+	public void growTail(int amount)
+	{
+		SnakeBody lastInstance = null;
+		int lastIndex = -1;
+		for (int i = 0; i < snakeParts.Count; i++)
+		{
+			if (snakeParts[i] != null)
+			{
+				lastInstance = snakeParts[i];
+				lastIndex = i;
+			}
+		}
+		
+		for (int i = 0; i < amount; i++)
+		{
+			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
+			GetParent().CallDeferred("add_child", newInstance);
+			newInstance.Init(lastInstance, lastIndex+i);
+			lastInstance!.BehindMe = newInstance;
+
+			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
+			newInstance.OnDeathEvent += removeSnakePart;
+			
+			snakeParts.Add(newInstance);
+			lastInstance = newInstance;
 		}
 	}
 	

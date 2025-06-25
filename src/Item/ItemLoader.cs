@@ -6,11 +6,11 @@ namespace Metroidarium;
 
 public class ItemLoader
 {
-    public List<InventoryItem> AllItems;
+    public List<InventoryItem> AllCharms;
     
     public ItemLoader(string dir)
     {
-        AllItems = loadItemsFromDirectory(dir);
+        AllCharms = loadItemsFromDirectory(dir);
     }
     
     private List<InventoryItem> loadItemsFromDirectory(string path)

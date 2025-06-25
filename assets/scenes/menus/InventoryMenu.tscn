@@ -13,47 +13,16 @@ shader_parameter/color = Color(0, 0.0784314, 0, 1)
 
 [node name="InventoryMenu" type="Node2D"]
 process_mode = 3
+z_index = 2
 script = ExtResource("1_biofj")
 
 [node name="Background" type="Sprite2D" parent="."]
 process_mode = 3
+z_index = -1
 material = SubResource("ShaderMaterial_ifx5g")
 position = Vector2(160, 128)
 scale = Vector2(320, 256)
 texture = ExtResource("3_3hrpb")
-
-[node name="BackgroundSlots" type="Node2D" parent="."]
-process_mode = 3
-texture_filter = 1
-scale = Vector2(4, 4)
-
-[node name="Slot0" type="Sprite2D" parent="BackgroundSlots"]
-position = Vector2(72, 8)
-rotation = -1.5708
-texture = ExtResource("1_84cir")
-
-[node name="Slot1" type="Sprite2D" parent="BackgroundSlots"]
-position = Vector2(72, 18)
-texture = ExtResource("2_6yiti")
-
-[node name="Slot2" type="Sprite2D" parent="BackgroundSlots"]
-position = Vector2(72, 28)
-texture = ExtResource("2_6yiti")
-
-[node name="Slot3" type="Sprite2D" parent="BackgroundSlots"]
-texture_filter = 1
-position = Vector2(72, 38)
-texture = ExtResource("2_6yiti")
-
-[node name="Slot4" type="Sprite2D" parent="BackgroundSlots"]
-texture_filter = 1
-position = Vector2(72, 48)
-texture = ExtResource("2_6yiti")
-
-[node name="Slot5" type="Sprite2D" parent="BackgroundSlots"]
-texture_filter = 1
-position = Vector2(72, 58)
-texture = ExtResource("2_6yiti")
 
 [node name="Equipped" type="Control" parent="."]
 process_mode = 3
@@ -72,6 +41,12 @@ offset_bottom = 12.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot0"]
+z_index = -1
+position = Vector2(4, 4)
+rotation = -1.5708
+texture = ExtResource("1_84cir")
+
 [node name="Slot1" type="TextureButton" parent="Equipped"]
 texture_filter = 1
 layout_mode = 0
@@ -81,6 +56,11 @@ offset_right = 76.0
 offset_bottom = 22.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot1"]
+z_index = -1
+position = Vector2(4, 4)
+texture = ExtResource("2_6yiti")
 
 [node name="Slot2" type="TextureButton" parent="Equipped"]
 texture_filter = 1
@@ -92,6 +72,11 @@ offset_bottom = 32.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot2"]
+z_index = -1
+position = Vector2(4, 4)
+texture = ExtResource("2_6yiti")
+
 [node name="Slot3" type="TextureButton" parent="Equipped"]
 texture_filter = 1
 layout_mode = 0
@@ -101,6 +86,12 @@ offset_right = 76.0
 offset_bottom = 42.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot3"]
+z_index = -1
+texture_filter = 1
+position = Vector2(4, 4)
+texture = ExtResource("2_6yiti")
 
 [node name="Slot4" type="TextureButton" parent="Equipped"]
 texture_filter = 1
@@ -112,6 +103,12 @@ offset_bottom = 52.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
 
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot4"]
+z_index = -1
+texture_filter = 1
+position = Vector2(4, 4)
+texture = ExtResource("2_6yiti")
+
 [node name="Slot5" type="TextureButton" parent="Equipped"]
 texture_filter = 1
 layout_mode = 0
@@ -121,6 +118,12 @@ offset_right = 76.0
 offset_bottom = 62.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+
+[node name="Sprite" type="Sprite2D" parent="Equipped/Slot5"]
+z_index = -1
+texture_filter = 1
+position = Vector2(4, 4)
+texture = ExtResource("2_6yiti")
 
 [node name="CollectionLabel" type="RichTextLabel" parent="."]
 process_mode = 3
