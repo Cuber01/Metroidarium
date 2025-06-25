@@ -35,7 +35,7 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_3skay")
 
 [node name="PickupableItem" parent="." instance=ExtResource("4_thv7k")]
-position = Vector2(229, 131)
+position = Vector2(229, 132)
 item = ExtResource("7_bke4r")
 
 [editable path="Entrances/LevelEntrance2"]

@@ -8,7 +8,7 @@ size = Vector2(8, 8)
 
 [node name="PickupableItem" type="Area2D"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 64
 script = ExtResource("1_p1hv0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

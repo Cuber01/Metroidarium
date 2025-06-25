@@ -109,6 +109,7 @@ inventory={
 2d_physics/layer_4="Hurts Player"
 2d_physics/layer_5="Hurts Enemy"
 2d_physics/layer_6="Pickup"
+2d_physics/layer_7="Player Head"
 
 [rendering]
 

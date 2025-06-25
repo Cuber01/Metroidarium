@@ -21,11 +21,11 @@ public partial class Level : Node2D
 
     private void _onLevelExit(Node2D body, LevelEntrance entrance)
     {
-        if (!entrance.ignoreEntering && body is SnakeHead snake)
+        if (!entrance.ignoreEntering)
         {
             PackedScene newLevel = game.Levels[entrance.EntranceToLevel];
             Level levelInstance = (Level)newLevel.Instantiate();
-            levelInstance.Enter(entrance.EntranceIndex, snake);
+            levelInstance.Enter(entrance.EntranceIndex, (SnakeHead)body);
             game.CallDeferred("add_child",  levelInstance);
             CallDeferred("queue_free");
         }

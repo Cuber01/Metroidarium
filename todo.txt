@@ -70,7 +70,7 @@ X add apples that increase snake size
 X inventory needs to show the correct amount of slots
 - we gotta spawn player away from the entrance, the workaround doesn't work if the player decides to immediately go back
 
-PRE RELEASVE V8
+PRE RELEASE V8
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

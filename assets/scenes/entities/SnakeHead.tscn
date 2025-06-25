@@ -18,7 +18,7 @@ size = Vector2(7.9, 7.9)
 size = Vector2(8, 8)
 
 [node name="SnakeHead" type="CharacterBody2D" groups=["Team Player"]]
-collision_layer = 2
+collision_layer = 66
 script = ExtResource("1_i6hwh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -13,10 +13,7 @@ public partial class PickupableItem : Area2D
 
     private void _onBodyEntered(Node body)
     {
-        if (body is SnakeHead player)
-        {
-            player.pickup(item);
-            CallDeferred("queue_free");
-        }
+        ((SnakeHead)body).pickup(item);
+        CallDeferred("queue_free");
     }
 }
