@@ -31,6 +31,9 @@ EntranceIndex = 1
 [node name="CollisionShape2D" parent="Entrances/LevelEntrance2" index="0"]
 shape = SubResource("RectangleShape2D_flve5")
 
+[node name="SpawnPoint" parent="Entrances/LevelEntrance2" index="1"]
+position = Vector2(0, -14)
+
 [node name="LevelEntrance3" parent="Entrances" instance=ExtResource("2_34aje")]
 position = Vector2(131, 4)
 EntranceToLevel = "L3"

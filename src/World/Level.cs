@@ -39,8 +39,7 @@ public partial class Level : Node2D
             var entrance = (LevelEntrance)node;
             if (entrance.EntranceIndex == entranceIndex)
             {
-                entrance.ignoreEntering = true;
-                player.GlobalPosition = entrance.Position;
+                player.GlobalPosition = entrance.GetNode<Node2D>("SpawnPoint").GlobalPosition;
                 player.callMethodOnTail(tail => tail.resetPosition());
             }
         }

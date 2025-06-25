@@ -31,4 +31,7 @@ EntranceToLevel = "L2"
 position = Vector2(7.5, 0)
 shape = SubResource("RectangleShape2D_ab4vb")
 
+[node name="SpawnPoint" parent="Entrances/LevelEntrance" index="1"]
+position = Vector2(8, -22)
+
 [editable path="Entrances/LevelEntrance"]

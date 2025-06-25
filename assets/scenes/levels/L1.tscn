@@ -35,6 +35,9 @@ EntranceIndex = 1
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_3skay")
 
+[node name="SpawnPoint" parent="Entrances/LevelEntrance2" index="1"]
+position = Vector2(0, 17)
+
 [node name="PickupableItem" parent="." instance=ExtResource("4_thv7k")]
 position = Vector2(229, 132)
 item = ExtResource("7_bke4r")

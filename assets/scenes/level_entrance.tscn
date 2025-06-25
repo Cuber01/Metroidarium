@@ -10,4 +10,7 @@ script = ExtResource("1_x0kkh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, 10)
+
 [connection signal="body_exited" from="." to="." method="_onBodyExited"]
