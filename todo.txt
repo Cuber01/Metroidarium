@@ -67,4 +67,6 @@ PRE RELEASE V7
 - add pickupable items
 - add apples that increase snake size
 - add save points that heal
-- we gotta spawn player away from the entrance, the workaround doesnt work if the player decides to immediately go back
+- we gotta spawn player away from the entrance, the workaround doesn't work if the player decides to immediately go back
+
+Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

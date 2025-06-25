@@ -8,10 +8,6 @@
 script = ExtResource("1_hkxsf")
 
 [node name="Level" parent="." instance=ExtResource("1_wk23g")]
-z_index = -1
 
 [node name="SnakeHead" parent="." instance=ExtResource("2_t88pq")]
 position = Vector2(162, 75)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0

@@ -17,8 +17,8 @@ config/icon="res://assets/img/icon.svg"
 
 [display]
 
-window/size/viewport_width=1024
-window/size/viewport_height=1024
+window/size/viewport_width=1600
+window/size/viewport_height=900
 
 [dotnet]
 
@@ -110,5 +110,4 @@ inventory={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0
