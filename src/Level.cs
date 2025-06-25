@@ -15,11 +15,11 @@ public partial class Level : Node2D
         foreach (var node in entrances.GetChildren())
         {
             var entrance = (LevelEntrance)node;
-            entrance.BodyEntered += body => _onLevelExited(body, entrance);
+            entrance.BodyEntered += body => _onLevelExit(body, entrance);
         }
     }
 
-    private void _onLevelExited(Node2D body, LevelEntrance entrance)
+    private void _onLevelExit(Node2D body, LevelEntrance entrance)
     {
         if (!entrance.ignoreEntering && body is SnakeHead snake)
         {
@@ -40,7 +40,8 @@ public partial class Level : Node2D
             if (entrance.EntranceIndex == entranceIndex)
             {
                 entrance.ignoreEntering = true;
-                player.SetDeferred("global_position", entrance.Position);
+                player.GlobalPosition = entrance.Position;
+                player.callMethodOnTail(tail => tail.resetPosition());
             }
         }
     }

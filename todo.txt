@@ -60,4 +60,11 @@ X add multiple levels
 X make transitions between them
 X allow for permanent upgrade charms that dont take slots and cant be unequipped
 X rotate inventory snake parts so that the guns you equip are shown on the right side
-- make entire snake body tp on new level
+X make entire snake body tp on new level
+
+PRE RELEASE V7
+- add camera
+- add pickupable items
+- add apples that increase snake size
+- add save points that heal
+- we gotta spawn player away from the entrance, the workaround doesnt work if the player decides to immediately go back

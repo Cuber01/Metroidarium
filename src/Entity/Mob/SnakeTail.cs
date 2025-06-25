@@ -7,7 +7,7 @@ namespace Metroidarium;
 
 public partial class SnakeTail : SnakeBody
 {
-    private readonly Godot.PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
+    private readonly PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 
     private const float rotationOffset = 1.5f; 
     private int amountOfPartsBehind = -1;
@@ -21,7 +21,7 @@ public partial class SnakeTail : SnakeBody
         Speed = 150f;
         this.AheadMe = aheadMe;
         this.PartId = partId;
-        GlobalPosition = constrainDistance(Position, AheadMe.Position, distanceToNextPart);
+        resetPosition();
     }
 	
     public override void _PhysicsProcess(double delta)
@@ -40,8 +40,21 @@ public partial class SnakeTail : SnakeBody
         }
     }
 
+    public void resetPosition()
+    {
+        GlobalPosition = constrainDistanceWithoutY(Position, AheadMe.Position, distanceToNextPart);
+    }
+
     private Vector2 constrainDistance(Vector2 point, Vector2 anchor, float distance) {
         return ((point - anchor).Normalized() * distance) + anchor;
+    }
+    
+    private Vector2 constrainDistanceWithoutY(Vector2 point, Vector2 anchor, float distance) {
+        return ((point - anchor).Normalized() * distance * new Vector2(1,0)) + anchor;
+    }
+    
+    private Vector2 constrainDistanceLikeWhip(Vector2 point, Vector2 anchor, float distance, Vector2 goofiness) {
+        return ((point + anchor + goofiness).Normalized() * distance) + anchor;
     }
 
     private Vector2 followVector(Vector2 target)

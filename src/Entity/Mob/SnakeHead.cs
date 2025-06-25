@@ -128,6 +128,17 @@ public partial class SnakeHead : SnakeBody
 		}
 	}
 
+	public void callMethodOnTail(Action<SnakeTail> method)
+	{
+		foreach (SnakeBody part in snakeParts)
+		{
+			if (part is SnakeTail tail)
+			{
+				method(tail);	
+			}
+		}
+	}
+
 	public void callMethodOnSnake(Action<SnakeBody> method)
 	{
 		foreach (SnakeBody part in snakeParts)
