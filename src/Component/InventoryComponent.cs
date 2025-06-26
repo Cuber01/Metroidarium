@@ -10,7 +10,7 @@ public class InventoryComponent : Component
 {
     public Dictionary<String, InventoryItem> CharmInventory { get; private set; }
     public Dictionary<String, InventoryItem> UpgradeInventory { get; private set; }
-    public int applesCollected = 0;
+    public int ApplesCollected = 0;
     
     public List<InventoryItem> AllCharms { get; private set; }
     private InventoryMenu menu;
@@ -43,7 +43,7 @@ public class InventoryComponent : Component
                 EquipUpgrade(item);
                 break;
             case ItemType.Apple:
-                applesCollected++;
+                ApplesCollected++;
                 player.AmountOfTail++;
                 player.growTail(1);
                 break;

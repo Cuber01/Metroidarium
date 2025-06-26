@@ -63,7 +63,7 @@ X rotate inventory snake parts so that the guns you equip are shown on the right
 X make entire snake body tp on new level
 
 PRE RELEASE V7
-- add camera
+X add camera
 X add pickupable items
 X add apples that increase snake size
 X save spots for healing
@@ -71,6 +71,11 @@ X inventory needs to show the correct amount of slots
 X we gotta spawn player away from the entrance, the workaround doesn't work if the player decides to immediately go back
 
 PRE RELEASE V8
+- camera weirdness with rotation
+- get some gameplay
+- fix damage bugs
+
+Stretch:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers
