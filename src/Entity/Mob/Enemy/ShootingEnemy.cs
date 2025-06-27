@@ -4,7 +4,7 @@ namespace Metroidarium;
 
 public partial class ShootingEnemy : Enemy
 {
-    private float shootDelay = 100;
+    private float shootDelay = 5;
     private float time = 0;
     
     public override void _Ready()

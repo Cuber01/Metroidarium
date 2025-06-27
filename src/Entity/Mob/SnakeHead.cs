@@ -186,7 +186,8 @@ public partial class SnakeHead : SnakeBody
 		{
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
 			GetParent().CallDeferred("add_child", newInstance);
-			newInstance.Init(lastInstance, lastIndex+i);
+			GD.Print(lastIndex+i+1);
+			newInstance.Init(lastInstance, lastIndex+i+1);
 			lastInstance!.BehindMe = newInstance;
 
 			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
