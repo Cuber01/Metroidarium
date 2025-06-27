@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 // ReSharper disable InconsistentNaming
@@ -26,7 +27,16 @@ public partial class SnakeHead : SnakeBody
 	// TODO will need to implement a proper state machine if needed
 	public bool restState = false;
 	
-	public int CurrentAmountOfTail = 0;
+	private int currentAmountOfTail = 0;
+
+	public int CurrentAmountOfTail
+	{
+		get
+		{
+			return snakeParts.Count(part => part != null) - 1;
+		}
+	}	
+	
 	private int amountOfTail;
 	public int AmountOfTail {
 		get => amountOfTail;
@@ -174,7 +184,6 @@ public partial class SnakeHead : SnakeBody
 			#endif
 		}
 		
-		CurrentAmountOfTail--;
 		#if DEBUG_TAIL
 		debugPrint($"Removed snake part at {partId} and replaced it with null.");
 		#endif
@@ -197,6 +206,7 @@ public partial class SnakeHead : SnakeBody
 				{
 					newIndex = i;
 					replacing = true;
+					break;
 				}
 			}
 			if (newIndex == -1)
@@ -227,7 +237,10 @@ public partial class SnakeHead : SnakeBody
 
 				for (int i = newIndex+1; i < snakeParts.Count; i++)
 				{
-					snakeParts[i].AheadMe = snakeParts[i - 1];
+					if (snakeParts[i] != null)
+					{
+						snakeParts[i].AheadMe = snakeParts[i - 1];	
+					}
 				}
 				
 				#if DEBUG_TAIL
@@ -243,7 +256,6 @@ public partial class SnakeHead : SnakeBody
 			}
 		}
 		
-		CurrentAmountOfTail += amount;
 	}
 	
 	// Called by Pickupable Item
