@@ -45,7 +45,7 @@ public class InventoryComponent : Component
             case ItemType.Apple:
                 ApplesCollected++;
                 player.AmountOfTail++;
-                player.growTail(1);
+                player.growTail(player.AmountOfTail - player.CurrentAmountOfTail);
                 break;
         }
         

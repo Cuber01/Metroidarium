@@ -1,3 +1,4 @@
+#define DEBUG_TAIL
 
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,10 @@ public partial class SnakeHead : SnakeBody
 		get => amountOfTail;
 		set
 		{
+			#if DEBUG_TAIL
+				debugPrint($"Changed amountOfTail from {amountOfTail} to {value}");
+			#endif
+			
 			int change = Math.Abs(amountOfTail-value);
 			while (change > 0)
 			{
@@ -72,8 +77,7 @@ public partial class SnakeHead : SnakeBody
 		snakeParts.Add(this);
 		PartId = 0;
 		AmountOfTail = 3;
-		
-		growTail(2);
+		growTail(amountOfTail);
 
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/double_cannon.tres");
 		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/assault_rightle.tres");
@@ -164,37 +168,79 @@ public partial class SnakeHead : SnakeBody
 		{
 			charms[partId].Unequip();
 			charms[partId] = null;	
+			
+			#if DEBUG_TAIL
+			GD.Print($"Unequipped charm at {partId} and replaced it with null.");
+			#endif
 		}
 		
 		CurrentAmountOfTail--;
+		#if DEBUG_TAIL
+		debugPrint($"Removed snake part at {partId} and replaced it with null.");
+		#endif
 	}
 
 	public void growTail(int amount)
 	{
-		SnakeBody lastInstance = null;
-		int lastIndex = -1;
-		for (int i = 0; i < snakeParts.Count; i++)
+		#if DEBUG_TAIL
+		GD.Print($"Growing tail by {amount}.");
+		#endif
+
+		for (int j = 0; j < amount; j++)
 		{
-			if (snakeParts[i] != null)
+			// Calculate new index
+			bool replacing = false;
+			int newIndex = -1;
+			for (int i = 0; i < snakeParts.Count; i++)
 			{
-				lastInstance = snakeParts[i];
-				lastIndex = i;
+				if (snakeParts[i] == null)
+				{
+					newIndex = i;
+					replacing = true;
+				}
 			}
-		}
+			if (newIndex == -1)
+			{
+				newIndex = snakeParts.Count;
+				replacing = false;
+			}
 		
-		for (int i = 0; i < amount; i++)
-		{
+			#if DEBUG_TAIL
+			GD.Print($"New tail's index is {newIndex}.");
+			#endif
+
+			// Instantiate new tail
+			SnakeBody lastInstance = snakeParts[newIndex - 1];
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
 			GetParent().CallDeferred("add_child", newInstance);
-			GD.Print(lastIndex+i+1);
-			newInstance.Init(lastInstance, lastIndex+i+1);
+			
+			newInstance.Init(lastInstance, newIndex);
 			lastInstance!.BehindMe = newInstance;
 
 			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
 			newInstance.OnDeathEvent += removeSnakePart;
-			
-			snakeParts.Add(newInstance);
-			lastInstance = newInstance;
+
+			// Add tail to snakeParts
+			if (replacing)
+			{
+				snakeParts[newIndex] = newInstance;
+
+				for (int i = newIndex+1; i < snakeParts.Count; i++)
+				{
+					snakeParts[i].AheadMe = snakeParts[i - 1];
+				}
+				
+				#if DEBUG_TAIL
+				debugPrint($"Replaced null by new tail at {newIndex}.");
+				#endif
+			}
+			else
+			{
+				snakeParts.Add(newInstance);
+				#if DEBUG_TAIL
+				debugPrint($"Grown the tail to include {newIndex} id.");
+				#endif
+			}
 		}
 		
 		CurrentAmountOfTail += amount;
@@ -222,8 +268,34 @@ public partial class SnakeHead : SnakeBody
 				break;
 			}
 		}
-
 	}
+	
+	#if DEBUG_TAIL
+	private void debugPrint(string msg)
+	{
+		GD.Print(msg);
+		GD.PrintRich(this);
+	}
+	
+	public override string ToString()
+	{
+		string rv = "";
+		foreach (SnakeBody part in snakeParts)
+		{
+			if (part == null)
+			{
+				rv += "[color=purple]Null[/color] ";
+			} else if (part is SnakeTail)
+			{
+				rv += "[color=green]Tail[/color] ";
+			} else if (part is SnakeHead)
+			{
+				rv += "[color=blue]Head[/color] ";
+			}
+		}
+		return rv;
+	}
+	#endif
 }
 
 // Tank Movement

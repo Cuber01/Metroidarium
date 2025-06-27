@@ -10,7 +10,7 @@ public partial class SnakeBody : Mob
     public delegate void DiedHandler(int partId);
     public event DiedHandler OnDeathEvent;
     
-    protected SnakeBody AheadMe = null;
+    public SnakeBody AheadMe = null;
     public SnakeTail BehindMe = null;
 
     public int PartId = -999;
