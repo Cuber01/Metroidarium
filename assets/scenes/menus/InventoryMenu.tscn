@@ -20,14 +20,17 @@ script = ExtResource("1_biofj")
 process_mode = 3
 z_index = -1
 material = SubResource("ShaderMaterial_ifx5g")
-position = Vector2(160, 128)
-scale = Vector2(320, 256)
+scale = Vector2(500, 400)
 texture = ExtResource("3_3hrpb")
 
 [node name="Equipped" type="Control" parent="."]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
+offset_left = -159.0
+offset_top = -112.0
+offset_right = -159.0
+offset_bottom = -112.0
 scale = Vector2(4, 4)
 metadata/_edit_use_anchors_ = true
 
@@ -127,8 +130,10 @@ texture = ExtResource("2_6yiti")
 
 [node name="CollectionLabel" type="RichTextLabel" parent="."]
 process_mode = 3
-offset_right = 109.0
-offset_bottom = 27.0
+offset_left = -159.0
+offset_top = -112.0
+offset_right = -50.0
+offset_bottom = -85.0
 text = "Collection"
 metadata/_edit_use_anchors_ = true
 
@@ -136,4 +141,8 @@ metadata/_edit_use_anchors_ = true
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
+offset_left = -159.0
+offset_top = -112.0
+offset_right = -159.0
+offset_bottom = -112.0
 metadata/_edit_use_anchors_ = true

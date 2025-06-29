@@ -74,7 +74,7 @@ PRE RELEASE V8
 - make camera center on inventory
 - get some gameplay
 X3 fix damage bugs
-- make inventory reequip selected items
+X make inventory reequip selected items
 
 PRE RELEASE V9
 - allow to equip on head
