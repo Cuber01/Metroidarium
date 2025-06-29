@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://7fbib6m8u5ht"]
+[gd_scene load_steps=6 format=3 uid="uid://7fbib6m8u5ht"]
 
 [ext_resource type="Shader" uid="uid://bb4atknundpl8" path="res://src/shaders/Subpixel.gdshader" id="1_xt100"]
 [ext_resource type="PackedScene" uid="uid://j4d6mc8bwr5f" path="res://assets/scenes/Game.tscn" id="2_uu6xs"]
 [ext_resource type="Script" uid="uid://ckxtwnhcwa4hv" path="res://src/PixelCamera.cs" id="3_eruk6"]
-[ext_resource type="PackedScene" uid="uid://djhk6gg1x1guq" path="res://assets/scenes/menus/InventoryMenu.tscn" id="3_xt100"]
 [ext_resource type="PackedScene" uid="uid://cnfg81duqnuae" path="res://assets/scenes/entities/ShootingEnemy.tscn" id="4_jv468"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eruk6"]
@@ -31,12 +30,10 @@ render_target_update_mode = 4
 process_mode = 1
 
 [node name="SnakeHead" parent="SubViewportContainer/SubViewport/Game" index="1"]
-position = Vector2(0, 0)
+position = Vector2(79.25, 124.25)
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="SubViewportContainer/SubViewport/Game/SnakeHead" index="3"]
-remote_path = NodePath("../../InventoryMenu")
-update_rotation = false
-update_scale = false
+[node name="InventoryMenu" parent="SubViewportContainer/SubViewport/Game" index="2"]
+position = Vector2(79.25, 124.25)
 
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target")]
 position_smoothing_speed = 10.0
@@ -46,9 +43,5 @@ Target = NodePath("../SnakeHead")
 [node name="ShootingEnemy" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target") instance=ExtResource("4_jv468")]
 position = Vector2(56.5, 26.25)
 Target = NodePath("../SnakeHead")
-
-[node name="InventoryMenu" parent="SubViewportContainer/SubViewport/Game" instance=ExtResource("3_xt100")]
-unique_name_in_owner = true
-visible = false
 
 [editable path="SubViewportContainer/SubViewport/Game"]

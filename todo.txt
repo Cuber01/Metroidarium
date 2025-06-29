@@ -71,14 +71,14 @@ X inventory needs to show the correct amount of slots
 X we gotta spawn player away from the entrance, the workaround doesn't work if the player decides to immediately go back
 
 PRE RELEASE V8
-- make camera center on inventory
+X make camera center on inventory
 - get some gameplay
 X3 fix damage bugs
 X make inventory reequip selected items
+- make real pause in inventory
 
 PRE RELEASE V9
 - allow to equip on head
-- make real pause in inventory
 
 Stretch:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus

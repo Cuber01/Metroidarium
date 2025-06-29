@@ -11,7 +11,7 @@ public partial class SnakeBody : Mob
     public delegate void DiedHandler(int partId);
     public event DiedHandler OnDeathEvent;
     
-    public List<SnakeBody> SnakeParts = new List<SnakeBody>();
+    public List<SnakeBody> SnakeParts = new List<SnakeBody>(10);
 
     protected SnakeBody AheadMe
     {

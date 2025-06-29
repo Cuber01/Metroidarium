@@ -55,8 +55,8 @@ public partial class SnakeHead : SnakeBody
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
 	
-	public readonly List<Charm> charms = new List<Charm>();
-	public readonly List<Charm> permanentCharms = new List<Charm>();
+	public readonly List<Charm> charms = new List<Charm>(10);
+	public readonly List<Charm> permanentCharms = new List<Charm>(10);
 
 	private ItemLoader ItemLoader;
 	

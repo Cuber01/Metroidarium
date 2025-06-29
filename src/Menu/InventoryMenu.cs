@@ -29,15 +29,15 @@ public partial class InventoryMenu : Node2D
         this.inventoryComponent = inventoryComponent;
         inventory = inventoryComponent.CharmInventory;
         
-        Control equipped = GetNode<Control>("Equipped");
-        firstSlot = equipped.GetNode<TextureButton>("Slot0");
+        Control equipped_menu = GetNode<Control>("Equipped");
+        firstSlot = equipped_menu.GetNode<TextureButton>("Slot0");
         
         setupInventoryContents();
-        setupEquipped(equipped, slotsAmount);
+        setupEquippedMenu(equipped_menu, slotsAmount);
         firstItem.CallDeferred("grab_focus");
     }
     
-    private void setupEquipped(Control equipped, int slotsAmount)
+    private void setupEquippedMenu(Control equipped, int slotsAmount)
     {
         int i = equipped.GetChildCount();
         firstSlot = equipped.GetNode<TextureButton>("Slot0");
