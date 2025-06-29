@@ -53,7 +53,7 @@ public class InventoryComponent : Component
 
     public void EquipItem(InventoryItem item, int slotIndex)
     {
-        SnakeTail slot = (SnakeTail)player.snakeParts[slotIndex];
+        SnakeTail slot = (SnakeTail)player.SnakeParts[slotIndex];
         Charm charm = (Charm)Activator.CreateInstance(Type.GetType(item.GameName)!, player, slot);
         
         // Init charm
@@ -89,12 +89,18 @@ public class InventoryComponent : Component
     {
         Charm upgrade = (Charm)Activator.CreateInstance(Type.GetType(item.GameName)!, player, null);
         upgrade!.EquipCharm();
-        player.pernamentCharms.Add(upgrade);
+        player.permanentCharms.Add(upgrade);
     }
     
     public void Unequip(int slotIndex)
     {
-        player.snakeParts[slotIndex].
+        // This method may be called by InventoryMenu, because InventoryMenu does not make a distinction between an empty slot and a slot to unequip
+        if (player.charms.Count <= slotIndex)
+            return;
+        if (player.charms[slotIndex] == null)
+            return;
+        
+        player.SnakeParts[slotIndex].
             GetNode<Sprite2D>("CharmMarker").SetTexture(null);
         
         player.charms[slotIndex].Unequip();

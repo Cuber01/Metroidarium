@@ -17,7 +17,6 @@ public partial class SavePoint : Area2D
 
     private void rest(SnakeHead player)
     {
-        GD.Print(player.AmountOfTail - player.CurrentAmountOfTail);
         player.growTail(player.AmountOfTail - player.CurrentAmountOfTail);
     }
 }

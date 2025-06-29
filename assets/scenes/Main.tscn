@@ -39,7 +39,7 @@ script = ExtResource("3_eruk6")
 Target = NodePath("../SnakeHead")
 
 [node name="ShootingEnemy" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target") instance=ExtResource("4_jv468")]
-position = Vector2(67.25, 102.25)
+position = Vector2(56.5, 26.25)
 Target = NodePath("../SnakeHead")
 
 [node name="InventoryMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_xt100")]

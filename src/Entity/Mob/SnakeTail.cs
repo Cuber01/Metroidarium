@@ -20,7 +20,7 @@ public partial class SnakeTail : SnakeBody
     {
         AddComponent(new ContactComponent(1));
         Speed = 150f;
-        this.snakeParts = snakeParts;
+        this.SnakeParts = snakeParts;
         this.PartId = partId;
         
         resetPosition();

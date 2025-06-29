@@ -11,7 +11,7 @@ public partial class SnakeBody : Mob
     public delegate void DiedHandler(int partId);
     public event DiedHandler OnDeathEvent;
     
-    protected List<SnakeBody> snakeParts;
+    public List<SnakeBody> SnakeParts = new List<SnakeBody>();
 
     protected SnakeBody AheadMe
     {
@@ -19,9 +19,9 @@ public partial class SnakeBody : Mob
         {
             for (int i = PartId-1; i >= 0; i--)
             {
-                if (snakeParts[i] != null)
+                if (SnakeParts[i] != null)
                 {
-                    return snakeParts[i];
+                    return SnakeParts[i];
                 }
             }
 
@@ -33,11 +33,11 @@ public partial class SnakeBody : Mob
     {
         get
         {
-            for (int i = PartId+1; i < snakeParts.Count; i++)
+            for (int i = PartId+1; i < SnakeParts.Count; i++)
             {
-                if (snakeParts[i] != null)
+                if (SnakeParts[i] != null)
                 {
-                    return snakeParts[i];
+                    return SnakeParts[i];
                 }
             }
 

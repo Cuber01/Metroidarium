@@ -8,8 +8,11 @@ public partial class InventoryMenu : Node2D
 {
     private readonly Texture2D emptySlotImage = ResourceLoader.Load<Texture2D>("res://assets/img/no-item.png");
     private readonly Texture2D snakeBodyImage = ResourceLoader.Load<Texture2D>("res://assets/img/snake-body.png");
-    private readonly Godot.PackedScene itemButton = GD.Load<Godot.PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
+    private readonly PackedScene itemButton = GD.Load<PackedScene>("res://assets/scenes/menus/ItemInventoryBox.tscn");
+    
     private Dictionary<String, InventoryItem> inventory;
+    private List<InventoryItem> equipped = new List<InventoryItem>(new InventoryItem[10]);
+    
     private InventoryComponent inventoryComponent;
     private InventoryItem selected;
     private TextureButton selectedButton;
@@ -18,6 +21,8 @@ public partial class InventoryMenu : Node2D
     
     // TODO this is a weird workaround for CallDeferred being deferred. Is there another way?
     private bool blockInput = true;
+
+    #region SETUP
 
     public void Init(InventoryComponent inventoryComponent, int slotsAmount)
     {
@@ -30,15 +35,6 @@ public partial class InventoryMenu : Node2D
         setupInventoryContents();
         setupEquipped(equipped, slotsAmount);
         firstItem.CallDeferred("grab_focus");
-    }
-
-    public override void _Process(double delta)
-    {
-        blockInput = false;
-        if (Input.IsActionPressed("ui_cancel"))
-        {
-            inventoryComponent.CloseMenu();   
-        }
     }
     
     private void setupEquipped(Control equipped, int slotsAmount)
@@ -130,6 +126,17 @@ public partial class InventoryMenu : Node2D
         firstItem = buttonField[0,0];
     }
 
+    #endregion
+    
+    public override void _Process(double delta)
+    {
+        blockInput = false;
+        if (Input.IsActionPressed("ui_cancel"))
+        {
+            inventoryComponent.CloseMenu();   
+        }
+    }
+    
     private void _onEquipmentPressed(TextureButton btn, string name)
     {
         if(blockInput) return;
@@ -149,14 +156,14 @@ public partial class InventoryMenu : Node2D
         if (selected != null)
         {
             btn.TextureNormal = selected.Image;
-            inventoryComponent.EquipItem(selected, index);
+            equipped[index] = selected;
             selected = null;   
             selectedButton.GetNode<Sprite2D>("SelectedSprite").Visible = false;
         }
         else if(btn.TextureNormal != null)
         {
             btn.TextureNormal = null;
-            inventoryComponent.Unequip(index);
+            equipped[index] = null;
         }
         blockInput = true;
         firstItem.CallDeferred("grab_focus");
@@ -164,6 +171,18 @@ public partial class InventoryMenu : Node2D
     
     public void Close()
     {
+        for (int i = 0; i < equipped.Count; i++)
+        {
+            if (equipped[i] != null)
+            {
+                inventoryComponent.EquipItem(equipped[i], i);    
+            }
+            else
+            {
+                inventoryComponent.Unequip(i);
+            }
+        }
+        
         selected = null;
     }
     

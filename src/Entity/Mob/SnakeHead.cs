@@ -1,5 +1,3 @@
-#define DEBUG_TAIL
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
-	private readonly Godot.PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
+	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 
 	public delegate void InteractedEventHandler(SnakeHead player);
 	public event InteractedEventHandler OnInteractedEvent;
@@ -21,11 +19,8 @@ public partial class SnakeHead : SnakeBody
 	
 	public delegate void ShotEventHandler(Directions direction);
 	public event ShotEventHandler OnShotEvent;
-	
-	public Vector2 lastChangedVelocity = new Vector2(0,1);
 
-	// TODO will need to implement a proper state machine if needed
-	public bool restState = false;
+	private Vector2 lastChangedVelocity = new Vector2(0,1);
 	
 	private int currentAmountOfTail = 0;
 
@@ -33,7 +28,7 @@ public partial class SnakeHead : SnakeBody
 	{
 		get
 		{
-			return snakeParts.Count(part => part != null) - 1;
+			return SnakeParts.Count(part => part != null) - 1;
 		}
 	}	
 	
@@ -60,9 +55,8 @@ public partial class SnakeHead : SnakeBody
 	private float deaccelerationSpeed = 1f;
 	private SnakeTail behindMe = null;
 	
-	public List<Charm> charms = new List<Charm>();
-	public List<Charm> pernamentCharms = new List<Charm>();
-	public List<SnakeBody> snakeParts = new List<SnakeBody>();
+	public readonly List<Charm> charms = new List<Charm>();
+	public readonly List<Charm> permanentCharms = new List<Charm>();
 
 	private ItemLoader ItemLoader;
 	
@@ -84,7 +78,7 @@ public partial class SnakeHead : SnakeBody
 		
 		Speed = 150f;
 		OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
-		snakeParts.Add(this);
+		SnakeParts.Add(this);
 		PartId = 0;
 		AmountOfTail = 3;
 		growTail(amountOfTail);
@@ -114,7 +108,7 @@ public partial class SnakeHead : SnakeBody
 			charm?.Update((float)delta);
 		}
 
-		foreach (Charm charm in pernamentCharms)
+		foreach (Charm charm in permanentCharms)
 		{
 			charm.Update((float)delta);
 		}
@@ -153,7 +147,7 @@ public partial class SnakeHead : SnakeBody
 
 	public void callMethodOnTail(Action<SnakeTail> method)
 	{
-		foreach (SnakeBody part in snakeParts)
+		foreach (SnakeBody part in SnakeParts)
 		{
 			if (part is SnakeTail tail)
 			{
@@ -164,7 +158,7 @@ public partial class SnakeHead : SnakeBody
 
 	public void callMethodOnSnake(Action<SnakeBody> method)
 	{
-		foreach (SnakeBody part in snakeParts)
+		foreach (SnakeBody part in SnakeParts)
 		{
 			method(part);
 		}
@@ -172,7 +166,7 @@ public partial class SnakeHead : SnakeBody
 
 	private void removeSnakePart(int partId)
 	{
-		snakeParts[partId] = null;
+		SnakeParts[partId] = null;
 		
 		if (charms[partId] != null)
 		{
@@ -200,9 +194,9 @@ public partial class SnakeHead : SnakeBody
 			// Calculate new index
 			bool replacing = false;
 			int newIndex = -1;
-			for (int i = 0; i < snakeParts.Count; i++)
+			for (int i = 0; i < SnakeParts.Count; i++)
 			{
-				if (snakeParts[i] == null)
+				if (SnakeParts[i] == null)
 				{
 					newIndex = i;
 					replacing = true;
@@ -211,7 +205,7 @@ public partial class SnakeHead : SnakeBody
 			}
 			if (newIndex == -1)
 			{
-				newIndex = snakeParts.Count;
+				newIndex = SnakeParts.Count;
 				replacing = false;
 			}
 		
@@ -225,7 +219,7 @@ public partial class SnakeHead : SnakeBody
 			// Add tail to snakeParts
 			if (replacing)
 			{
-				snakeParts[newIndex] = newInstance;
+				SnakeParts[newIndex] = newInstance;
 				
 				#if DEBUG_TAIL
 				debugPrint($"Replaced null by new tail at {newIndex}.");
@@ -233,14 +227,14 @@ public partial class SnakeHead : SnakeBody
 			}
 			else
 			{
-				snakeParts.Add(newInstance);
+				SnakeParts.Add(newInstance);
 				#if DEBUG_TAIL
 				debugPrint($"Grown the tail to include {newIndex} id.");
 				#endif
 			}
 			
 			//Init
-			newInstance.Init(ref snakeParts, newIndex);
+			newInstance.Init(ref SnakeParts, newIndex);
 			GetParent().CallDeferred("add_child", newInstance);
 			
 			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
@@ -257,16 +251,16 @@ public partial class SnakeHead : SnakeBody
 	
 	public override void die()
 	{
-		for (int j = snakeParts.Count - 1; j >= 0; j--)
+		for (int j = SnakeParts.Count - 1; j >= 0; j--)
 		{
 			// All other parts are already dead
-			if (snakeParts[j] is SnakeHead)
+			if (SnakeParts[j] is SnakeHead)
 			{
 				base.die();
 			// Else kill the last part	
-			} else if (snakeParts[j] != null)
+			} else if (SnakeParts[j] != null)
 			{
-				snakeParts[j].die();
+				SnakeParts[j].die();
 				removeSnakePart(j);
 				break;
 			}

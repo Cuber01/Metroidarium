@@ -73,11 +73,15 @@ X we gotta spawn player away from the entrance, the workaround doesn't work if t
 PRE RELEASE V8
 - make camera center on inventory
 - get some gameplay
-- fix damage bugs
+X3 fix damage bugs
+- make inventory reequip selected items
+
+PRE RELEASE V9
+- allow to equip on head
+- make real pause in inventory
 
 Stretch:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 - camera weirdness with rotation
-- make real pause in inventory
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers
