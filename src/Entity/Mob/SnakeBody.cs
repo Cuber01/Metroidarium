@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace Metroidarium;
@@ -10,8 +11,39 @@ public partial class SnakeBody : Mob
     public delegate void DiedHandler(int partId);
     public event DiedHandler OnDeathEvent;
     
-    public SnakeBody AheadMe = null;
-    public SnakeTail BehindMe = null;
+    protected List<SnakeBody> snakeParts;
+
+    protected SnakeBody AheadMe
+    {
+        get
+        {
+            for (int i = PartId-1; i >= 0; i--)
+            {
+                if (snakeParts[i] != null)
+                {
+                    return snakeParts[i];
+                }
+            }
+
+            return null;
+        }
+    }
+
+    protected SnakeBody BehindMe
+    {
+        get
+        {
+            for (int i = PartId+1; i < snakeParts.Count; i++)
+            {
+                if (snakeParts[i] != null)
+                {
+                    return snakeParts[i];
+                }
+            }
+
+            return null;
+        }
+    }
 
     public int PartId = -999;
 
@@ -43,15 +75,6 @@ public partial class SnakeBody : Mob
     
     public override void die()
     {
-        if (BehindMe != null)
-        {
-            BehindMe.AheadMe = AheadMe;
-        }
-        if (AheadMe != null)
-        {
-            AheadMe.BehindMe = BehindMe;
-        }
-
         if (this is not SnakeHead)
         {
             OnDeathEvent!(PartId);    

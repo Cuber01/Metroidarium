@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using static System.Single;
 // ReSharper disable InconsistentNaming
@@ -8,19 +9,20 @@ namespace Metroidarium;
 public partial class SnakeTail : SnakeBody
 {
     private readonly PackedScene tailPart = GD.Load<Godot.PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
-
+    
     private const float rotationOffset = 1.5f; 
     private int amountOfPartsBehind = -1;
     
     private const float distanceToNextPart = 14f;
     private float deaccelerationSpeed = 0.1f;
     
-    public void Init(SnakeBody aheadMe, int partId)
+    public void Init(ref List<SnakeBody> snakeParts, int partId)
     {
         AddComponent(new ContactComponent(1));
         Speed = 150f;
-        this.AheadMe = aheadMe;
+        this.snakeParts = snakeParts;
         this.PartId = partId;
+        
         resetPosition();
     }
 	

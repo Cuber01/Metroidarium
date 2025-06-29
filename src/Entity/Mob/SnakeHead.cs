@@ -220,28 +220,12 @@ public partial class SnakeHead : SnakeBody
 			#endif
 
 			// Instantiate new tail
-			SnakeBody lastInstance = snakeParts[newIndex - 1];
 			SnakeTail newInstance = (SnakeTail)tailPart.Instantiate();
-			GetParent().CallDeferred("add_child", newInstance);
-			
-			newInstance.Init(lastInstance, newIndex);
-			lastInstance!.BehindMe = newInstance;
-
-			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
-			newInstance.OnDeathEvent += removeSnakePart;
 
 			// Add tail to snakeParts
 			if (replacing)
 			{
 				snakeParts[newIndex] = newInstance;
-
-				for (int i = newIndex+1; i < snakeParts.Count; i++)
-				{
-					if (snakeParts[i] != null)
-					{
-						snakeParts[i].AheadMe = snakeParts[i - 1];	
-					}
-				}
 				
 				#if DEBUG_TAIL
 				debugPrint($"Replaced null by new tail at {newIndex}.");
@@ -254,6 +238,13 @@ public partial class SnakeHead : SnakeBody
 				debugPrint($"Grown the tail to include {newIndex} id.");
 				#endif
 			}
+			
+			//Init
+			newInstance.Init(ref snakeParts, newIndex);
+			GetParent().CallDeferred("add_child", newInstance);
+			
+			newInstance.OnGotHitEvent += () => callMethodOnSnake(body => body?.makeInvincible());
+			newInstance.OnDeathEvent += removeSnakePart;
 		}
 		
 	}
