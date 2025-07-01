@@ -32,10 +32,12 @@ public partial class WalkShootEnemy : Enemy
     
     public class Run : TimedState<WalkShootEnemy>
     {
+        private readonly float rndDelay = (float)GD.RandRange(0.0,2.5);
+        
         public override void Enter(WalkShootEnemy entity)
         {
             base.Enter(entity);
-            Delay = 5f;
+            Delay = 3f + rndDelay;
         }
         public override void Update(WalkShootEnemy entity, float dt)
         {
