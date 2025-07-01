@@ -17,14 +17,12 @@ z_index = 2
 script = ExtResource("1_biofj")
 
 [node name="Background" type="Sprite2D" parent="."]
-process_mode = 3
 z_index = -1
 material = SubResource("ShaderMaterial_ifx5g")
 scale = Vector2(500, 400)
 texture = ExtResource("3_3hrpb")
 
 [node name="Equipped" type="Control" parent="."]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_left = -159.0
@@ -43,6 +41,7 @@ offset_right = 76.0
 offset_bottom = 12.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot0"]
 z_index = -1
@@ -59,6 +58,7 @@ offset_right = 76.0
 offset_bottom = 22.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot1"]
 z_index = -1
@@ -74,6 +74,7 @@ offset_right = 76.0
 offset_bottom = 32.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot2"]
 z_index = -1
@@ -89,6 +90,7 @@ offset_right = 76.0
 offset_bottom = 42.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot3"]
 z_index = -1
@@ -105,6 +107,7 @@ offset_right = 76.0
 offset_bottom = 52.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot4"]
 z_index = -1
@@ -121,6 +124,7 @@ offset_right = 76.0
 offset_bottom = 62.0
 texture_focused = ExtResource("2_f6t3q")
 metadata/SlotIndex = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Equipped/Slot5"]
 z_index = -1
@@ -129,7 +133,6 @@ position = Vector2(4, 4)
 texture = ExtResource("2_6yiti")
 
 [node name="CollectionLabel" type="RichTextLabel" parent="."]
-process_mode = 3
 offset_left = -159.0
 offset_top = -112.0
 offset_right = -50.0
@@ -138,7 +141,6 @@ text = "Collection"
 metadata/_edit_use_anchors_ = true
 
 [node name="Collection" type="Control" parent="."]
-process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_left = -159.0

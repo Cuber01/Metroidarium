@@ -8,6 +8,11 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_hkxsf")
 
+[node name="InventoryMenu" parent="." instance=ExtResource("4_ovtps")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(162, 75)
+
 [node name="Level" parent="." instance=ExtResource("1_wk23g")]
 
 [node name="SnakeHead" parent="." instance=ExtResource("2_t88pq")]
@@ -17,8 +22,3 @@ position = Vector2(162, 75)
 remote_path = NodePath("../../InventoryMenu")
 update_rotation = false
 update_scale = false
-
-[node name="InventoryMenu" parent="." instance=ExtResource("4_ovtps")]
-unique_name_in_owner = true
-visible = false
-position = Vector2(162, 75)

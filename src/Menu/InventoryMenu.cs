@@ -127,14 +127,16 @@ public partial class InventoryMenu : Node2D
     }
 
     #endregion
-    
+
     public override void _Process(double delta)
     {
+        
         blockInput = false;
-        if (Input.IsActionPressed("ui_cancel"))
+        if (Input.IsActionJustPressed("ui_cancel"))
         {
             inventoryComponent.CloseMenu();   
         }
+        
     }
     
     private void _onEquipmentPressed(TextureButton btn, string name)
@@ -171,6 +173,7 @@ public partial class InventoryMenu : Node2D
     
     public void Close()
     {
+        
         for (int i = 0; i < equipped.Count; i++)
         {
             if (equipped[i] != null)

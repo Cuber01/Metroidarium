@@ -75,7 +75,7 @@ X make camera center on inventory
 - get some gameplay
 X3 fix damage bugs
 X make inventory reequip selected items
-- make real pause in inventory
+X make real pause in inventory
 
 PRE RELEASE V9
 - allow to equip on head

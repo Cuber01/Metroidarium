@@ -111,8 +111,7 @@ public class InventoryComponent : Component
     {
         menu.Init(this, player.AmountOfTail);
         menu.Show();
-        // TODO pause breaks this
-        //player.GetTree().Paused = true;
+        player.GetTree().Paused = true;
     }
 
     public void CloseMenu()
