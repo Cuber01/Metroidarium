@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7fbib6m8u5ht"]
+[gd_scene load_steps=5 format=3 uid="uid://7fbib6m8u5ht"]
 
 [ext_resource type="Shader" uid="uid://bb4atknundpl8" path="res://src/shaders/Subpixel.gdshader" id="1_xt100"]
 [ext_resource type="PackedScene" uid="uid://j4d6mc8bwr5f" path="res://assets/scenes/Game.tscn" id="2_uu6xs"]
 [ext_resource type="Script" uid="uid://ckxtwnhcwa4hv" path="res://src/PixelCamera.cs" id="3_eruk6"]
-[ext_resource type="PackedScene" uid="uid://cnfg81duqnuae" path="res://assets/scenes/entities/ShootingEnemy.tscn" id="4_jv468"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eruk6"]
 shader = ExtResource("1_xt100")
@@ -41,10 +40,6 @@ position = Vector2(79.25, 124.25)
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target")]
 position_smoothing_speed = 10.0
 script = ExtResource("3_eruk6")
-Target = NodePath("../SnakeHead")
-
-[node name="ShootingEnemy" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target") instance=ExtResource("4_jv468")]
-position = Vector2(56.5, 26.25)
 Target = NodePath("../SnakeHead")
 
 [editable path="SubViewportContainer/SubViewport/Game"]

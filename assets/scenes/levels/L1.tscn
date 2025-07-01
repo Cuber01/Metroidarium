@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://dcj1j23f21fsr"]
+[gd_scene load_steps=6 format=4 uid="uid://dcj1j23f21fsr"]
 
 [ext_resource type="Script" uid="uid://chouroax4vlfn" path="res://src/World/Level.cs" id="1_mmonx"]
 [ext_resource type="TileSet" uid="uid://c1nlmb18xtmph" path="res://assets/tilesets/TestTileset.tres" id="1_wubic"]
 [ext_resource type="PackedScene" uid="uid://bqohrnhlhq0ra" path="res://assets/scenes/level_entrance.tscn" id="2_mmonx"]
-[ext_resource type="PackedScene" uid="uid://cskv28yqopsnb" path="res://assets/scenes/PickupableItem.tscn" id="4_thv7k"]
 [ext_resource type="PackedScene" uid="uid://cl6dnqrdnfn7m" path="res://assets/scenes/SavePoint.tscn" id="6_5jukv"]
-[ext_resource type="Resource" uid="uid://2pnue7vwvp40" path="res://assets/item_data/apple.tres" id="7_bke4r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3skay"]
 size = Vector2(51, 19.5)
@@ -38,11 +36,7 @@ shape = SubResource("RectangleShape2D_3skay")
 [node name="SpawnPoint" parent="Entrances/LevelEntrance2" index="1"]
 position = Vector2(0, 17)
 
-[node name="PickupableItem" parent="." instance=ExtResource("4_thv7k")]
-position = Vector2(229, 132)
-item = ExtResource("7_bke4r")
-
 [node name="SavePoint" parent="." instance=ExtResource("6_5jukv")]
-position = Vector2(122, 160)
+position = Vector2(139, 171)
 
 [editable path="Entrances/LevelEntrance2"]

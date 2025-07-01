@@ -79,9 +79,11 @@ X make real pause in inventory
 
 PRE RELEASE V9
 - allow to equip on head
+- fade in fade out on level transition
 
 Stretch:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 - camera weirdness with rotation
+- use MethodName to limit allocation of new strings
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

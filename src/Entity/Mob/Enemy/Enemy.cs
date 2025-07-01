@@ -12,6 +12,7 @@ public partial class Enemy : Mob
     
     public override void _Ready()
     {
+        Target = GetNode<Mob>("../../SnakeHead");
         AddComponent(new HealthComponent(this, MaxHealth));
         AddComponent(new ContactComponent(1));
     }

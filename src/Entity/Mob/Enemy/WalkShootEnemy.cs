@@ -14,8 +14,8 @@ public partial class WalkShootEnemy : Enemy
         setStats(3, 50f);
         base._Ready();
         AddComponent(new AStarMoveComponent(this, Speed, Target.Position,
-            GetNode<TileMapLayer>("../Level/Floor"),
-            GetNode<TileMapLayer>("../Level/Wall")));
+            GetNode<TileMapLayer>("../Floor"),
+            GetNode<TileMapLayer>("../Wall")));
         AddComponent(new ShootComponent(GetParent(), this, "Team Baddies"));
         
         fsm = new StateMachine<WalkShootEnemy>(this, runState);

@@ -18,4 +18,5 @@ public partial class GameManager : Node2D
             Levels.Add(path.GetBaseName(), ResourceLoader.Load<PackedScene>(LevelDirectory+path));
         }
     }
+    
 }
