@@ -23,7 +23,7 @@ public partial class Bullet : Entity
 			speed));
 		AddComponent(new ContactComponent(damage));
 		AddComponent(new ShaderComponent(this));
-		AddComponent(new TilesetDestructorComponent());
+		AddComponent(new TilemapToolsComponent());
 		this.Position = position;
 		this.TeamName = teamName;
 		this.speed = speed;
@@ -60,7 +60,7 @@ public partial class Bullet : Entity
 			GodotObject body = col.GetCollider();
 			if (body is TileMapLayer tileMapLayer)
 			{
-				if (GetComponent<TilesetDestructorComponent>().CheckTryDestroy(col, tileMapLayer))
+				if (GetComponent<TilemapToolsComponent>().CheckTryDestroy(col, tileMapLayer))
 					break; // Successfully destroyed tile
 			}
 		}

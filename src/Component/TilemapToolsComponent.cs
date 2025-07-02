@@ -2,7 +2,7 @@ using Godot;
 
 namespace Metroidarium;
 
-public class TilesetDestructorComponent : Component
+public class TilemapToolsComponent : Component
 {
     private const int DestructibleTerrainId = 2;
     private const float NormalStrengthOffset = 0.1f;
@@ -18,6 +18,11 @@ public class TilesetDestructorComponent : Component
         }
         // Failed to find tile or tile is not destructible
         return false;    
+    }
+
+    public int GetTileTerrain(Vector2 localPosition, TileMapLayer layer)
+    {
+        return layer.GetCellTileData(layer.LocalToMap(localPosition)).Terrain;
     }
     
     public bool IsDestructible(KinematicCollision2D col, TileMapLayer layer)

@@ -9,6 +9,8 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
+	#region Variables
+	
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 
 	public delegate void InteractedEventHandler(SnakeHead player);
@@ -68,12 +70,17 @@ public partial class SnakeHead : SnakeBody
 		{ "shoot_down", Directions.Down }
 	};
 	
+	#endregion
+	
+	#region Ready
+	
 	public override void _Ready()
 	{
 		base._Ready();
 		ItemLoader = new ItemLoader("res://assets/item_data/charms/");
 		AddComponent(new ContactComponent(5));
 		AddComponent(new InventoryComponent(this, ItemLoader.AllCharms));
+		AddComponent(new TilemapToolsComponent());
 		charms.Add(null);
 		
 		Speed = 150f;
@@ -90,10 +97,24 @@ public partial class SnakeHead : SnakeBody
 		GetComponent<InventoryComponent>().AddItem(assault);
 	}
 	
+	#endregion
+
+	#region Update loop
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
 
+		handleShooting();
+		updateCharms((float)delta);
+		handleMoving();
+		handleEvents();
+		
+		MoveAndSlide();
+	}
+
+	private void handleShooting()
+	{
 		foreach (var entry in actionToDirection)
 		{
 			if (Input.IsActionPressed(entry.Key))
@@ -102,17 +123,23 @@ public partial class SnakeHead : SnakeBody
 				break;
 			}
 		}
+	}
 
+	private void updateCharms(float delta)
+	{
 		foreach (Charm charm in charms)
 		{
-			charm?.Update((float)delta);
+			charm?.Update(delta);
 		}
 
 		foreach (Charm charm in permanentCharms)
 		{
-			charm.Update((float)delta);
+			charm.Update(delta);
 		}
-		
+	}
+
+	private void handleMoving()
+	{
 		// 8-Pad movement
 		Vector2 input = Input.GetVector("left", "right", "up", "down");
 
@@ -126,14 +153,14 @@ public partial class SnakeHead : SnakeBody
 		{
 			Velocity = Vector2.Zero;
 		}
-		
-		// Dashing
+	}
+
+	private void handleEvents()
+	{
 		if (Input.IsActionJustPressed("dash"))
 		{
 			OnDashedEvent?.Invoke();
 		}
-		
-		MoveAndSlide();
 		
 		if (Input.IsActionJustPressed("interact"))
 		{
@@ -144,7 +171,11 @@ public partial class SnakeHead : SnakeBody
 			}
 		}
 	}
-
+	
+	#endregion
+	
+	#region Handling tail
+	
 	public void callMethodOnTail(Action<SnakeTail> method)
 	{
 		foreach (SnakeBody part in SnakeParts)
@@ -243,6 +274,10 @@ public partial class SnakeHead : SnakeBody
 		
 	}
 	
+	#endregion
+	
+	#region Callbacks
+	
 	// Called by Pickupable Item
 	public void pickup(InventoryItem item)
 	{
@@ -266,6 +301,8 @@ public partial class SnakeHead : SnakeBody
 			}
 		}
 	}
+	
+	#endregion
 	
 	#if DEBUG_TAIL
 	private void debugPrint(string msg)
