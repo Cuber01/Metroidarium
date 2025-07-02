@@ -5,6 +5,11 @@ namespace Metroidarium;
 public partial class Mob : Entity
 {
     public float Speed;
+
+    protected virtual void Fall()
+    {
+        
+    }
     
     public virtual void die()
     {

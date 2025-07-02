@@ -9,12 +9,13 @@ public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
     private const float DashSpeedIncrease = 100f;
     protected float OldSpeed = 0f;
     
-    protected bool Dashing = false;
+    public bool Dashing = false;
     protected const int DashTime = 20;
     protected int DashCounter = 0;
     
     protected override void activate()
     {
+        Player.Dashing = true;
         Dashing = true;
         DashCounter = DashTime;
         
@@ -23,6 +24,7 @@ public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
 
     protected override void deactivate()
     {
+        Player.Dashing = false;
         Dashing = false;
         Player.callMethodOnSnake(body => body?.setSpeed(OldSpeed));
     }

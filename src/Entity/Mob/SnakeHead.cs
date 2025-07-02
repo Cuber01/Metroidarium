@@ -9,7 +9,7 @@ namespace Metroidarium;
 
 public partial class SnakeHead : SnakeBody
 {
-	#region Variables
+	#region Constructors and properties
 	
 	private readonly PackedScene tailPart = GD.Load<PackedScene>("res://assets/scenes/entities/SnakeTail.tscn");
 
@@ -23,6 +23,10 @@ public partial class SnakeHead : SnakeBody
 	public event ShotEventHandler OnShotEvent;
 
 	private Vector2 lastChangedVelocity = new Vector2(0,1);
+	private Vector2 lastPositionOnGround;
+
+	// TODO add real state - this is set by dash charm
+	public bool Dashing = false;
 	
 	private int currentAmountOfTail = 0;
 
@@ -70,10 +74,6 @@ public partial class SnakeHead : SnakeBody
 		{ "shoot_down", Directions.Down }
 	};
 	
-	#endregion
-	
-	#region Ready
-	
 	public override void _Ready()
 	{
 		base._Ready();
@@ -81,6 +81,7 @@ public partial class SnakeHead : SnakeBody
 		AddComponent(new ContactComponent(5));
 		AddComponent(new InventoryComponent(this, ItemLoader.AllCharms));
 		AddComponent(new TilemapToolsComponent());
+		AddComponent(new TweenComponent(this));
 		charms.Add(null);
 		
 		Speed = 150f;
@@ -108,6 +109,12 @@ public partial class SnakeHead : SnakeBody
 		handleShooting();
 		updateCharms((float)delta);
 		handleMoving();
+
+		if (!Dashing)
+		{
+			lastPositionOnGround = Position;
+		}
+		
 		handleEvents();
 		
 		MoveAndSlide();
@@ -165,7 +172,8 @@ public partial class SnakeHead : SnakeBody
 		if (Input.IsActionJustPressed("interact"))
 		{
 			if (OnInteractedEvent != null)
-			{ 
+			{
+				Dashing = false;
 				OnInteractedEvent?.Invoke(this);
 				GetComponent<InventoryComponent>().OpenMenu();	
 			}
@@ -283,7 +291,25 @@ public partial class SnakeHead : SnakeBody
 	{
 		GetComponent<InventoryComponent>().AddItem(item);
 	}
-	
+
+	protected override void _onHurtboxBodyEntered(Node2D body)
+	{
+		if (body is TileMapLayer layer && layer.Name == "Hole")
+		{
+			Fall();	
+		}
+		else
+		{
+			base._onHurtboxBodyEntered(body);	
+		}
+	}
+
+	protected override void Fall()
+	{
+		getHurt(1);
+		GetComponent<TweenComponent>().To("scale", 0, 1, null, Callable.From( () => SetScale(Vector2.One) ));
+	}
+
 	public override void die()
 	{
 		for (int j = SnakeParts.Count - 1; j >= 0; j--)

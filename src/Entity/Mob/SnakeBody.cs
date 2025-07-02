@@ -83,7 +83,7 @@ public partial class SnakeBody : Mob
         base.die();
     }
     
-    private void _onHurtboxBodyEntered(Node2D body)
+    protected virtual void _onHurtboxBodyEntered(Node2D body)
     {
         if (body is Bullet bullet)
         {
