@@ -109,6 +109,7 @@ Stretch:
 - fade in fade out on level transition
 - soft collision for enemies so that they dont walk into themselves
 - remove dynamic loading of scenes
+- bug: when a bullet collides on a tile edge it might not destroy it properly
 
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

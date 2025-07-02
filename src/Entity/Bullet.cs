@@ -11,7 +11,7 @@ public partial class Bullet : Entity
 		Direction
 	}
 
-	private float speed = 50f;
+	private float speed = 100f;
 	public String TeamName;
 
 	public void Init(Vector2 position, Vector2 vector, EDataType vectorType, String teamName, int damage, float speed = 75f)
@@ -23,6 +23,7 @@ public partial class Bullet : Entity
 			speed));
 		AddComponent(new ContactComponent(damage));
 		AddComponent(new ShaderComponent(this));
+		AddComponent(new TilesetDestructorComponent());
 		this.Position = position;
 		this.TeamName = teamName;
 		this.speed = speed;
@@ -53,6 +54,17 @@ public partial class Bullet : Entity
 	{
 		int colCount = GetSlideCollisionCount();
 
+		for (int i = 0; i < colCount; i++)
+		{
+			KinematicCollision2D col = GetSlideCollision(i);
+			GodotObject body = col.GetCollider();
+			if (body is TileMapLayer tileMapLayer)
+			{
+				if (GetComponent<TilesetDestructorComponent>().CheckTryDestroy(col, tileMapLayer))
+					break; // Successfully destroyed tile
+			}
+		}
+		
 		if (colCount > 0)
 		{
 			die();
