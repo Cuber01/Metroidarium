@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpqoy3n63tqj3"]
+
+[ext_resource type="Texture2D" uid="uid://bdxdyy8t5v3ab" path="res://assets/img/destructible.png" id="1_641or"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8su1"]
+size = Vector2(8, 8)
+
+[node name="Box" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e8su1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_641or")

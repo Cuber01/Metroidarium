@@ -72,18 +72,43 @@ X we gotta spawn player away from the entrance, the workaround doesn't work if t
 
 PRE RELEASE V8
 X make camera center on inventory
-- get some gameplay
+X get some gameplay
 X3 fix damage bugs
 X make inventory reequip selected items
 X make real pause in inventory
 
 PRE RELEASE V9
 - allow to equip on head
-- fade in fade out on level transition
+- add breakable blocks
+- add holes
+- allow jumping above them
+- add moving platforms
+- add platforms that fall down when u touch them
+- add conveyor belts
+
+Gameplay:
+- player bullets need to be faster
+- player needs to always know which snake direction is which - add arrows or smth
+- player needs to know when his modules are done reloading - add animation via shader?
+- movement still feels finicky, hopefully a dash will help
+- areas should be mostly open
+
+Enemies - Content ideas:
+- kamikaze enemy that gets nearby and explodes
+- ship that tries to run'n gun you (similarly to how the player does it to enemies)
+- bot with bioimplants - two phases, first bio second robotic. Robotic shooots rockets from afar, bio is a frog that jumps and chases you
+- spreading cellular automata
+
+Abilities - Content ideas:
+- jetpack - allows to skip any void, but leaves a tail-trail
 
 Stretch:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 - camera weirdness with rotation
 - use MethodName to limit allocation of new strings
+- fade in fade out on level transition
+- soft collision for enemies so that they dont walk into themselves
+- remove dynamic loading of scenes
+
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers
