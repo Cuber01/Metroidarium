@@ -82,6 +82,7 @@ public partial class SnakeHead : SnakeBody
 		AddComponent(new InventoryComponent(this, ItemLoader.AllCharms));
 		AddComponent(new TilemapToolsComponent());
 		AddComponent(new TweenComponent(this));
+		AddComponent(new InputComponent());
 		charms.Add(null);
 		
 		Speed = 150f;
@@ -90,6 +91,8 @@ public partial class SnakeHead : SnakeBody
 		PartId = 0;
 		AmountOfTail = 3;
 		growTail(amountOfTail);
+		
+		setupInput();
 
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/double_cannon.tres");
 		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/assault_rightle.tres");
@@ -99,7 +102,21 @@ public partial class SnakeHead : SnakeBody
 		GetComponent<InventoryComponent>().AddItem(assault);
 		GetComponent<InventoryComponent>().AddItem(dash);
 	}
-	
+
+	private void setupInput()
+	{
+		InputComponent input = GetComponent<InputComponent>();
+
+		foreach (var entry in actionToDirection)
+		{
+			input.AddCommand(entry.Key, _ => OnShotEvent?.Invoke(entry.Value));
+		}
+		
+		input.AddCommand("dash", _ => OnDashedEvent?.Invoke());
+		input.AddCommand("interact", _ => OnInteractedEvent?.Invoke(this));
+		input.AddVectorCommand("left", "right", "up", "down", moving, notMoving);
+	}
+
 	#endregion
 
 	#region Update loop
@@ -107,26 +124,12 @@ public partial class SnakeHead : SnakeBody
 	public override void _PhysicsProcess(double delta)
 	{
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
+		GetComponent<InputComponent>().Update();
 		
 		handleFalling();
-		handleShooting();
 		updateCharms((float)delta);
-		handleMoving();
 		
-		handleEvents();
 		MoveAndSlide();
-	}
-
-	private void handleShooting()
-	{
-		foreach (var entry in actionToDirection)
-		{
-			if (Input.IsActionPressed(entry.Key))
-			{
-				OnShotEvent?.Invoke(entry.Value);
-				break;
-			}
-		}
 	}
 
 	private void updateCharms(float delta)
@@ -142,39 +145,16 @@ public partial class SnakeHead : SnakeBody
 		}
 	}
 
-	private void handleMoving()
+	private void notMoving(Vector2 input)
 	{
-		// 8-Pad movement
-		Vector2 input = Input.GetVector("left", "right", "up", "down");
-
-		if (input.X != 0 || input.Y != 0)
-		{
-			lastChangedVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
-			SetRotation(lastChangedVelocity.Angle());
-			Velocity = lastChangedVelocity;
-		}
-		else
-		{
-			Velocity = Vector2.Zero;
-		}
+		Velocity = Vector2.Zero;
 	}
 
-	private void handleEvents()
+	private void moving(Vector2 input)
 	{
-		if (Input.IsActionJustPressed("dash"))
-		{
-			OnDashedEvent?.Invoke();
-		}
-		
-		if (Input.IsActionJustPressed("interact"))
-		{
-			if (OnInteractedEvent != null)
-			{
-				InAir = false;
-				OnInteractedEvent?.Invoke(this);
-				GetComponent<InventoryComponent>().OpenMenu();	
-			}
-		}
+		lastChangedVelocity = new Vector2(input.X * Speed,  input.Y * Speed);
+		SetRotation(lastChangedVelocity.Angle()); 
+		Velocity = lastChangedVelocity;
 	}
 	
 	private void handleFalling()
@@ -197,7 +177,7 @@ public partial class SnakeHead : SnakeBody
 	protected override void Fall()
 	{
 		base.Fall();
-		SetProcessInput(false);
+		GetComponent<InputComponent>().InputEnabled = false;
 	}
 
 	protected override void EndFalling()
@@ -205,8 +185,7 @@ public partial class SnakeHead : SnakeBody
 		getHurt(1);
 		SetScale(Vector2.One);
 		Position = lastPositionOnGround;
-		GD.Print(lastPositionOnGround);
-		SetProcessInput(true);
+		GetComponent<InputComponent>().InputEnabled = true;
 	}
 	
 	#endregion

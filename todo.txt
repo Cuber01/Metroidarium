@@ -112,5 +112,6 @@ Future:
 - bug: when a bullet collides on a tile edge it might not destroy it properly
 - add falling for all mobs
 - bug: taking damage while invicible resets invincibility timer
+- better falling animation: delay scaling down every next tail part
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

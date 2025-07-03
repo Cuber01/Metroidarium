@@ -29,7 +29,7 @@ public partial class Level : Node2D
 
             // Reparent player to new level node
             SnakeHead player = (SnakeHead)body;            
-            player.callMethodOnSnake(part => part.Reparent(levelInstance));
+            player.callMethodOnSnake(part => part?.Reparent(levelInstance));
             
             levelInstance.Enter(entrance.EntranceIndex, player);
             CallDeferred("queue_free");
