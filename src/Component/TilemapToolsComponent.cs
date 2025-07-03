@@ -43,7 +43,12 @@ public class TilemapToolsComponent : Component
 
     public bool IsHole(Entity actor, Vector2 position)
     {
-        TileMapLayer holeLayer = actor.GetNode<TileMapLayer>(HoleLayerPath);
+        TileMapLayer holeLayer = actor.GetNodeOrNull<TileMapLayer>(HoleLayerPath);
+        if (holeLayer == null)
+        {
+            return false;
+        }
+        
         Vector2I mapCoords = holeLayer.LocalToMap(position);
         return holeLayer.GetCellTileData(mapCoords) != null;
     }

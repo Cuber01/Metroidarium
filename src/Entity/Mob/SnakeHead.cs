@@ -127,7 +127,8 @@ public partial class SnakeHead : SnakeBody
 		
 		handleFalling();
 		updateCharms((float)delta);
-		
+
+		HandleExternalVelocity();
 		MoveAndSlide();
 	}
 
@@ -166,7 +167,7 @@ public partial class SnakeHead : SnakeBody
 				Fall();
 			}
 			// Standing on ground
-			else
+			else if (!IsOnPlatform)
 			{
 				lastPositionOnGround = Position;	
 			}

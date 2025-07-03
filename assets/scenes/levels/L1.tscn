@@ -55,6 +55,5 @@ position = Vector2(139, 171)
 [node name="MovingPlatformBig" parent="." instance=ExtResource("6_thv7k")]
 position = Vector2(202, 152)
 curve = SubResource("Curve2D_5i21y")
-Speed = 5.0
 
 [editable path="Entrances/LevelEntrance2"]
