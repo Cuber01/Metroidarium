@@ -31,15 +31,9 @@ render_target_update_mode = 4
 [node name="Game" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_uu6xs")]
 process_mode = 1
 
-[node name="InventoryMenu" parent="SubViewportContainer/SubViewport/Game" index="0"]
-position = Vector2(79.25, 124.25)
-
-[node name="SnakeHead" parent="SubViewportContainer/SubViewport/Game" index="2"]
-position = Vector2(79.25, 124.25)
-
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport/Game" node_paths=PackedStringArray("Target")]
 position_smoothing_speed = 10.0
 script = ExtResource("3_eruk6")
-Target = NodePath("../SnakeHead")
+Target = NodePath("../Level/SnakeHead")
 
 [editable path="SubViewportContainer/SubViewport/Game"]

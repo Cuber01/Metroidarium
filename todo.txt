@@ -102,7 +102,7 @@ Enemies - Content ideas:
 Abilities - Content ideas:
 - jetpack - allows to skip any void, but leaves a tail-trail
 
-Stretch:
+Future:
 - add all inv menu buttons to the same control node so that we get smooth transition from equipped to collection menus
 - camera weirdness with rotation
 - use MethodName to limit allocation of new strings
@@ -110,6 +110,7 @@ Stretch:
 - soft collision for enemies so that they dont walk into themselves
 - remove dynamic loading of scenes
 - bug: when a bullet collides on a tile edge it might not destroy it properly
-
+- add falling for all mobs
+- bug: taking damage while invicible resets invincibility timer
 
 Note: Mathf.Wrap(value:Int, min:Int, max:Int) could be used as an alternative way of calculating timers

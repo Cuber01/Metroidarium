@@ -43,10 +43,14 @@ public class TweenComponent(Entity actor) : Component
         {
             // Find matching property in TweenValues by name 
             PropertyInfo tweenProp = valuesType.GetProperty(prop.Name);
-            if (tweenProp != null && tweenProp.CanWrite)
+            if (tweenProp != null)
             {
                 var value = prop.GetValue(anon);
                 tweenProp.SetValue(values, value);
+            }
+            else
+            {
+                throw new Exception("Unknown property " + prop.Name);
             }
         }
 

@@ -15,10 +15,10 @@ position = Vector2(162, 75)
 
 [node name="Level" parent="." instance=ExtResource("1_wk23g")]
 
-[node name="SnakeHead" parent="." instance=ExtResource("2_t88pq")]
+[node name="SnakeHead" parent="Level" instance=ExtResource("2_t88pq")]
 position = Vector2(162, 75)
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="SnakeHead"]
-remote_path = NodePath("../../InventoryMenu")
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Level/SnakeHead"]
+remote_path = NodePath("../../../InventoryMenu")
 update_rotation = false
 update_scale = false

@@ -15,7 +15,7 @@ public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
     
     protected override void activate()
     {
-        Player.Dashing = true;
+        Player.InAir = true;
         Dashing = true;
         DashCounter = DashTime;
         
@@ -24,7 +24,7 @@ public class DashCharm(SnakeHead player, SnakeTail slot) : Charm(player, slot)
 
     protected override void deactivate()
     {
-        Player.Dashing = false;
+        Player.InAir = false;
         Dashing = false;
         Player.callMethodOnSnake(body => body?.setSpeed(OldSpeed));
     }

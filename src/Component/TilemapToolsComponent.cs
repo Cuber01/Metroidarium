@@ -6,6 +6,8 @@ public class TilemapToolsComponent : Component
 {
     private const int DestructibleTerrainId = 2;
     private const float NormalStrengthOffset = 0.1f;
+
+    private const string HoleLayerPath = "../Hole";
     
     public bool CheckTryDestroy(KinematicCollision2D col, TileMapLayer layer)
     {
@@ -30,6 +32,20 @@ public class TilemapToolsComponent : Component
         Vector2I mapCoords = movingLocalToMap(col.GetPosition(), col.GetNormal(), layer);
         TileData data = layer.GetCellTileData(mapCoords);
         return data.Terrain == DestructibleTerrainId;
+    }
+    
+    public bool IsDestructible(Vector2 position, TileMapLayer layer)
+    {
+        Vector2I mapCoords = layer.LocalToMap(position);
+        TileData data = layer.GetCellTileData(mapCoords);
+        return data.Terrain == DestructibleTerrainId;
+    }
+
+    public bool IsHole(Entity actor, Vector2 position)
+    {
+        TileMapLayer holeLayer = actor.GetNode<TileMapLayer>(HoleLayerPath);
+        Vector2I mapCoords = holeLayer.LocalToMap(position);
+        return holeLayer.GetCellTileData(mapCoords) != null;
     }
 
     private void destroy(Vector2I mapCoords, TileMapLayer layer)

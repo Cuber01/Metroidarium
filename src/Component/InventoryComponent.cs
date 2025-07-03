@@ -20,7 +20,7 @@ public class InventoryComponent : Component
     {
         this.player = player;
         AllCharms = allCharms;
-        menu = player.GetNode<InventoryMenu>("../InventoryMenu");
+        menu = player.GetNode<InventoryMenu>("../../InventoryMenu");
         CharmInventory = new Dictionary<String, InventoryItem>();
     }
     

@@ -26,13 +26,19 @@ public partial class Level : Node2D
             PackedScene newLevel = game.Levels[entrance.EntranceToLevel];
             Level levelInstance = (Level)newLevel.Instantiate();
             game.CallDeferred("add_child", levelInstance);
-            levelInstance.Enter(entrance.EntranceIndex, (SnakeHead)body);
+
+            // Reparent player to new level node
+            SnakeHead player = (SnakeHead)body;            
+            player.callMethodOnSnake(part => part.Reparent(levelInstance));
+            
+            levelInstance.Enter(entrance.EntranceIndex, player);
             CallDeferred("queue_free");
         }
     }
 
     public void Enter(int entranceIndex, SnakeHead player)
     {
+        
         // Set player at entrance
         Node2D entrances = GetNode<Node2D>("Entrances");
         foreach (var node in entrances.GetChildren())

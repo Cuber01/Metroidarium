@@ -26,7 +26,7 @@ public partial class SnakeHead : SnakeBody
 	private Vector2 lastPositionOnGround;
 
 	// TODO add real state - this is set by dash charm
-	public bool Dashing = false;
+	public bool InAir = false;
 	
 	private int currentAmountOfTail = 0;
 
@@ -105,18 +105,13 @@ public partial class SnakeHead : SnakeBody
 	public override void _PhysicsProcess(double delta)
 	{
 		GetComponent<HealthComponent>().updateInvincibility((float)delta);
-
+		
+		handleFalling();
 		handleShooting();
 		updateCharms((float)delta);
 		handleMoving();
-
-		if (!Dashing)
-		{
-			lastPositionOnGround = Position;
-		}
 		
 		handleEvents();
-		
 		MoveAndSlide();
 	}
 
@@ -173,11 +168,43 @@ public partial class SnakeHead : SnakeBody
 		{
 			if (OnInteractedEvent != null)
 			{
-				Dashing = false;
+				InAir = false;
 				OnInteractedEvent?.Invoke(this);
 				GetComponent<InventoryComponent>().OpenMenu();	
 			}
 		}
+	}
+	
+	private void handleFalling()
+	{
+		if (!InAir)
+		{
+			// Standing on hole
+			if (GetComponent<TilemapToolsComponent>().IsHole(this, Position))
+			{
+				Fall();
+			}
+			// Standing on ground
+			else
+			{
+				lastPositionOnGround = Position;	
+			}
+		}
+	}
+
+	protected override void Fall()
+	{
+		base.Fall();
+		SetProcessInput(false);
+	}
+
+	protected override void EndFalling()
+	{
+		getHurt(1);
+		SetScale(Vector2.One);
+		Position = lastPositionOnGround;
+		GD.Print(lastPositionOnGround);
+		SetProcessInput(true);
 	}
 	
 	#endregion
@@ -302,12 +329,6 @@ public partial class SnakeHead : SnakeBody
 		{
 			base._onHurtboxBodyEntered(body);	
 		}
-	}
-
-	protected override void Fall()
-	{
-		getHurt(1);
-		GetComponent<TweenComponent>().To("scale", 0, 1, null, Callable.From( () => SetScale(Vector2.One) ));
 	}
 
 	public override void die()
