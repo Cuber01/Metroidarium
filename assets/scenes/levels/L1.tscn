@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dcj1j23f21fsr"]
+[gd_scene load_steps=8 format=4 uid="uid://dcj1j23f21fsr"]
 
 [ext_resource type="Script" uid="uid://chouroax4vlfn" path="res://src/World/Level.cs" id="1_mmonx"]
 [ext_resource type="TileSet" uid="uid://7wg3thhybls2" path="res://assets/tilesets/MainTileset.tres" id="2_5lel5"]
@@ -9,12 +9,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3skay"]
 size = Vector2(51, 19.5)
-
-[sub_resource type="Curve2D" id="Curve2D_5i21y"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -97)
-}
-point_count = 2
 
 [node name="Level" type="Node2D"]
 z_index = -1
@@ -54,6 +48,14 @@ position = Vector2(139, 171)
 
 [node name="MovingPlatformBig" parent="." instance=ExtResource("6_thv7k")]
 position = Vector2(202, 152)
-curve = SubResource("Curve2D_5i21y")
+BreakType = 1
+
+[node name="AnimatableBody2D" parent="MovingPlatformBig/Path2D" index="0"]
+rotation = -1.591
+scale = Vector2(1, 1)
+
+[node name="PathFollow2D" parent="MovingPlatformBig/Path2D" index="1"]
+rotation = -1.591
 
 [editable path="Entrances/LevelEntrance2"]
+[editable path="MovingPlatformBig"]

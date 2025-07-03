@@ -82,7 +82,7 @@ PRE RELEASE V9
 X add breakable blocks
 X add holes
 X allow jumping above them
-- add moving platforms
+X add moving platforms
 - add platforms that fall down when u touch them
 - add conveyor belts
 
