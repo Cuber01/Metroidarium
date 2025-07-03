@@ -81,7 +81,7 @@ PRE RELEASE V9
 - allow to equip on head
 X add breakable blocks
 X add holes
-- allow jumping above them
+X allow jumping above them
 - add moving platforms
 - add platforms that fall down when u touch them
 - add conveyor belts

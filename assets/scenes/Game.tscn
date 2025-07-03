@@ -11,12 +11,12 @@ script = ExtResource("1_hkxsf")
 [node name="InventoryMenu" parent="." instance=ExtResource("4_ovtps")]
 unique_name_in_owner = true
 visible = false
-position = Vector2(162, 75)
+position = Vector2(132, 199)
 
 [node name="Level" parent="." instance=ExtResource("1_wk23g")]
 
 [node name="SnakeHead" parent="Level" instance=ExtResource("2_t88pq")]
-position = Vector2(162, 75)
+position = Vector2(132, 199)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Level/SnakeHead"]
 remote_path = NodePath("../../../InventoryMenu")

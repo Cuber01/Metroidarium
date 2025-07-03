@@ -18,7 +18,7 @@ public partial class SavePoint : Area2D
     private void rest(SnakeHead player)
     {
         player.growTail(player.AmountOfTail - player.CurrentAmountOfTail);
-        player.InAir = false;
+        player.CanFall = true;
         player.GetComponent<InventoryComponent>().OpenMenu();	
     }
 }

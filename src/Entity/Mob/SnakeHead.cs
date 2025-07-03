@@ -26,8 +26,7 @@ public partial class SnakeHead : SnakeBody
 	private Vector2 lastPositionOnGround;
 
 	// TODO add real state - this is set by dash charm
-	public bool InAir = false;
-	
+
 	private int currentAmountOfTail = 0;
 
 	public int CurrentAmountOfTail
@@ -159,7 +158,7 @@ public partial class SnakeHead : SnakeBody
 	
 	private void handleFalling()
 	{
-		if (!InAir)
+		if (CanFall)
 		{
 			// Standing on hole
 			if (GetComponent<TilemapToolsComponent>().IsHole(this, Position))
