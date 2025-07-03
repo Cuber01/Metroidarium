@@ -80,7 +80,7 @@ X make real pause in inventory
 PRE RELEASE V9
 - allow to equip on head
 X add breakable blocks
-- add holes
+X add holes
 - allow jumping above them
 - add moving platforms
 - add platforms that fall down when u touch them

@@ -22,6 +22,7 @@ public class InventoryComponent : Component
         AllCharms = allCharms;
         menu = player.GetNode<InventoryMenu>("../../InventoryMenu");
         CharmInventory = new Dictionary<String, InventoryItem>();
+        UpgradeInventory = new Dictionary<String, InventoryItem>();
     }
     
     public void AddItem(InventoryItem item)

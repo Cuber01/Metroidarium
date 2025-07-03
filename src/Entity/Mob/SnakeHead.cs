@@ -93,9 +93,11 @@ public partial class SnakeHead : SnakeBody
 
 		InventoryItem gunCharm = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/double_cannon.tres");
 		InventoryItem assault = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/assault_rightle.tres");
+		InventoryItem dash = ResourceLoader.Load<InventoryItem>("res://assets/item_data/charms/dash_charm.tres");
 		
 		GetComponent<InventoryComponent>().AddItem(gunCharm);
 		GetComponent<InventoryComponent>().AddItem(assault);
+		GetComponent<InventoryComponent>().AddItem(dash);
 	}
 	
 	#endregion

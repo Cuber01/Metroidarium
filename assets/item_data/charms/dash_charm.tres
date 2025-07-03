@@ -9,5 +9,6 @@ FullName = "Dash Charm"
 Description = ""
 Image = ExtResource("1_3e1la")
 GameName = "Metroidarium.DashCharm"
+Type = 1
 Amount = 1
 metadata/_custom_type_script = "uid://c264fej2fk3qn"
