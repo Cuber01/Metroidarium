@@ -39,7 +39,7 @@ public class InputComponent : Component
             }
             else
             {
-                command.Value.PressedCallback?.Invoke(null);
+                command.Value.NotPressedCallback?.Invoke(null);
             }
         }
         
